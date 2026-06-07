@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carte Santé – OrientDZ</title>
+  <meta name="description" content="Carte interactive des hôpitaux, cliniques et pharmacies en Algérie." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <!-- MarkerCluster CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F8FAFC;--surface:#FFFFFF;--surface-alt:#F1F5F9;
+  --primary:#2DD4BF;--primary-dk:#14B8A6;--primary-xlt:#F0FDFA;
+  --blue:#3B82F6;--blue-dk:#2563EB;--blue-lt:#EFF6FF;
+  --green:#10B981;--green-lt:#ECFDF5;--green-ring:#A7F3D0;
+  --red:#EF4444;--red-lt:#FEF2F2;--red-ring:#FECACA;--red-dark:#B91C1C;
+  --orange:#F59E0B;--orange-lt:#FFFBEB;--orange-ring:#FDE68A;--orange-dk:#B45309;
+  --purple:#8B5CF6;--purple-lt:#F5F3FF;--purple-ring:#DDD6FE;--purple-dk:#6D28D9;
+  --text:#0F172A;--muted:#64748B;--subtle:#94A3B8;
+  --border:#E2E8F0;
+  --grad:linear-gradient(135deg,#3B82F6,#2DD4BF);
+  --sh-xs:0 1px 2px rgba(15,23,42,.04);
+  --sh-sm:0 1px 3px rgba(15,23,42,.06),0 1px 2px rgba(15,23,42,.04);
+  --sh-md:0 4px 12px rgba(15,23,42,.08);
+  --sidebar-w:260px;--topbar-h:60px;
+}
+html,body{height:100%;font-family:'Inter',-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+html[dir="rtl"] body,html[dir="rtl"] *{font-family:'Cairo','Inter',sans-serif}
+body{display:flex;overflow:hidden;height:100vh}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;font-family:inherit;border:none;background:none}
+ul{list-style:none}
+svg{display:block}
+input{font-family:inherit}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:99px}
+
+/* ── SIDEBAR ── */
+.sidebar{width:var(--sidebar-w);min-width:var(--sidebar-w);height:100vh;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto;overflow-x:hidden;z-index:100;transition:transform .28s cubic-bezier(.4,0,.2,1)}
+html[dir="rtl"] .sidebar{border-right:none;border-left:1px solid var(--border)}
+.sb-logo{display:flex;align-items:center;gap:10px;padding:0 20px;height:64px;border-bottom:1px solid var(--border);flex-shrink:0}
+.sb-logo-icon{width:36px;height:36px;border-radius:10px;background:var(--grad);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sb-logo-icon svg{width:19px;height:19px;color:#fff}
+.sb-logo-name{font-size:1.125rem;font-weight:800;letter-spacing:-.03em;color:var(--text)}
+.sb-logo-name b{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:800}
+.sb-nav{flex:1;padding:16px 12px;display:flex;flex-direction:column;gap:24px}
+.sb-label{font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--subtle);padding:0 8px;margin-bottom:4px}
+.sb-items{display:flex;flex-direction:column;gap:2px}
+.sb-link{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;font-size:.9375rem;font-weight:500;color:var(--muted);transition:background .14s,color .14s;position:relative;cursor:pointer}
+.sb-link svg{width:17px;height:17px;flex-shrink:0}
+.sb-link:hover{background:var(--surface-alt);color:var(--text)}
+.sb-link.active{background:var(--primary-xlt);color:var(--primary);font-weight:600}
+.sb-link.active svg{color:var(--primary)}
+.sb-link.active::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:3px;height:18px;background:var(--grad);border-radius:0 4px 4px 0}
+
+/* ── MAIN ── */
+.main-wrap{flex:1;min-width:0;display:flex;flex-direction:column;height:100vh;overflow:hidden}
+
+/* ── TOPBAR ── */
+.topbar{height:var(--topbar-h);min-height:var(--topbar-h);background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;flex-shrink:0;gap:10px}
+.topbar-burger{width:34px;height:34px;border-radius:7px;border:1px solid var(--border);background:var(--surface);display:none;align-items:center;justify-content:center;color:var(--muted);transition:background .14s;flex-shrink:0}
+.topbar-burger:hover{background:var(--surface-alt)}
+.topbar-burger svg{width:17px;height:17px}
+.topbar-brand{display:flex;align-items:center;gap:8px;text-decoration:none;flex-shrink:0}
+.topbar-brand-icon{width:30px;height:30px;border-radius:8px;background:var(--grad);display:flex;align-items:center;justify-content:center}
+.topbar-brand-icon svg{width:15px;height:15px;color:#fff}
+.topbar-brand-name{font-size:.9375rem;font-weight:800;letter-spacing:-.025em;color:var(--text)}
+.topbar-brand-name b{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.topbar-center{position:absolute;left:50%;transform:translateX(-50%);font-size:.9375rem;font-weight:700;color:var(--text);white-space:nowrap;letter-spacing:-.015em;pointer-events:none}
+.topbar-right{display:flex;align-items:center;gap:8px;margin-left:auto}
+
+/* ── Variables 6 catégories ── */
+:root{
+  --teal:#0D9488;--teal-lt:#F0FDFA;--teal-ring:#99F6E4;--teal-dk:#0F766E;
+  --indigo:#6366F1;--indigo-lt:#EEF2FF;--indigo-ring:#C7D2FE;--indigo-dk:#4338CA;
+  --cyan:#0891B2;--cyan-lt:#ECFEFF;--cyan-ring:#A5F3FC;--cyan-dk:#0E7490;
+}
+
+/* ── BODY ── */
+.carte-body{flex:1;display:flex;overflow:hidden}
+
+/* ── PANEL GAUCHE ── */
+.carte-panel{width:340px;min-width:340px;display:grid;grid-template-rows:auto 1fr;background:var(--surface);border-right:1px solid var(--border);overflow:hidden}
+html[dir="rtl"] .carte-panel{border-right:none;border-left:1px solid var(--border)}
+.panel-top{display:flex;flex-direction:column;background:var(--surface);overflow:hidden}
+
+.panel-head{padding:18px 18px 14px;border-bottom:1px solid var(--border);flex-shrink:0}
+.panel-title{display:flex;align-items:center;gap:9px;font-size:1rem;font-weight:700;color:var(--text);margin-bottom:14px;letter-spacing:-.02em}
+.panel-title svg{width:18px;height:18px;color:var(--blue)}
+
+/* Search */
+.search-wrap{position:relative}
+.search-wrap .ico-search{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:15px;height:15px;color:var(--muted);pointer-events:none}
+.search-inp{width:100%;padding:9px 34px 9px 34px;border:1.5px solid var(--border);border-radius:10px;font-size:.875rem;color:var(--text);background:var(--surface-alt);outline:none;transition:border-color .15s,box-shadow .15s}
+.search-inp:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(59,130,246,.12);background:var(--surface)}
+.search-inp::placeholder{color:var(--subtle)}
+.btn-clear{position:absolute;right:9px;top:50%;transform:translateY(-50%);width:18px;height:18px;border-radius:50%;background:var(--subtle);color:#fff;display:none;align-items:center;justify-content:center;cursor:pointer}
+.btn-clear.show{display:flex}
+.btn-clear svg{width:10px;height:10px}
+
+/* Filtres */
+.filters-wrap{padding:8px 14px 10px;border-bottom:1px solid var(--border);flex-shrink:0;display:flex;flex-direction:column;gap:6px}
+.filter-label{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--subtle)}
+.filters-row{display:flex;gap:5px;flex-wrap:wrap}
+.f-btn{display:inline-flex;align-items:center;gap:4px;padding:5px 11px;border-radius:9999px;font-size:.775rem;font-weight:600;border:1.5px solid var(--border);background:var(--surface);color:var(--muted);cursor:pointer;transition:all .15s;white-space:nowrap}
+.f-btn .dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.f-btn:hover{border-color:var(--blue);color:var(--blue-dk)}
+.f-btn.active-all{background:var(--blue-lt);border-color:#BFDBFE;color:var(--blue-dk)}
+.f-btn.active-hospital{background:var(--red-lt);border-color:var(--red-ring);color:var(--red-dark)}
+.f-btn.active-clinic{background:var(--orange-lt);border-color:var(--orange-ring);color:var(--orange-dk)}
+.f-btn.active-pharmacy{background:var(--purple-lt);border-color:var(--purple-ring);color:var(--purple-dk)}
+.f-btn.active-lab{background:var(--teal-lt);border-color:var(--teal-ring);color:var(--teal-dk)}
+.f-btn.active-doctor{background:var(--indigo-lt);border-color:var(--indigo-ring);color:var(--indigo-dk)}
+.f-btn.active-centre{background:var(--cyan-lt);border-color:var(--cyan-ring);color:var(--cyan-dk)}
+
+/* Night mode filter button */
+.f-btn-night{display:inline-flex;align-items:center;gap:5px;padding:5px 13px;border-radius:9999px;font-size:.775rem;font-weight:600;border:1.5px solid var(--border);background:var(--surface);color:var(--muted);cursor:pointer;transition:all .18s;white-space:nowrap;margin-left:6px}
+.f-btn-night:hover{border-color:#6366f1;color:#4f46e5}
+.f-btn-night.active-night{background:#1e1b4b;border-color:#4f46e5;color:#c7d2fe}
+.night-banner{display:none;align-items:center;gap:8px;padding:7px 14px;background:#1e1b4b;color:#c7d2fe;font-size:.8125rem;font-weight:600;border-radius:8px;margin-top:4px}
+.night-banner.show{display:flex}
+
+
+/* Counter */
+.count-bar{padding:8px 18px 6px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between}
+.count-text{font-size:.8125rem;color:var(--muted)}
+.count-text b{color:var(--text);font-weight:700}
+.count-badge{font-size:.78rem;font-weight:700;color:var(--blue-dk);background:var(--blue-lt);padding:2px 10px;border-radius:9999px}
+
+/* Liste résultats */
+.results-list{overflow-y:auto;padding:10px 12px 30px;min-height:0}
+.results-list::-webkit-scrollbar{width:5px}
+.results-list::-webkit-scrollbar-track{background:transparent}
+.results-list::-webkit-scrollbar-thumb{background:var(--border);border-radius:99px}
+.results-list::-webkit-scrollbar-thumb:hover{background:var(--subtle)}
+.result-card{display:flex;align-items:flex-start;gap:12px;padding:14px 15px;border-radius:13px;border:1.5px solid var(--border);background:var(--surface);margin-bottom:9px;cursor:pointer;transition:all .15s;position:relative;overflow:hidden}
+.result-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3.5px;border-radius:4px 0 0 4px;background:transparent;transition:background .15s}
+.result-card:hover{border-color:#BFDBFE;box-shadow:0 4px 14px rgba(15,23,42,.09);transform:translateY(-1px)}
+.result-card.selected{border-color:var(--blue);box-shadow:0 0 0 3px rgba(59,130,246,.14)}
+/* Barre colorée latérale selon type */
+.result-card[data-type="hospital"]::before{background:var(--red)}
+.result-card[data-type="clinic"]::before{background:var(--orange)}
+.result-card[data-type="pharmacy"]::before{background:var(--purple)}
+.result-card[data-type="lab"]::before{background:var(--teal)}
+.result-card[data-type="doctor"]::before{background:var(--indigo)}
+.result-card[data-type="centre"]::before{background:var(--cyan)}
+.result-card.selected::before{background:var(--blue)!important}
+.rc-dot{width:11px;height:11px;border-radius:50%;flex-shrink:0;margin-top:6px}
+.rc-dot.hospital{background:var(--red)}
+.rc-dot.clinic{background:var(--orange)}
+.rc-dot.pharmacy{background:var(--purple)}
+.rc-dot.lab{background:var(--teal)}
+.rc-dot.doctor{background:var(--indigo)}
+.rc-dot.centre{background:var(--cyan)}
+.rc-info{flex:1;min-width:0}
+.rc-name{font-size:.9375rem;font-weight:700;color:var(--text);line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rc-type{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-top:4px}
+.rc-type.hospital{color:var(--red-dark)}
+.rc-type.clinic{color:var(--orange-dk)}
+.rc-type.pharmacy{color:var(--purple-dk)}
+.rc-type.lab{color:var(--teal-dk)}
+.rc-type.doctor{color:var(--indigo-dk)}
+.rc-type.centre{color:var(--cyan-dk)}
+
+.list-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:36px 20px;gap:10px;color:var(--muted);text-align:center}
+.list-empty svg{width:36px;height:36px;opacity:.3}
+.list-empty p{font-size:.875rem}
+
+/* ── CARTE ── */
+.map-container{flex:1;position:relative}
+#cmap{width:100%;height:100%}
+
+/* Popup Leaflet custom */
+.leaflet-popup-content-wrapper{border-radius:14px!important;box-shadow:0 10px 32px rgba(15,23,42,.16)!important;border:1.5px solid var(--border)!important;padding:0!important;overflow:hidden}
+.leaflet-popup-content{margin:0!important;min-width:220px}
+.leaflet-popup-tip-container{display:none!important}
+.lp-body{padding:14px 16px 12px}
+.lp-type-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:9999px;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+.lp-type-badge .dot{width:6px;height:6px;border-radius:50%}
+.lp-type-badge.hospital{background:var(--red-lt);color:var(--red-dark);border:1px solid var(--red-ring)}
+.lp-type-badge.hospital .dot{background:var(--red)}
+.lp-type-badge.clinic{background:var(--orange-lt);color:var(--orange-dk);border:1px solid var(--orange-ring)}
+.lp-type-badge.clinic .dot{background:var(--orange)}
+.lp-type-badge.pharmacy{background:var(--purple-lt);color:var(--purple-dk);border:1px solid var(--purple-ring)}
+.lp-type-badge.pharmacy .dot{background:var(--purple)}
+.lp-type-badge.lab{background:var(--teal-lt);color:var(--teal-dk);border:1px solid var(--teal-ring)}
+.lp-type-badge.lab .dot{background:var(--teal)}
+.lp-type-badge.doctor{background:var(--indigo-lt);color:var(--indigo-dk);border:1px solid var(--indigo-ring)}
+.lp-type-badge.doctor .dot{background:var(--indigo)}
+.lp-type-badge.centre{background:var(--cyan-lt);color:var(--cyan-dk);border:1px solid var(--cyan-ring)}
+.lp-type-badge.centre .dot{background:var(--cyan)}
+.lp-name{font-size:.9375rem;font-weight:700;color:var(--text);line-height:1.35}
+.lp-coords{font-size:.72rem;color:var(--subtle);margin-top:6px;display:flex;align-items:center;gap:4px}
+.lp-coords svg{width:11px;height:11px;color:var(--muted)}
+.lp-footer{padding:10px 16px 12px;border-top:1px solid var(--border);display:flex;gap:6px}
+.lp-btn{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:8px 10px;border-radius:9px;font-size:.78rem;font-weight:600;cursor:pointer;border:1.5px solid var(--border);background:var(--surface);color:var(--text);text-decoration:none;transition:all .12s}
+.lp-btn:hover{background:var(--surface-alt);border-color:var(--blue);color:var(--blue-dk)}
+.lp-btn.primary{background:var(--grad);color:#fff;border:none;box-shadow:0 2px 8px rgba(59,130,246,.22)}
+.lp-btn.primary:hover{opacity:.9;color:#fff}
+.lp-btn svg{width:12px;height:12px}
+
+/* ── BOUTON GÉOLOCALISER ── */
+.btn-geolocate{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;margin-top:9px;padding:9px 16px;border-radius:10px;font-size:.875rem;font-weight:700;background:linear-gradient(135deg,#EFF6FF,#F0FDFA);border:1.5px solid #BFDBFE;color:var(--blue-dk);cursor:pointer;transition:all .18s;position:relative;overflow:hidden}
+.btn-geolocate:hover{background:var(--grad);color:#fff;border-color:transparent;box-shadow:0 4px 18px rgba(59,130,246,.3);transform:translateY(-1px)}
+.btn-geolocate svg{width:15px;height:15px;flex-shrink:0;transition:transform .4s}
+.btn-geolocate.loading{pointer-events:none;opacity:.75}
+.btn-geolocate.loading svg{animation:spin .9s linear infinite}
+.btn-geolocate.active{background:var(--grad);color:#fff;border-color:transparent;box-shadow:0 4px 18px rgba(59,130,246,.28)}
+.btn-geolocate.active:hover{box-shadow:0 6px 22px rgba(59,130,246,.4);transform:translateY(-1px)}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── BARRE POSITION DÉTECTÉE ── */
+.geo-bar{display:none;align-items:center;gap:10px;padding:10px 18px;background:linear-gradient(90deg,#ECFDF5,#EFF6FF);border-bottom:1px solid var(--green-ring);flex-shrink:0}
+.geo-bar.show{display:flex}
+.geo-bar-dot{width:10px;height:10px;border-radius:50%;background:var(--green);flex-shrink:0;position:relative}
+.geo-bar-dot::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:2px solid var(--green);animation:pulse-ring 1.5s ease-out infinite;opacity:0}
+@keyframes pulse-ring{0%{transform:scale(.6);opacity:.8}100%{transform:scale(1.6);opacity:0}}
+.geo-bar-info{flex:1;min-width:0}
+.geo-bar-label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--green)}
+.geo-bar-coords{font-size:.78rem;color:var(--muted);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.geo-bar-reset{display:inline-flex;align-items:center;gap:4px;font-size:.75rem;font-weight:600;color:var(--muted);cursor:pointer;padding:4px 8px;border-radius:7px;transition:all .14s;border:1px solid var(--border);background:var(--surface);flex-shrink:0}
+.geo-bar-reset:hover{color:var(--red-dark);border-color:var(--red-ring);background:var(--red-lt)}
+.geo-bar-reset svg{width:11px;height:11px}
+
+/* ── BADGE DISTANCE ── */
+.rc-dist{display:inline-flex;align-items:center;gap:4px;font-size:.7rem;font-weight:700;color:var(--primary-dk);background:var(--primary-xlt);border:1px solid #99F6E4;padding:2px 7px;border-radius:9999px;margin-top:4px}
+.rc-dist svg{width:10px;height:10px}
+
+/* ── TRI ACTIF ── */
+.sort-indicator{display:none;align-items:center;gap:5px;font-size:.72rem;font-weight:600;color:var(--green);background:var(--green-lt);border:1px solid var(--green-ring);padding:2px 9px;border-radius:9999px}
+.sort-indicator.show{display:inline-flex}
+.sort-indicator svg{width:11px;height:11px}
+
+/* Marqueur utilisateur pulsé */
+@keyframes user-pulse{0%,100%{box-shadow:0 0 0 0 rgba(59,130,246,.5),0 2px 8px rgba(59,130,246,.4)}70%{box-shadow:0 0 0 12px rgba(59,130,246,0),0 2px 8px rgba(59,130,246,.4)}}
+
+/* GPS flottant */
+.btn-gps{position:absolute;bottom:24px;right:16px;z-index:500;width:44px;height:44px;border-radius:50%;background:var(--surface);border:2px solid var(--border);box-shadow:0 4px 16px rgba(15,23,42,.14);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);transition:all .15s}
+.btn-gps:hover{background:var(--blue-lt);border-color:#BFDBFE;color:var(--blue-dk)}
+.btn-gps.active{background:var(--blue);border-color:var(--blue);color:#fff;box-shadow:0 4px 16px rgba(59,130,246,.4)}
+.btn-gps svg{width:18px;height:18px}
+
+/* Légende flottante */
+.legend{position:absolute;bottom:80px;right:16px;z-index:500;background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:10px 14px;box-shadow:0 4px 16px rgba(15,23,42,.10);display:flex;flex-direction:column;gap:7px;min-width:130px}
+.legend-item{display:flex;align-items:center;gap:8px;font-size:.78rem;font-weight:600;color:var(--muted)}
+.legend-item .dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+
+/* Toast */
+.toast{position:absolute;bottom:80px;left:50%;transform:translateX(-50%);z-index:600;background:var(--text);color:#fff;padding:9px 20px;border-radius:9999px;font-size:.8125rem;font-weight:600;box-shadow:0 4px 14px rgba(15,23,42,.22);opacity:0;transition:opacity .24s;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1}
+
+/* Cluster custom */
+.marker-cluster-custom{width:36px;height:36px;border-radius:50%;background:var(--grad);color:#fff;font-size:.8rem;font-weight:700;display:flex;align-items:center;justify-content:center;border:3px solid #fff;box-shadow:0 3px 10px rgba(59,130,246,.4)}
+
+/* Mobile overlay */
+.sb-overlay{display:none;position:fixed;inset:0;background:rgba(15,23,42,.32);backdrop-filter:blur(3px);z-index:199}
+body.sb-open .sb-overlay{display:block}
+
+/* ── RTL (Arabe) ── */
+html[dir="rtl"] body{flex-direction:row-reverse;font-family:'Cairo','Inter',sans-serif}
+html[dir="rtl"] .sidebar{border-right:none;border-left:1px solid var(--border)}
+html[dir="rtl"] .carte-panel{border-right:none;border-left:1px solid var(--border)}
+html[dir="rtl"] .search-inp{text-align:right;padding-right:34px;padding-left:10px}
+html[dir="rtl"] .ico-search{left:auto;right:11px}
+html[dir="rtl"] .btn-clear{right:auto;left:9px}
+html[dir="rtl"] .result-card{flex-direction:row-reverse}
+html[dir="rtl"] .result-card::before{left:auto;right:0;border-radius:0 4px 4px 0}
+html[dir="rtl"] .rc-dot{margin-right:0;margin-left:0}
+html[dir="rtl"] .sb-link{flex-direction:row-reverse}
+html[dir="rtl"] .panel-title{flex-direction:row-reverse}
+html[dir="rtl"] .f-btn{flex-direction:row-reverse}
+html[dir="rtl"] .geo-bar{flex-direction:row-reverse}
+html[dir="rtl"] .count-bar{flex-direction:row-reverse}
+
+/* Responsive */
+@media(max-width:900px){.carte-panel{width:300px;min-width:300px}}
+@media(max-width:768px){
+  .sidebar{position:fixed;top:0;left:0;height:100vh;transform:translateX(-100%);z-index:200;box-shadow:var(--sh-md)}
+  body.sb-open .sidebar{transform:translateX(0)}
+  .topbar-burger{display:flex}
+  .topbar-center{display:none}
+}
+@media(max-width:640px){
+  .carte-body{flex-direction:column}
+  .carte-panel{width:100%;min-width:0;height:52vh;border-right:none;border-bottom:1px solid var(--border)}
+  .map-container{flex:1;min-height:48vh}
+}
+</style>
+</head>
+
+<body>
+<div class="sb-overlay" id="sb-overlay"></div>
+
+<!-- ── SIDEBAR ── -->
+<aside class="sidebar" id="sidebar">
+  <a href="index.html" class="sb-logo">
+    <div class="sb-logo-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg>
+    </div>
+    <span class="sb-logo-name">Orient<span class="text-primary">DZ</span></span>
+  </a>
+  <nav class="sb-nav">
+    <div>
+      <p class="sb-label">Principal</p>
+      <ul class="sb-items">
+        <li><a href="index.html" class="sb-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          <span data-i18n="nav.home">Accueil</span>
+        </a></li>
+        <li><a href="ai.html" class="sb-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/></svg>
+          <span>Assistant IA</span>
+        </a></li>
+        <li><a href="carte.html" class="sb-link active" aria-current="page">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>Carte Santé</span>
+        </a></li>
+        <li><a href="nutrition.html" class="sb-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+          <span data-i18n="nav.nutri">OrientNutri</span>
+        </a></li>
+        <li><a href="emergency_qr.html" class="sb-link" style="color:#DC2626;font-weight:700">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0"/><path d="M12 8v4l2 2"/></svg>
+          <span data-i18n="nav.sauvemoi">🆘 SauveMoi QR</span>
+        </a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="sb-label">Données</p>
+      <ul class="sb-items">
+        <li>
+          <div class="sb-link" style="cursor:default">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10H3"/><path d="M21 6H3"/><path d="M21 14H3"/><path d="M21 18H3"/></svg>
+            <span style="font-size:.82rem">4 911 établissements</span>
+          </div>
+        </li>
+        <li>
+          <div class="sb-link" style="cursor:default">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            <span style="font-size:.82rem">Source : OpenStreetMap</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</aside>
+
+<!-- ── MAIN ── -->
+<div class="main-wrap">
+  <header class="topbar">
+    <button class="topbar-burger" id="burger" aria-label="Menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <a href="index.html" class="topbar-brand">
+      <div class="topbar-brand-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg>
+      </div>
+      <span class="topbar-brand-name">Orient<span class="text-primary">DZ</span></span>
+    </a>
+    <span class="topbar-center" data-i18n="carte.topbar.title">Carte des Structures de Santé</span>
+    <div class="topbar-right">
+      <span style="font-size:.8rem;color:var(--muted);font-weight:600;padding:5px 12px;background:var(--surface-alt);border:1px solid var(--border);border-radius:9999px;" data-i18n="carte.topbar">
+        Algérie — 58 wilayas
+      </span>
+    </div>
+  </header>
+
+  <div class="carte-body">
+
+    <!-- ── PANEL ── -->
+    <aside class="carte-panel">
+      <div class="panel-top">
+      <div class="panel-head">
+        <div class="panel-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span data-i18n="carte.title">Structures de santé</span>
+        </div>
+        <div class="search-wrap">
+          <svg class="ico-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input id="search-inp" class="search-inp" type="search" placeholder="Rechercher un établissement…" autocomplete="off" data-i18n-placeholder="carte.search" />
+          <button class="btn-clear" id="btn-clear" title="Effacer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+        <!-- Bouton géolocaliser -->
+        <button class="btn-geolocate" id="btn-geolocate">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="8"/></svg>
+          <span id="geo-btn-label" data-i18n="carte.geolocate">Me géolocaliser</span>
+        </button>
+      </div>
+
+      <!-- Barre position détectée -->
+      <div class="geo-bar" id="geo-bar">
+        <span class="geo-bar-dot"></span>
+        <div class="geo-bar-info">
+          <div class="geo-bar-label" data-i18n="carte.geo.detected">📍 Position détectée</div>
+          <div class="geo-bar-coords" id="geo-bar-coords">—</div>
+        </div>
+        <button class="geo-bar-reset" id="geo-bar-reset" title="Réinitialiser">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          <span data-i18n="carte.geo.reset">Effacer</span>
+        </button>
+      </div>
+
+      <!-- Filtres -->
+      <div class="filters-wrap">
+        <span class="filter-label" data-i18n="carte.filter.label">Filtrer par type</span>
+        <div class="filters-row">
+          <button class="f-btn active-all" id="f-all" data-type="all">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px"><circle cx="12" cy="12" r="10"/></svg>
+            <span data-i18n="carte.filter.all">Tous</span>
+          </button>
+          <button class="f-btn" id="f-hospital" data-type="hospital">
+            <span class="dot" style="background:var(--red)"></span>
+            <span data-i18n="carte.filter.hospital">Hôpitaux</span>
+          </button>
+          <button class="f-btn" id="f-clinic" data-type="clinic">
+            <span class="dot" style="background:var(--orange)"></span>
+            <span data-i18n="carte.filter.clinic">Cliniques</span>
+          </button>
+          <button class="f-btn" id="f-pharmacy" data-type="pharmacy">
+            <span class="dot" style="background:var(--purple)"></span>
+            <span data-i18n="carte.filter.pharmacy">Pharmacies</span>
+          </button>
+          <button class="f-btn" id="f-lab" data-type="lab">
+            <span class="dot" style="background:var(--teal)"></span>
+            <span data-i18n="carte.filter.lab">Labo & Centres spécialisés</span>
+          </button>
+          <button class="f-btn" id="f-doctor" data-type="doctor">
+            <span class="dot" style="background:var(--indigo)"></span>
+            <span data-i18n="carte.filter.doctor">Médecins</span>
+          </button>
+          <button class="f-btn-night" id="f-night" title="Afficher uniquement les structures ouvertes 24h/24 ou de garde">
+            🌙 Urgences de nuit
+          </button>
+        </div>
+        <div class="night-banner" id="night-banner">🌙 Affichage : structures de garde &amp; urgences nocturnes uniquement</div>
+      </div>
+
+
+      <!-- Counter -->
+      <div class="count-bar">
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <span class="count-text" data-i18n="carte.results.shown">Résultats affichés</span>
+          <span class="sort-indicator" id="sort-indicator">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M7 12h10M11 18h2"/></svg>
+            <span data-i18n="carte.sort.distance">Trié par distance</span>
+          </span>
+        </div>
+        <span class="count-badge" id="count-badge">4 911</span>
+      </div>
+      </div><!-- /.panel-top -->
+
+      <!-- Liste -->
+      <div class="results-list" id="results-list">
+        <div class="list-empty" id="list-loading">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          <p>Chargement des données…</p>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ── CARTE ── -->
+    <div class="map-container">
+      <div id="cmap"></div>
+
+      <!-- Bouton GPS -->
+      <button class="btn-gps" id="btn-gps" title="Ma position">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="8"/></svg>
+      </button>
+
+      <!-- Légende -->
+      <div class="legend">
+        <div class="legend-item"><span class="dot" style="background:var(--red)"></span> <span data-i18n="carte.legend.hospital">Hôpital</span></div>
+        <div class="legend-item"><span class="dot" style="background:var(--orange)"></span> <span data-i18n="carte.legend.clinic">Clinique</span></div>
+        <div class="legend-item"><span class="dot" style="background:var(--purple)"></span> <span data-i18n="carte.legend.pharmacy">Pharmacie</span></div>
+        <div class="legend-item"><span class="dot" style="background:#0D9488"></span> <span data-i18n="carte.legend.lab">Labo & Spécialisé</span></div>
+        <div class="legend-item"><span class="dot" style="background:#6366F1"></span> <span data-i18n="carte.legend.doctor">Médecin</span></div>
+      </div>
+
+      <!-- Toast -->
+      <div class="toast" id="toast"></div>
+    </div>
+
+  </div><!-- .carte-body -->
+</div><!-- .main-wrap -->
+
+<!-- i18n (bilingue FR/AR) -->
+<script src="js/i18n.js"></script>
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<!-- MarkerCluster JS -->
+<script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+<!-- Données structures -->
+<script src="js/utils/structures-data.js"></script>
+
+<script>
+/* ──────────────────────────────────────────────
+   CONFIG
+────────────────────────────────────────────── */
+/* Traduction des sous-types selon la langue active */
+function tSub(sub) {
+  if (!sub) return '';
+  if (window.PWi18n) {
+    const v = window.PWi18n.t('sub.' + sub);
+    if (v && v !== 'sub.' + sub) return v;
+  }
+  return sub;
+}
+
+const TYPE_CONFIG = {
+  hospital : { label:'Hôpital',        color:'#EF4444', bg:'#FEF2F2', border:'#FECACA', textColor:'#B91C1C' },
+  clinic   : { label:'Clinique',       color:'#F59E0B', bg:'#FFFBEB', border:'#FDE68A', textColor:'#B45309' },
+  pharmacy : { label:'Pharmacie',      color:'#8B5CF6', bg:'#F5F3FF', border:'#DDD6FE', textColor:'#6D28D9' },
+  lab      : { label:'Laboratoire',    color:'#0D9488', bg:'#F0FDFA', border:'#99F6E4', textColor:'#0F766E' },
+  doctor   : { label:'Médecin',        color:'#6366F1', bg:'#EEF2FF', border:'#C7D2FE', textColor:'#4338CA' },
+  centre   : { label:'Centre médical', color:'#0891B2', bg:'#ECFEFF', border:'#A5F3FC', textColor:'#0E7490' },
+};
+
+/* ──────────────────────────────────────────────
+   STATE
+────────────────────────────────────────────── */
+let lmap, clusterGroup;
+let activeType     = 'all';
+let nightMode      = false;
+let searchQuery    = '';
+let selectedIdx    = -1;
+let filteredData   = [];
+let allMarkers     = [];
+let userMarker     = null;
+let userAccuracy   = null;
+let userLat        = null;
+let userLng        = null;
+let activeWilaya   = null;   // wilaya actuellement zoomée
+
+/* ──────────────────────────────────────────────
+   NORMALISATION ACCENTS / CASSE
+────────────────────────────────────────────── */
+function normalize(str) {
+  if (!str) return '';
+  return str
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')   // supprimer les diacritiques
+    .replace(/['’]/g, ' ')        // apostrophes → espace
+    .replace(/[-–]/g, ' ')             // tirets → espace
+    .trim();
+}
+
+/* ──────────────────────────────────────────────
+   INDEX WILAYAS (noms normalisés → nom officiel)
+────────────────────────────────────────────── */
+const WILAYA_NAMES = Object.keys(window.WILAYA_BOUNDS || {});
+
+// Table: "bejaia" → "Béjaïa", "tizi ouzou" → "Tizi Ouzou", etc.
+const WILAYA_INDEX = {};
+WILAYA_NAMES.forEach(w => { WILAYA_INDEX[normalize(w)] = w; });
+
+// Aliases supplémentaires courants
+const WILAYA_ALIASES = {
+  'alger':           'Alger',
+  'algers':          'Alger',
+  'blida':           'Blida',
+  'bejaia':          'Béjaïa',
+  'bjaia':           'Béjaïa',
+  'bejaia':          'Béjaïa',
+  'setif':           'Sétif',
+  'tizi ouzou':      'Tizi Ouzou',
+  'tizi-ouzou':      'Tizi Ouzou',
+  'tizi':            'Tizi Ouzou',
+  'tlemcen':         'Tlemcen',
+  'oran':            'Oran',
+  'annaba':          'Annaba',
+  'constantine':     'Constantine',
+  'batna':           'Batna',
+  'biskra':          'Biskra',
+  'medea':           'Médéa',
+  'media':           'Médéa',
+  'msila':           "M'Sila",
+  'm sila':          "M'Sila",
+  'bordj':           'Bordj Bou Arréridj',
+  'bba':             'Bordj Bou Arréridj',
+  'boumerdes':       'Boumerdès',
+  'boumerdas':       'Boumerdès',
+  'tipaza':          'Tipaza',
+  'tipasa':          'Tipaza',
+  'mila':            'Mila',
+  'jijel':           'Jijel',
+  'skikda':          'Skikda',
+  'guelma':          'Guelma',
+  'souk ahras':      'Souk Ahras',
+  'soukahras':       'Souk Ahras',
+  'el tarf':         'El Tarf',
+  'eltarf':          'El Tarf',
+  'mostaganem':      'Mostaganem',
+  'mascara':         'Mascara',
+  'saida':           'Saïda',
+  'sidi bel abbes':  'Sidi Bel Abbès',
+  'sba':             'Sidi Bel Abbès',
+  'ain defla':       'Aïn Defla',
+  'ain defla':       'Aïn Defla',
+  'ain temouchent':  'Aïn Témouchent',
+  'tiaret':          'Tiaret',
+  'relizane':        'Relizane',
+  'bouira':          'Bouira',
+  'djelfa':          'Djelfa',
+  'laghouat':        'Laghouat',
+  'ghardaia':        'Ghardaïa',
+  'gardaia':         'Ghardaïa',
+  'ouargla':         'Ouargla',
+  'el oued':         'El Oued',
+  'eloued':          'El Oued',
+  'oum el bouaghi':  'Oum El Bouaghi',
+  'tebessa':         'Tébessa',
+  'tbessa':          'Tébessa',
+  'khenchela':       'Khenchela',
+  'bechar':          'Béchar',
+  'naama':           'Naâma',
+  'el bayadh':       'El Bayadh',
+  'adrar':           'Adrar',
+  'tamanrasset':     'Tamanrasset',
+  'tindouf':         'Tindouf',
+  'illizi':          'Illizi',
+  'tissemsilt':      'Tissemsilt',
+  'touggourt':       'Touggourt',
+  'djanet':          'Djanet',
+  'timimoun':        'Timimoun',
+  'in salah':        'In Salah',
+  'in guezzam':      'In Guezzam',
+  'ouled djellal':   'Ouled Djellal',
+  'beni abbes':      'Béni Abbès',
+  'el meniaa':       'El Meniaa',
+  'el mghair':       "El M'Ghair",
+  'bordj badji mokhtar': 'Bordj Badji Mokhtar',
+};
+
+function matchWilayaQuery(q) {
+  if (!q) return null;
+  const n = normalize(q);
+  // Correspondance exacte d'abord
+  if (WILAYA_ALIASES[n]) return WILAYA_ALIASES[n];
+  if (WILAYA_INDEX[n])   return WILAYA_INDEX[n];
+  // Correspondance partielle (début de mot)
+  for (const [alias, official] of Object.entries(WILAYA_ALIASES)) {
+    if (alias.startsWith(n) && n.length >= 3) return official;
+  }
+  for (const [normName, official] of Object.entries(WILAYA_INDEX)) {
+    if (normName.startsWith(n) && n.length >= 3) return official;
+  }
+  return null;
+}
+
+/* ──────────────────────────────────────────────
+   DISTANCE (Haversine) — retourne km
+────────────────────────────────────────────── */
+function haversine(lat1, lng1, lat2, lng2) {
+  const R = 6371;
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLng = (lng2 - lng1) * Math.PI / 180;
+  const a = Math.sin(dLat/2)**2 +
+            Math.cos(lat1 * Math.PI/180) * Math.cos(lat2 * Math.PI/180) * Math.sin(dLng/2)**2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+}
+
+function formatDist(km) {
+  return km < 1 ? `${Math.round(km * 1000)} m` : `${km.toFixed(1)} km`;
+}
+
+/* ──────────────────────────────────────────────
+   INIT MAP
+────────────────────────────────────────────── */
+function initMap() {
+  lmap = L.map('cmap', { zoomControl: false }).setView([28.5, 2.5], 5);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>',
+    maxZoom: 19,
+  }).addTo(lmap);
+
+  L.control.zoom({ position: 'topright' }).addTo(lmap);
+
+  // Cluster group avec icône custom
+  clusterGroup = L.markerClusterGroup({
+    maxClusterRadius: 50,
+    iconCreateFunction(cluster) {
+      const n = cluster.getChildCount();
+      const size = n > 100 ? 44 : n > 20 ? 38 : 32;
+      return L.divIcon({
+        className: '',
+        html: `<div style="
+          width:${size}px;height:${size}px;border-radius:50%;
+          background:linear-gradient(135deg,#3B82F6,#2DD4BF);
+          color:#fff;font-size:${size > 38 ? '.85' : '.78'}rem;font-weight:700;
+          display:flex;align-items:center;justify-content:center;
+          border:3px solid #fff;
+          box-shadow:0 3px 12px rgba(59,130,246,.45)">${n}</div>`,
+        iconSize: [size, size],
+        iconAnchor: [size/2, size/2],
+      });
+    },
+    spiderfyOnMaxZoom: true,
+    showCoverageOnHover: false,
+    zoomToBoundsOnClick: true,
+    animate: true,
+  });
+
+  lmap.addLayer(clusterGroup);
+}
+
+/* ──────────────────────────────────────────────
+   CUSTOM MARKER ICON
+────────────────────────────────────────────── */
+function makeIcon(type, selected) {
+  const cfg = TYPE_CONFIG[type] || TYPE_CONFIG.pharmacy;
+  const size = selected ? 20 : 14;
+  const border = selected ? 3 : 2;
+  const shadow = selected
+    ? `0 0 0 5px ${cfg.color}33, 0 4px 16px ${cfg.color}66`
+    : `0 2px 8px ${cfg.color}55`;
+
+  return L.divIcon({
+    className: '',
+    html: `<div style="
+      width:${size}px;height:${size}px;border-radius:50%;
+      background:${cfg.color};
+      border:${border}px solid #fff;
+      box-shadow:${shadow};
+      transition:all .2s"></div>`,
+    iconSize: [size, size],
+    iconAnchor: [size/2, size/2],
+    popupAnchor: [0, -(size/2 + 6)],
+  });
+}
+
+/* ──────────────────────────────────────────────
+   POPUP HTML
+────────────────────────────────────────────── */
+function popupHTML(s) {
+  const cfg = TYPE_CONFIG[s.type] || TYPE_CONFIG.pharmacy;
+  const dest    = encodeURIComponent(`${s.latitude},${s.longitude}`);
+  const origin  = (userLat !== null) ? encodeURIComponent(`${userLat},${userLng}`) : '';
+  const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${dest}`;
+  const dirUrl  = origin
+    ? `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${dest}&travelmode=driving`
+    : `https://www.google.com/maps/dir/?api=1&destination=${dest}&travelmode=driving`;
+  const distLine = (s._dist != null)
+    ? `<div class="lp-coords" style="color:var(--primary-dk);font-weight:600">
+         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:11px;height:11px;color:var(--primary-dk)"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+         À ${formatDist(s._dist)} de votre position
+       </div>`
+    : '';
+
+  return `<div class="lp-body">
+    <span class="lp-type-badge ${s.type}">
+      <span class="dot"></span>${s.subtype || cfg.label}
+    </span>
+    <div class="lp-name">${s.nom}</div>
+    ${s.city ? `<div class="lp-coords" style="margin-top:4px">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:11px;height:11px"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+      ${s.city}${s.wilaya && s.wilaya !== s.city ? ' · ' + s.wilaya : ''}
+    </div>` : ''}
+    ${distLine}
+    <div class="lp-coords">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+      ${s.latitude.toFixed(5)}, ${s.longitude.toFixed(5)}
+    </div>
+  </div>
+  <div class="lp-footer">
+    <a class="lp-btn" href="${mapsUrl}" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      Voir
+    </a>
+    <a class="lp-btn primary" href="${dirUrl}" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+      Itinéraire
+    </a>
+  </div>`;
+}
+
+/* ──────────────────────────────────────────────
+   ZOOM VERS UNE WILAYA
+────────────────────────────────────────────── */
+function zoomToWilaya(wilayaName) {
+  const bounds = window.WILAYA_BOUNDS && window.WILAYA_BOUNDS[wilayaName];
+  if (!bounds) return;
+  // [lat_min, lat_max, lng_min, lng_max]
+  const [latMin, latMax, lngMin, lngMax] = bounds;
+  lmap.flyToBounds(
+    [[latMin, lngMin], [latMax, lngMax]],
+    { padding: [30, 30], maxZoom: 12, animate: true, duration: 0.8 }
+  );
+}
+
+/* ──────────────────────────────────────────────
+   FILTRAGE + RENDU
+────────────────────────────────────────────── */
+function applyFilter() {
+  const q       = searchQuery.trim();
+  const qNorm   = normalize(q);
+  const wilaya  = matchWilayaQuery(qNorm);   // détecte si c'est une wilaya
+
+  activeWilaya = wilaya;
+
+  filteredData = window.STRUCTURES_DB.filter(s => {
+    // Filtre par type
+    if (activeType !== 'all' && s.type !== activeType) return false;
+
+    // Filtre nuit : uniquement structures ouvertes 24h ou de garde
+    if (nightMode && !s.ouvert_24h && !s.garde_nuit && !s.garde) return false;
+
+    if (!q) return true;   // pas de recherche → tout afficher
+
+    if (wilaya) {
+      // Recherche wilaya : filtrer par wilaya assignée
+      return normalize(s.wilaya) === normalize(wilaya);
+    } else {
+      // Recherche texte : chercher dans nom, wilaya ET city
+      const nomNorm    = normalize(s.nom);
+      const wilayaNorm = normalize(s.wilaya || '');
+      const cityNorm   = normalize(s.city || '');
+      return nomNorm.includes(qNorm) || wilayaNorm.includes(qNorm) || cityNorm.includes(qNorm);
+    }
+  });
+
+  // Zoom automatique vers la wilaya détectée
+  if (wilaya) {
+    zoomToWilaya(wilaya);
+    showWilayaBanner(wilaya, filteredData.length);
+  } else if (!q) {
+    hideWilayaBanner();
+  } else {
+    hideWilayaBanner();
+  }
+
+  // Tri par distance si position connue
+  if (userLat !== null && userLng !== null) {
+    filteredData.forEach(s => {
+      s._dist = haversine(userLat, userLng, s.latitude, s.longitude);
+    });
+    filteredData.sort((a, b) => a._dist - b._dist);
+    document.getElementById('sort-indicator').classList.add('show');
+  } else {
+    filteredData.forEach(s => delete s._dist);
+    document.getElementById('sort-indicator').classList.remove('show');
+  }
+
+  renderMarkers();
+  renderList();
+  updateCounter();
+}
+
+/* ──────────────────────────────────────────────
+   BANDEAU WILAYA
+────────────────────────────────────────────── */
+function showWilayaBanner(wilayaName, count) {
+  let banner = document.getElementById('wilaya-banner');
+  if (!banner) {
+    banner = document.createElement('div');
+    banner.id = 'wilaya-banner';
+    banner.style.cssText = `
+      display:flex;align-items:center;gap:8px;
+      padding:8px 18px;
+      background:linear-gradient(90deg,#EFF6FF,#F0FDFA);
+      border-bottom:1px solid #BFDBFE;
+      flex-shrink:0;font-size:.8125rem;color:var(--blue-dk);font-weight:600;
+    `;
+    // Insérer avant la liste
+    const countBar = document.querySelector('.count-bar');
+    countBar.parentNode.insertBefore(banner, countBar);
+  }
+  banner.innerHTML = `
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+      stroke-linecap="round" stroke-linejoin="round"
+      style="width:14px;height:14px;flex-shrink:0;color:var(--blue)">
+      <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/>
+    </svg>
+    <span>Wilaya de <b>${wilayaName}</b> · ${count.toLocaleString('fr-FR')} établissements</span>
+  `;
+  banner.style.display = 'flex';
+}
+
+function hideWilayaBanner() {
+  const b = document.getElementById('wilaya-banner');
+  if (b) b.style.display = 'none';
+}
+
+function renderMarkers() {
+  clusterGroup.clearLayers();
+  allMarkers = [];
+
+  filteredData.forEach((s, i) => {
+    const mk = L.marker([s.latitude, s.longitude], {
+      icon: makeIcon(s.type, i === selectedIdx),
+    });
+    mk.bindPopup(popupHTML(s), { maxWidth: 300, closeButton: false, className: 'pharma-popup' });
+    mk.on('click', () => selectItem(i, false));
+    clusterGroup.addLayer(mk);
+    allMarkers.push(mk);
+  });
+}
+
+/* ──────────────────────────────────────────────
+   LISTE RÉSULTATS
+────────────────────────────────────────────── */
+const MAX_LIST = 150;
+
+function renderList() {
+  const list = document.getElementById('results-list');
+  const shown = filteredData.slice(0, MAX_LIST);
+
+  if (!shown.length) {
+    list.innerHTML = `<div class="list-empty">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <p>Aucun résultat trouvé</p>
+    </div>`;
+    return;
+  }
+
+  list.innerHTML = shown.map((s, i) => {
+    const cfg      = TYPE_CONFIG[s.type] || TYPE_CONFIG.clinic;
+    const sublabel = tSub(s.subtype || cfg.label);
+    const distBadge = s._dist != null
+      ? `<span class="rc-dist">
+           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+           ${formatDist(s._dist)}
+         </span>`
+      : '';
+    return `<div class="result-card${i === selectedIdx ? ' selected' : ''}" data-idx="${i}" data-type="${s.type}" role="button" tabindex="0">
+      <span class="rc-dot ${s.type}"></span>
+      <div class="rc-info">
+        <div class="rc-name" title="${s.nom}">${s.nom}</div>
+        <div class="rc-type ${s.type}">${sublabel.toUpperCase()}</div>
+        ${distBadge}
+      </div>
+    </div>`;
+  }).join('');
+
+  // Ajout d'un indicateur si trop de résultats
+  if (filteredData.length > MAX_LIST) {
+    list.innerHTML += `<div style="text-align:center;padding:10px 0;font-size:.78rem;color:var(--subtle);">
+      + ${filteredData.length - MAX_LIST} autres — affinez votre recherche
+    </div>`;
+  }
+
+  // Événements clics
+  list.querySelectorAll('.result-card').forEach(card => {
+    card.addEventListener('click', () => selectItem(+card.dataset.idx, true));
+    card.addEventListener('keydown', e => { if (e.key === 'Enter') selectItem(+card.dataset.idx, true); });
+  });
+}
+
+/* ──────────────────────────────────────────────
+   SÉLECTION
+────────────────────────────────────────────── */
+function selectItem(idx, fromList) {
+  // Reset ancien marqueur
+  if (selectedIdx >= 0 && allMarkers[selectedIdx]) {
+    allMarkers[selectedIdx].setIcon(makeIcon(filteredData[selectedIdx].type, false));
+  }
+
+  selectedIdx = idx;
+  const s = filteredData[idx];
+  if (!s) return;
+
+  // Mise à jour marqueur sélectionné
+  if (allMarkers[idx]) {
+    allMarkers[idx].setIcon(makeIcon(s.type, true));
+  }
+
+  // Fly to
+  if (!fromList || true) {
+    lmap.flyTo([s.latitude, s.longitude], Math.max(lmap.getZoom(), 14), { animate: true, duration: 0.6 });
+    setTimeout(() => {
+      if (allMarkers[idx]) allMarkers[idx].openPopup();
+    }, 700);
+  }
+
+  // Scroll carte dans la liste
+  if (fromList) {
+    const card = document.querySelector(`.result-card[data-idx="${idx}"]`);
+    if (card) card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  // Rafraîchir la liste pour mettre à jour la classe selected
+  renderList();
+
+  // Scroll liste vers la carte sélectionnée
+  setTimeout(() => {
+    const card = document.querySelector(`.result-card[data-idx="${idx}"]`);
+    if (card) card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }, 50);
+}
+
+/* ──────────────────────────────────────────────
+   COMPTEUR
+────────────────────────────────────────────── */
+function updateCounter() {
+  document.getElementById('count-badge').textContent = filteredData.length.toLocaleString('fr-FR');
+}
+
+/* ──────────────────────────────────────────────
+   TOAST
+────────────────────────────────────────────── */
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+/* ──────────────────────────────────────────────
+   MARQUEUR UTILISATEUR (pulsé)
+────────────────────────────────────────────── */
+function makeUserMarker(lat, lng, accuracy) {
+  if (userMarker) { userMarker.remove(); userMarker = null; }
+
+  // Cercle de précision
+  if (accuracy && accuracy < 5000) {
+    L.circle([lat, lng], {
+      radius: accuracy,
+      color: '#3B82F6', fillColor: '#3B82F6', fillOpacity: 0.08,
+      weight: 1, dashArray: '4,4',
+    }).addTo(lmap);
+  }
+
+  // Marqueur pulsé
+  const icon = L.divIcon({
+    className: '',
+    html: `<div style="
+      width:18px;height:18px;border-radius:50%;
+      background:#3B82F6;
+      border:3px solid #fff;
+      box-shadow:0 0 0 0 rgba(59,130,246,.5);
+      animation:user-pulse 2s infinite;
+      position:relative">
+      <div style="
+        position:absolute;inset:-6px;border-radius:50%;
+        border:2px solid rgba(59,130,246,.3)"></div>
+    </div>`,
+    iconSize: [18, 18],
+    iconAnchor: [9, 9],
+    popupAnchor: [0, -14],
+  });
+
+  userMarker = L.marker([lat, lng], { icon, zIndexOffset: 9999 })
+    .addTo(lmap)
+    .bindPopup(`<div style="padding:8px 12px;font-weight:700;font-size:.875rem;color:#0F172A">📍 Votre position</div>`)
+    .openPopup();
+}
+
+/* ──────────────────────────────────────────────
+   GÉOLOCALISER
+────────────────────────────────────────────── */
+function activateGPS() {
+  if (!navigator.geolocation) {
+    showToast('❌ Géolocalisation non supportée');
+    return;
+  }
+
+  const btn   = document.getElementById('btn-geolocate');
+  const label = document.getElementById('geo-btn-label');
+  btn.classList.add('loading');
+  label.textContent = 'Localisation…';
+  showToast('📡 Recherche de votre position…');
+
+  navigator.geolocation.getCurrentPosition(
+    pos => {
+      userLat      = pos.coords.latitude;
+      userLng      = pos.coords.longitude;
+      userAccuracy = pos.coords.accuracy;
+
+      // Marqueur pulsé
+      makeUserMarker(userLat, userLng, userAccuracy);
+
+      // Zoom
+      lmap.flyTo([userLat, userLng], 13, { animate: true, duration: 1.2 });
+
+      // Barre de statut
+      document.getElementById('geo-bar').classList.add('show');
+      document.getElementById('geo-bar-coords').textContent =
+        `${userLat.toFixed(5)}, ${userLng.toFixed(5)} · Précision ~${Math.round(userAccuracy)} m`;
+
+      // Bouton actif
+      btn.classList.remove('loading');
+      btn.classList.add('active');
+      label.textContent = 'Position active';
+
+      // Bouton GPS flottant
+      document.getElementById('btn-gps').classList.add('active');
+
+      showToast('✅ Position trouvée — liste triée par distance');
+
+      // Tri + refresh
+      selectedIdx = -1;
+      applyFilter();
+    },
+    err => {
+      btn.classList.remove('loading');
+      label.textContent = 'Me géolocaliser';
+      const msgs = {
+        1: '🔒 Permission refusée',
+        2: '📡 Position indisponible',
+        3: '⏱ Délai dépassé',
+      };
+      showToast(msgs[err.code] || '❌ Erreur de géolocalisation');
+    },
+    { timeout: 12000, enableHighAccuracy: true, maximumAge: 30000 },
+  );
+}
+
+/* ──────────────────────────────────────────────
+   RÉINITIALISER POSITION
+────────────────────────────────────────────── */
+function resetGPS() {
+  userLat = userLng = userAccuracy = null;
+  if (userMarker) { userMarker.remove(); userMarker = null; }
+
+  const btn   = document.getElementById('btn-geolocate');
+  const label = document.getElementById('geo-btn-label');
+  btn.classList.remove('active', 'loading');
+  label.textContent = 'Me géolocaliser';
+
+  document.getElementById('geo-bar').classList.remove('show');
+  document.getElementById('btn-gps').classList.remove('active');
+
+  // Retour vue Algérie
+  lmap.flyTo([28.5, 2.5], 5, { animate: true, duration: 1 });
+
+  selectedIdx = -1;
+  applyFilter();
+  showToast('Position réinitialisée');
+}
+
+/* Listeners géolocalisation */
+document.getElementById('btn-geolocate').addEventListener('click', activateGPS);
+document.getElementById('btn-gps').addEventListener('click', activateGPS);
+document.getElementById('geo-bar-reset').addEventListener('click', resetGPS);
+
+/* ──────────────────────────────────────────────
+   FILTRES BOUTONS
+────────────────────────────────────────────── */
+['all','hospital','clinic','pharmacy','centre','lab','doctor'].forEach(type => {
+  const btn = document.getElementById(`f-${type}`);
+  if (!btn) return;
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.f-btn').forEach(b => {
+      b.className = b.className.replace(/active-\w+/g, '').trim();
+    });
+    btn.classList.add(`active-${type}`);
+    activeType = type;
+    selectedIdx = -1;
+    applyFilter();
+  });
+});
+
+/* Night mode toggle */
+document.getElementById('f-night').addEventListener('click', () => {
+  nightMode = !nightMode;
+  const btn    = document.getElementById('f-night');
+  const banner = document.getElementById('night-banner');
+  btn.classList.toggle('active-night', nightMode);
+  banner.classList.toggle('show', nightMode);
+  selectedIdx = -1;
+  applyFilter();
+});
+
+/* ──────────────────────────────────────────────
+   RECHERCHE
+────────────────────────────────────────────── */
+const searchInp = document.getElementById('search-inp');
+const btnClear  = document.getElementById('btn-clear');
+
+searchInp.addEventListener('input', () => {
+  searchQuery = searchInp.value;
+  btnClear.classList.toggle('show', searchQuery.length > 0);
+  selectedIdx = -1;
+  applyFilter();
+});
+
+btnClear.addEventListener('click', () => {
+  searchInp.value = '';
+  searchQuery = '';
+  btnClear.classList.remove('show');
+  selectedIdx = -1;
+  applyFilter();
+  searchInp.focus();
+});
+
+/* ──────────────────────────────────────────────
+   BURGER MENU
+────────────────────────────────────────────── */
+document.getElementById('burger').addEventListener('click', () => {
+  document.body.classList.toggle('sb-open');
+});
+document.getElementById('sb-overlay').addEventListener('click', () => {
+  document.body.classList.remove('sb-open');
+});
+
+/* ──────────────────────────────────────────────
+   DÉMARRAGE
+────────────────────────────────────────────── */
+window.addEventListener('DOMContentLoaded', () => {
+  initMap();
+
+  // Petit délai pour laisser le DOM se stabiliser
+  setTimeout(() => {
+    applyFilter();
+    document.getElementById('list-loading').style.display = 'none';
+
+    // Mettre à jour les compteurs réels
+    const db = window.STRUCTURES_DB || [];
+    const counts = { hospital: 0, clinic: 0, pharmacy: 0, lab: 0, doctor: 0, centre: 0 };
+    db.forEach(s => { if (counts[s.type] !== undefined) counts[s.type]++; });
+    document.getElementById('cnt-hospital').textContent = counts.hospital.toLocaleString('fr-FR');
+    document.getElementById('cnt-clinic').textContent   = counts.clinic.toLocaleString('fr-FR');
+    document.getElementById('cnt-pharmacy').textContent = counts.pharmacy.toLocaleString('fr-FR');
+    document.getElementById('cnt-lab').textContent      = counts.lab.toLocaleString('fr-FR');
+    document.getElementById('cnt-doctor').textContent   = counts.doctor.toLocaleString('fr-FR');
+    document.getElementById('cnt-centre').textContent   = counts.centre.toLocaleString('fr-FR');
+  }, 100);
+});
+
+/* ──────────────────────────────────────────────
+   BILINGUE — re-render à chaque changement de langue
+────────────────────────────────────────────── */
+document.addEventListener('pw:langchange', () => {
+  renderList();
+});
+</script>
+</body>
+</html>

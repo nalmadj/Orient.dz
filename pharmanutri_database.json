@@ -1,0 +1,3095 @@
+{
+  "metadata": {
+    "project": "OrientDZ",
+    "module": "PharmaNutri",
+    "version": "1.0.0",
+    "language": "fr",
+    "last_updated": "2026-05-14",
+    "description": "Base de données nutritionnelle médicale par pathologie. Programmes basés sur les recommandations officielles d'organismes médicaux et nutritionnels reconnus.",
+    "sources_principales": [
+      "OMS - Organisation Mondiale de la Santé",
+      "ANSES - Agence nationale de sécurité sanitaire (France)",
+      "HAS - Haute Autorité de Santé (France)",
+      "ADA - American Diabetes Association",
+      "ESC - European Society of Cardiology",
+      "KDIGO - Kidney Disease: Improving Global Outcomes",
+      "ESPEN - European Society for Clinical Nutrition and Metabolism",
+      "WCRF - World Cancer Research Fund",
+      "EASL - European Association for the Study of the Liver",
+      "ECCO - European Crohn's and Colitis Organisation",
+      "EULAR - European Alliance of Associations for Rheumatology",
+      "NIH - National Institutes of Health"
+    ],
+    "avertissement": "Ces informations sont destinées à un usage informatif dans une application pharmaceutique. Elles ne remplacent pas une consultation médicale individualisée. Chaque patient doit consulter son médecin ou un diététicien-nutritionniste avant de modifier son alimentation, surtout en cas de traitement médicamenteux.",
+    "schema": {
+      "id": "Identifiant unique de la maladie (string)",
+      "nom": "Nom de la maladie en français",
+      "nom_en": "Nom en anglais (pour API internationales)",
+      "categorie": "Catégorie médicale principale",
+      "code_cim10": "Code CIM-10 (Classification Internationale des Maladies)",
+      "description_courte": "Description médicale en 1-2 phrases",
+      "objectifs_nutritionnels": "Liste des objectifs thérapeutiques de la nutrition",
+      "macronutriments": "Répartition recommandée (glucides, lipides, protéines)",
+      "micronutriments_cles": "Vitamines et minéraux à surveiller",
+      "aliments_recommandes": "Liste structurée par catégorie",
+      "aliments_a_eviter": "Liste structurée par catégorie",
+      "aliments_a_limiter": "Liste avec quantités",
+      "hydratation": "Recommandations sur les liquides",
+      "exemple_journee_type": "Petit-déjeuner, déjeuner, collation, dîner",
+      "conseils_pratiques": "Recommandations comportementales",
+      "contre_indications": "Précautions spécifiques",
+      "interactions_medicamenteuses": "Interactions aliments-médicaments connues",
+      "suivi_recommande": "Paramètres biologiques à surveiller",
+      "sources": "Références médicales utilisées"
+    }
+  },
+  "categories": [
+    {
+      "id": "CAT_METABO",
+      "nom": "Maladies métaboliques et endocriniennes"
+    },
+    {
+      "id": "CAT_CARDIO",
+      "nom": "Maladies cardiovasculaires"
+    },
+    {
+      "id": "CAT_RENAL",
+      "nom": "Maladies rénales"
+    },
+    {
+      "id": "CAT_DIGEST",
+      "nom": "Maladies digestives et hépatiques"
+    },
+    {
+      "id": "CAT_AUTOIMM",
+      "nom": "Maladies auto-immunes et inflammatoires"
+    },
+    {
+      "id": "CAT_CANCER",
+      "nom": "Cancers et oncologie nutritionnelle"
+    },
+    {
+      "id": "CAT_OSTEO",
+      "nom": "Maladies osseuses et articulaires"
+    },
+    {
+      "id": "CAT_NEURO",
+      "nom": "Maladies neurologiques"
+    },
+    {
+      "id": "CAT_CARENCE",
+      "nom": "Carences et troubles nutritionnels"
+    },
+    {
+      "id": "CAT_RESPIR",
+      "nom": "Maladies respiratoires"
+    }
+  ],
+  "maladies": [
+
+    {
+      "id": "MAL_001",
+      "nom": "Diabète de type 2",
+      "nom_en": "Type 2 Diabetes Mellitus",
+      "categorie": "CAT_METABO",
+      "code_cim10": "E11",
+      "description_courte": "Maladie chronique caractérisée par une hyperglycémie due à une résistance à l'insuline et/ou une insuffisance de sécrétion d'insuline.",
+      "objectifs_nutritionnels": [
+        "Stabiliser la glycémie (HbA1c < 7%)",
+        "Maintenir un poids santé ou réduire le poids de 5-10% si surpoids",
+        "Réduire le risque cardiovasculaire associé",
+        "Prévenir les complications (rétinopathie, néphropathie, neuropathie)"
+      ],
+      "macronutriments": {
+        "glucides": "45-50% de l'AET, privilégier IG bas (< 55)",
+        "lipides": "30-35% AET, dont AGS < 10%, oméga-3: 2g/jour",
+        "proteines": "15-20% AET (1-1.2 g/kg/jour si fonction rénale normale)",
+        "fibres": "25-35 g/jour (minimum 14 g/1000 kcal)"
+      },
+      "micronutriments_cles": {
+        "magnesium": "300-400 mg/j (carence fréquente chez diabétiques)",
+        "vitamine_D": "Supplémentation si < 30 ng/mL",
+        "chrome": "Rôle dans la sensibilité à l'insuline",
+        "zinc": "11 mg/j homme, 8 mg/j femme",
+        "vitamine_B12": "Surveiller si traitement par metformine au long cours"
+      },
+      "aliments_recommandes": {
+        "feculents_IG_bas": ["Pain complet au levain", "Quinoa", "Sarrasin", "Lentilles", "Pois chiches", "Haricots rouges", "Avoine"],
+        "legumes": ["Tous les légumes verts à volonté", "Brocoli", "Épinards", "Courgettes", "Aubergines", "Poivrons"],
+        "fruits": ["Pomme", "Poire", "Fruits rouges", "Agrumes", "Kiwi (2-3 portions/jour avec un repas)"],
+        "proteines": ["Poissons gras (saumon, sardine, maquereau) 2x/sem", "Volaille sans peau", "Œufs", "Tofu", "Légumineuses"],
+        "matieres_grasses": ["Huile d'olive vierge extra", "Huile de colza", "Avocat", "Noix, amandes (30g/j)"],
+        "produits_laitiers": ["Yaourt nature", "Fromage blanc 0-3%", "Lait demi-écrémé"]
+      },
+      "aliments_a_eviter": {
+        "sucres_rapides": ["Sodas et jus de fruits industriels", "Bonbons, confiseries", "Pâtisseries industrielles", "Confitures classiques"],
+        "produits_ultra_transformes": ["Plats préparés industriels", "Charcuteries", "Céréales sucrées du petit-déjeuner"],
+        "graisses_trans": ["Margarines hydrogénées", "Fritures industrielles", "Viennoiseries industrielles"]
+      },
+      "aliments_a_limiter": {
+        "feculents_IG_eleve": "Pain blanc, riz blanc, pommes de terre - max 1 portion/jour",
+        "fruits_sucres": "Banane mûre, raisin, mangue - 1 portion/jour max",
+        "alcool": "Max 1 verre/jour femme, 2 verres/jour homme, jamais à jeun",
+        "sel": "< 6 g/jour"
+      },
+      "hydratation": "1.5-2 L d'eau/jour, thé vert sans sucre, café modéré (max 3 tasses)",
+      "exemple_journee_type": {
+        "petit_dejeuner": "Flocons d'avoine (50g) avec lait demi-écrémé, 1 kiwi, amandes (15g), thé vert sans sucre",
+        "dejeuner": "Salade composée: quinoa (60g cru) + saumon grillé (120g) + légumes vapeur + huile d'olive + 1 yaourt nature",
+        "collation": "1 pomme + 1 poignée de noix (30g)",
+        "diner": "Soupe de légumes maison + escalope de dinde (100g) + lentilles (60g cru) + brocolis + 1 fromage blanc 0%"
+      },
+      "conseils_pratiques": [
+        "Fractionner en 3 repas + 1-2 collations pour éviter les pics glycémiques",
+        "Manger lentement, mâcher correctement (20 min minimum par repas)",
+        "Commencer le repas par les légumes pour ralentir l'absorption des glucides",
+        "Activité physique : 150 min/semaine d'activité modérée + 2 séances de renforcement",
+        "Auto-surveillance glycémique selon prescription"
+      ],
+      "contre_indications": [
+        "Régime cétogène strict non recommandé sans suivi médical (risque acidocétose)",
+        "Jeûne prolongé contre-indiqué si traitement par sulfamides ou insuline",
+        "Éviter régimes hyperprotéinés si néphropathie diabétique"
+      ],
+      "interactions_medicamenteuses": [
+        "Metformine : prendre pendant le repas pour réduire troubles digestifs",
+        "Sulfamides hypoglycémiants : risque hypoglycémie si repas sauté",
+        "Pamplemousse : interaction avec certaines statines associées",
+        "Alcool + insuline/sulfamides : risque hypoglycémie sévère"
+      ],
+      "suivi_recommande": [
+        "HbA1c tous les 3 mois",
+        "Glycémie à jeun",
+        "Bilan lipidique annuel",
+        "Microalbuminurie annuelle",
+        "Fond d'œil annuel"
+      ],
+      "sources": [
+        "HAS - Stratégie médicamenteuse du contrôle glycémique du diabète de type 2 (2024)",
+        "ADA - Standards of Medical Care in Diabetes (2024)",
+        "EASD - European Association for the Study of Diabetes Guidelines",
+        "ANSES - Repères nutritionnels diabète"
+      ]
+    },
+
+    {
+      "id": "MAL_002",
+      "nom": "Diabète de type 1",
+      "nom_en": "Type 1 Diabetes Mellitus",
+      "categorie": "CAT_METABO",
+      "code_cim10": "E10",
+      "description_courte": "Maladie auto-immune caractérisée par la destruction des cellules bêta du pancréas, entraînant une carence absolue en insuline.",
+      "objectifs_nutritionnels": [
+        "Adapter les apports glucidiques aux doses d'insuline (insulinothérapie fonctionnelle)",
+        "Maintenir HbA1c < 7% sans hypoglycémies sévères",
+        "Assurer une croissance normale chez l'enfant",
+        "Prévenir complications micro et macrovasculaires"
+      ],
+      "macronutriments": {
+        "glucides": "45-55% AET, comptage glucidique précis recommandé",
+        "lipides": "30-35% AET, AGS < 10%",
+        "proteines": "15-20% AET (1 g/kg/j)",
+        "fibres": "25-35 g/jour"
+      },
+      "micronutriments_cles": {
+        "vitamine_D": "Carence fréquente, supplémentation souvent nécessaire",
+        "calcium": "1000 mg/j (1200 mg si ostéoporose associée)",
+        "vitamine_B12": "Surveiller si maladie cœliaque associée",
+        "iode": "150 μg/j (surveillance thyroïde)"
+      },
+      "aliments_recommandes": {
+        "feculents": ["Pain complet", "Pâtes complètes al dente", "Riz basmati", "Quinoa", "Légumineuses"],
+        "legumes": ["Tous légumes (peu impact glycémique)"],
+        "fruits": ["Tous fruits avec comptage glucidique"],
+        "proteines": ["Poissons", "Volaille", "Œufs", "Légumineuses"],
+        "matieres_grasses": ["Huiles végétales", "Oléagineux"]
+      },
+      "aliments_a_eviter": {
+        "sucres_caches": ["Sodas (sauf en cas d'hypoglycémie)", "Sirops", "Bonbons (sauf resucrage)"]
+      },
+      "aliments_a_limiter": {
+        "alcool": "Risque hypoglycémie nocturne, jamais à jeun, accompagner de glucides"
+      },
+      "hydratation": "1.5-2 L/jour d'eau",
+      "exemple_journee_type": {
+        "petit_dejeuner": "Pain complet (60g) + beurre + confiture allégée + 1 œuf + 1 fruit + lait demi-écrémé (≈ 60g glucides)",
+        "dejeuner": "Crudités + pâtes complètes (80g cru) + bolognaise maison + parmesan + 1 yaourt (≈ 70g glucides)",
+        "collation": "1 fruit + 30g amandes (≈ 25g glucides)",
+        "diner": "Soupe + poisson + riz basmati (60g cru) + légumes + fromage + pain (≈ 60g glucides)"
+      },
+      "conseils_pratiques": [
+        "Apprendre l'insulinothérapie fonctionnelle (comptage glucidique précis)",
+        "Connaître l'équivalence glucidique des aliments (1 portion = 15-20g glucides)",
+        "Toujours avoir du sucre rapide sur soi (3 morceaux ou jus 150 mL)",
+        "Adapter l'insuline à l'activité physique prévue",
+        "Pas de régime restrictif chez l'enfant : alimentation variée adaptée à l'âge"
+      ],
+      "contre_indications": [
+        "Jeûne prolongé strictement contre-indiqué",
+        "Régimes très pauvres en glucides à risque de cétose",
+        "Régime cétogène : très encadré uniquement"
+      ],
+      "interactions_medicamenteuses": [
+        "Insuline : ajuster dose à la quantité de glucides ingérée",
+        "Alcool : majore le risque d'hypoglycémie sévère"
+      ],
+      "suivi_recommande": [
+        "HbA1c trimestrielle",
+        "Glycémie capillaire 4-6x/jour ou capteur continu",
+        "Dépistage maladie cœliaque (10-15% d'association)",
+        "Dépistage thyroïdite auto-immune"
+      ],
+      "sources": [
+        "HAS - Diabète de type 1 chez l'adulte",
+        "ISPAD - International Society for Pediatric and Adolescent Diabetes Guidelines (2022)",
+        "ADA - Standards of Care 2024"
+      ]
+    },
+
+    {
+      "id": "MAL_003",
+      "nom": "Obésité",
+      "nom_en": "Obesity",
+      "categorie": "CAT_METABO",
+      "code_cim10": "E66",
+      "description_courte": "Excès de masse grasse défini par un IMC ≥ 30 kg/m², associé à des risques pour la santé (cardiovasculaires, métaboliques, articulaires, oncologiques).",
+      "objectifs_nutritionnels": [
+        "Perte de poids progressive : 5-10% du poids initial en 6 mois",
+        "Réduction du tour de taille (< 94 cm homme, < 80 cm femme)",
+        "Prévention des comorbidités",
+        "Stabilisation pondérale à long terme"
+      ],
+      "macronutriments": {
+        "glucides": "45-55% AET, IG bas privilégié",
+        "lipides": "30-35% AET",
+        "proteines": "20-25% AET (1.2-1.6 g/kg poids cible) pour préserver masse maigre",
+        "fibres": "≥ 30 g/jour pour satiété"
+      },
+      "micronutriments_cles": {
+        "vitamine_D": "Carence très fréquente, à doser et supplémenter",
+        "fer": "Inflammation chronique perturbe métabolisme du fer",
+        "vitamine_B12": "À surveiller, surtout après chirurgie bariatrique",
+        "calcium": "Maintenir 1000 mg/j"
+      },
+      "aliments_recommandes": {
+        "legumes": ["Légumes à volonté (moitié de l'assiette)"],
+        "proteines_maigres": ["Poisson", "Blanc de volaille", "Œufs", "Tofu", "Légumineuses"],
+        "feculents_complets": ["Quinoa", "Avoine", "Pâtes complètes", "Riz complet (portions modérées)"],
+        "fruits": ["2 fruits/jour (entiers, pas en jus)"],
+        "matieres_grasses": ["1-2 c.à.s d'huile d'olive ou colza/jour", "Petite portion d'oléagineux (15g)"]
+      },
+      "aliments_a_eviter": {
+        "boissons_caloriques": ["Sodas", "Jus de fruits", "Boissons alcoolisées", "Cafés sucrés"],
+        "aliments_ultra_transformes": ["Plats préparés", "Fast-food", "Snacks industriels"],
+        "graisses_cachees": ["Charcuterie", "Fromages très gras (> 30% MG)", "Beurre en excès"]
+      },
+      "aliments_a_limiter": {
+        "sucres_ajoutes": "< 25 g/jour selon OMS",
+        "produits_raffines": "Pain blanc, biscuits, pâtisseries - occasionnel",
+        "alcool": "À supprimer pendant phase active de perte de poids"
+      },
+      "hydratation": "1.5-2 L d'eau/jour, eau avant les repas (effet satiétogène)",
+      "exemple_journee_type": {
+        "petit_dejeuner": "Flocons d'avoine (40g) + lait écrémé + fruits rouges + 1 c.à.c d'amandes effilées",
+        "dejeuner": "Grande salade composée + filet de poulet (120g) + quinoa (50g cru) + 1 c.à.s huile d'olive + 1 yaourt 0%",
+        "collation": "1 fruit + 1 yaourt nature",
+        "diner": "Soupe de légumes maison + poisson blanc (150g) + légumes vapeur + 30g pain complet"
+      },
+      "conseils_pratiques": [
+        "3 repas/jour à heures fixes, éviter le grignotage",
+        "Manger lentement (20-30 min), poser les couverts entre les bouchées",
+        "Utiliser des assiettes plus petites (technique éprouvée)",
+        "Méthode de l'assiette : 1/2 légumes, 1/4 protéines, 1/4 féculents",
+        "Activité physique : 150-300 min/semaine d'aérobie + 2-3 séances de renforcement",
+        "Suivi psychologique recommandé si troubles du comportement alimentaire"
+      ],
+      "contre_indications": [
+        "Régimes très restrictifs (< 1000 kcal) sans suivi médical",
+        "Régimes monodiétes ou hyperprotéinés non encadrés (risque rénal, cardiaque)",
+        "Jeûne intermittent : sécurité non établie chez patients avec comorbidités"
+      ],
+      "interactions_medicamenteuses": [
+        "Orlistat : nécessite régime pauvre en graisses, supplémentation vitamines liposolubles",
+        "Liraglutide, sémaglutide : adapter taille des portions (effets digestifs)",
+        "Anti-hypertenseurs : à réévaluer avec la perte de poids"
+      ],
+      "suivi_recommande": [
+        "Poids, IMC, tour de taille mensuel",
+        "Bilan lipidique tous les 6 mois",
+        "Glycémie à jeun et HbA1c",
+        "Bilan hépatique (NASH fréquente)",
+        "Vitamine D"
+      ],
+      "sources": [
+        "HAS - Surpoids et obésité de l'adulte : prise en charge médicale de premier recours",
+        "EASO - European Association for the Study of Obesity",
+        "OMS - Obésité et surpoids 2024",
+        "ANSES - PNNS 4 (Programme National Nutrition Santé)"
+      ]
+    },
+
+    {
+      "id": "MAL_004",
+      "nom": "Hypertension artérielle",
+      "nom_en": "Hypertension",
+      "categorie": "CAT_CARDIO",
+      "code_cim10": "I10",
+      "description_courte": "Élévation persistante de la pression artérielle (PA ≥ 140/90 mmHg en consultation), facteur de risque majeur de maladies cardiovasculaires.",
+      "objectifs_nutritionnels": [
+        "Réduire la pression artérielle (objectif < 140/90 mmHg, < 130/80 chez diabétiques)",
+        "Adopter le régime DASH (Dietary Approaches to Stop Hypertension)",
+        "Réduire l'apport sodé",
+        "Maintenir poids santé"
+      ],
+      "macronutriments": {
+        "glucides": "55% AET, complexes",
+        "lipides": "27% AET, AGS < 6%",
+        "proteines": "18% AET (poisson, volaille, légumineuses)",
+        "fibres": "30 g/jour"
+      },
+      "micronutriments_cles": {
+        "potassium": "3500-4700 mg/j (effet hypotenseur démontré)",
+        "magnesium": "300-420 mg/j",
+        "calcium": "1000-1200 mg/j",
+        "sodium": "< 2 g/jour soit < 5 g de sel/jour"
+      },
+      "aliments_recommandes": {
+        "legumes": ["8-10 portions/jour de fruits et légumes", "Légumes verts feuillus", "Tomates", "Betteraves (nitrates)", "Courges"],
+        "fruits": ["Banane (potassium)", "Fruits rouges", "Agrumes", "Avocat"],
+        "feculents_complets": ["Avoine", "Quinoa", "Pain complet", "Riz brun"],
+        "proteines": ["Poissons gras 2-3x/sem", "Volaille sans peau", "Légumineuses 4x/sem"],
+        "produits_laitiers_maigres": ["Yaourt nature 0%", "Lait écrémé", "Fromage blanc"],
+        "matieres_grasses": ["Huile d'olive", "Huile de colza", "Noix (30g/j)", "Graines de lin"]
+      },
+      "aliments_a_eviter": {
+        "sel_cache": ["Charcuteries", "Fromages très salés (roquefort, feta)", "Plats préparés", "Soupes en sachet", "Sauces industrielles (soja, ketchup)", "Conserves salées"],
+        "produits_industriels": ["Chips", "Biscuits apéritifs", "Pain industriel", "Bouillons cubes"]
+      },
+      "aliments_a_limiter": {
+        "viandes_rouges": "≤ 500 g/semaine",
+        "alcool": "< 10 verres/semaine, max 2/jour H, 1/jour F",
+        "cafe": "≤ 3 tasses/jour",
+        "reglisse": "À éviter (effet hypertenseur)"
+      },
+      "hydratation": "1.5 L d'eau/jour (sauf insuffisance cardiaque associée)",
+      "exemple_journee_type": {
+        "petit_dejeuner": "Flocons d'avoine + lait écrémé + banane + amandes + thé sans sucre",
+        "dejeuner": "Salade épinards, tomates, avocat + saumon grillé + quinoa + huile colza + 1 fromage blanc",
+        "collation": "1 yaourt nature + fruits rouges",
+        "diner": "Soupe maison sans sel + filet de poulet aux herbes + brocolis + patate douce + 1 fruit"
+      },
+      "conseils_pratiques": [
+        "Ne jamais resaler à table, retirer la salière",
+        "Lire les étiquettes : viser < 0.3 g sodium/100g aliment",
+        "Cuisiner maison avec herbes aromatiques, épices, citron",
+        "Activité physique aérobie : 30 min/jour, 5j/semaine",
+        "Perte de poids si IMC > 25 : 1 kg perdu = -1 mmHg PA",
+        "Arrêt du tabac",
+        "Gestion du stress (méditation, yoga)"
+      ],
+      "contre_indications": [
+        "Réglisse et certaines tisanes (effet minéralocorticoïde)",
+        "Boissons énergisantes",
+        "Sels de régime à base de potassium si insuffisance rénale ou IEC/ARA2"
+      ],
+      "interactions_medicamenteuses": [
+        "Pamplemousse + amlodipine, félodipine : majoration effet",
+        "Sel de régime au potassium + IEC/ARA2/diurétiques épargneurs K+ : risque hyperkaliémie",
+        "Réglisse + diurétiques : aggravation hypokaliémie",
+        "AINS + antihypertenseurs : baisse d'efficacité"
+      ],
+      "suivi_recommande": [
+        "Auto-mesure tensionnelle (3x matin/3x soir, 3 jours/mois)",
+        "Bilan rénal annuel (créatinine, microalbuminurie)",
+        "Bilan lipidique",
+        "Ionogramme (kaliémie sous diurétique)",
+        "ECG annuel"
+      ],
+      "sources": [
+        "ESC/ESH Guidelines on Arterial Hypertension (2023)",
+        "HAS - Prise en charge de l'HTA de l'adulte (2024)",
+        "DASH Diet - NIH National Heart Lung and Blood Institute",
+        "OMS - Sodium intake guideline"
+      ]
+    },
+
+    {
+      "id": "MAL_005",
+      "nom": "Hypercholestérolémie / Dyslipidémie",
+      "nom_en": "Hypercholesterolemia / Dyslipidemia",
+      "categorie": "CAT_CARDIO",
+      "code_cim10": "E78",
+      "description_courte": "Élévation du cholestérol total, LDL-cholestérol et/ou triglycérides sanguins, augmentant le risque cardiovasculaire.",
+      "objectifs_nutritionnels": [
+        "Réduire LDL-cholestérol (objectif selon risque CV : < 1.16 g/L à < 0.55 g/L)",
+        "Augmenter HDL-cholestérol",
+        "Réduire triglycérides < 1.5 g/L",
+        "Régime méditerranéen"
+      ],
+      "macronutriments": {
+        "glucides": "50-55% AET, IG bas",
+        "lipides": "30-35% AET, AGS < 7-10%, AG trans < 1%, AGMI > 15%, AGPI 5-10%",
+        "proteines": "15-20% AET",
+        "fibres": "25-30 g/j dont 5-10 g de fibres solubles (effet hypocholestérolémiant)"
+      },
+      "micronutriments_cles": {
+        "phytosterols": "2 g/jour (yaourts enrichis, margarines spécifiques)",
+        "omega_3": "EPA+DHA 250-500 mg/j (1-2 g si hypertriglycéridémie)",
+        "vitamine_E": "Antioxydant, dans huiles végétales",
+        "polyphenols": "Thé, fruits rouges, cacao"
+      },
+      "aliments_recommandes": {
+        "poissons_gras": ["Saumon", "Maquereau", "Sardine", "Hareng - 2-3x/semaine"],
+        "fruits_legumes": ["5 portions/jour minimum", "Tous légumes", "Fruits rouges", "Agrumes"],
+        "feculents_complets": ["Avoine (β-glucanes)", "Orge", "Légumineuses 3-4x/sem", "Pain complet"],
+        "oleagineux": ["Noix (30g/j)", "Amandes", "Graines de lin moulues", "Graines de chia"],
+        "huiles": ["Olive vierge extra", "Colza", "Noix"],
+        "fruits_riches_fibres_solubles": ["Pomme", "Poire", "Agrumes", "Fruits rouges"]
+      },
+      "aliments_a_eviter": {
+        "graisses_saturees": ["Beurre", "Crème", "Lard", "Charcuterie grasse", "Fromages > 30% MG"],
+        "graisses_trans": ["Viennoiseries industrielles", "Biscuits industriels", "Margarines hydrogénées", "Plats préparés frits"],
+        "viandes_grasses": ["Côte de bœuf", "Agneau gras", "Peau de volaille"]
+      },
+      "aliments_a_limiter": {
+        "oeufs": "Selon profil lipidique, généralement 4-6/semaine acceptables",
+        "alcool": "Élève triglycérides : max 1 verre F, 2 verres H",
+        "sucres_rapides": "Élèvent triglycérides : limiter",
+        "viande_rouge": "≤ 500g/semaine"
+      },
+      "hydratation": "1.5-2 L/jour, thé vert recommandé",
+      "exemple_journee_type": {
+        "petit_dejeuner": "Porridge d'avoine au lait demi-écrémé + graines de lin + fruits rouges + thé vert",
+        "dejeuner": "Salade de lentilles + maquereau grillé + crudités + huile d'olive/colza + 1 fruit",
+        "collation": "1 poignée de noix (30g) + 1 pomme",
+        "diner": "Soupe de légumes + tofu mariné aux herbes + riz complet + brocolis + 1 yaourt nature aux fruits rouges"
+      },
+      "conseils_pratiques": [
+        "Régime méditerranéen prouvé efficace (étude PREDIMED)",
+        "5 fruits et légumes/jour minimum",
+        "Poisson gras 2-3x/semaine",
+        "Cuisiner à l'huile d'olive, supprimer beurre",
+        "Activité physique 150 min/semaine (augmente HDL)",
+        "Perte de poids si IMC > 25",
+        "Arrêt du tabac (baisse HDL)"
+      ],
+      "contre_indications": [
+        "Régimes très pauvres en graisses non recommandés (peuvent baisser HDL)",
+        "Phytostérols : non recommandés chez enfants, femmes enceintes/allaitantes"
+      ],
+      "interactions_medicamenteuses": [
+        "Pamplemousse + statines (simvastatine, atorvastatine) : risque toxicité",
+        "Levure de riz rouge + statines : ne pas associer (même mécanisme)",
+        "Anticoagulants + grande quantité aliments riches en vitamine K (épinards, choux) : maintenir apport stable"
+      ],
+      "suivi_recommande": [
+        "Bilan lipidique complet à 3 mois puis annuel",
+        "CPK si statines",
+        "Bilan hépatique sous statines/fibrates",
+        "Évaluation du risque CV global (SCORE2)"
+      ],
+      "sources": [
+        "ESC/EAS Guidelines on Dyslipidaemias (2023)",
+        "HAS - Principales dyslipidémies (2024)",
+        "Étude PREDIMED - NEJM 2018",
+        "WHO - Cardiovascular diseases prevention"
+      ]
+    },
+
+    {
+      "id": "MAL_006",
+      "nom": "Insuffisance cardiaque chronique",
+      "nom_en": "Chronic Heart Failure",
+      "categorie": "CAT_CARDIO",
+      "code_cim10": "I50",
+      "description_courte": "Syndrome clinique caractérisé par l'incapacité du cœur à assurer un débit suffisant pour les besoins métaboliques de l'organisme.",
+      "objectifs_nutritionnels": [
+        "Restreindre l'apport sodé pour limiter rétention hydrosodée",
+        "Restriction hydrique si insuffisance sévère",
+        "Prévenir la dénutrition / sarcopénie (cachexie cardiaque)",
+        "Maintenir un poids stable"
+      ],
+      "macronutriments": {
+        "glucides": "50-55% AET",
+        "lipides": "30-35% AET, privilégier oméga-3",
+        "proteines": "1.1-1.2 g/kg/j (1.5 g/kg si dénutrition)",
+        "fibres": "25 g/j"
+      },
+      "micronutriments_cles": {
+        "sodium": "< 2-3 g/j (sel < 5-6 g/j)",
+        "potassium": "Surveiller (hyperkaliémie sous IEC/ARA2/spironolactone)",
+        "magnesium": "Carence fréquente sous diurétiques",
+        "thiamine_B1": "Carence sous diurétiques de l'anse, supplémenter",
+        "fer": "Carence martiale fréquente, à traiter même sans anémie"
+      },
+      "aliments_recommandes": {
+        "proteines_maigres": ["Poisson (oméga-3)", "Volaille sans peau", "Œufs", "Tofu"],
+        "feculents": ["Pain (non salé)", "Pâtes", "Riz", "Pommes de terre"],
+        "legumes_frais": ["Tous, frais ou surgelés nature"],
+        "fruits": ["Tous fruits frais"],
+        "produits_laitiers": ["Lait, yaourts nature en quantité modérée"],
+        "matieres_grasses": ["Huile d'olive, colza"]
+      },
+      "aliments_a_eviter": {
+        "sel_ajoute": ["Pas de sel à table", "Pas de sel de cuisson"],
+        "aliments_sales": ["Charcuteries", "Fromages salés (feta, roquefort)", "Conserves au sel", "Plats préparés", "Soupes industrielles", "Bouillons cubes", "Olives", "Anchois"],
+        "produits_industriels": ["Chips", "Pain industriel salé", "Sauces industrielles"]
+      },
+      "aliments_a_limiter": {
+        "liquides": "1.5 L/jour max (1 L si IC sévère)",
+        "alcool": "Déconseillé, max 1 verre/j si non sevré",
+        "cafe_the": "Limiter (effet diurétique)"
+      },
+      "hydratation": "Restriction hydrique : 1-1.5 L/jour (toutes boissons + soupe + fruits aqueux comptés)",
+      "exemple_journee_type": {
+        "petit_dejeuner": "Pain sans sel + beurre doux non salé + confiture maison + 1 œuf coque + 1 yaourt nature + café léger",
+        "dejeuner": "Salade verte huile olive + filet de poulet aux herbes + riz + courgettes + 1 fruit",
+        "collation": "1 fruit + 1 yaourt",
+        "diner": "Soupe de légumes maison sans sel + poisson en papillote + purée maison + compote sans sucre"
+      },
+      "conseils_pratiques": [
+        "Peser quotidiennement à jeun (alerte si prise > 2 kg en 3 jours)",
+        "Tenir un carnet de surveillance",
+        "Activité physique adaptée (réadaptation cardiaque)",
+        "Surélever les jambes en position assise",
+        "Vaccinations grippe et pneumocoque",
+        "Sevrage tabagique impératif"
+      ],
+      "contre_indications": [
+        "Sels de régime au chlorure de potassium si traitement par IEC/ARA2/anti-aldostérone",
+        "Boissons énergisantes",
+        "Réglisse"
+      ],
+      "interactions_medicamenteuses": [
+        "Anti-aldostérone (spironolactone) + aliments très riches en K+ : risque hyperkaliémie",
+        "AVK + aliments riches en vitamine K (épinards, choux) : maintenir apport stable",
+        "Diurétiques + alcool : risque déshydratation"
+      ],
+      "suivi_recommande": [
+        "Poids quotidien",
+        "Pression artérielle",
+        "Ionogramme, créatinine, BNP/NT-proBNP",
+        "Échographie cardiaque",
+        "Bilan martial (ferritine, CST)"
+      ],
+      "sources": [
+        "ESC Guidelines for the diagnosis and treatment of acute and chronic heart failure (2021, mise à jour 2023)",
+        "HAS - Insuffisance cardiaque chronique",
+        "ESPEN guideline on clinical nutrition in heart failure"
+      ]
+    },
+
+    {
+      "id": "MAL_007",
+      "nom": "Maladie coronarienne / Post-infarctus",
+      "nom_en": "Coronary Artery Disease / Post-MI",
+      "categorie": "CAT_CARDIO",
+      "code_cim10": "I25",
+      "description_courte": "Atteinte des artères coronaires par l'athérosclérose, pouvant conduire à l'angor ou à l'infarctus du myocarde.",
+      "objectifs_nutritionnels": [
+        "Prévention secondaire des événements cardiovasculaires",
+        "Régime méditerranéen strict",
+        "Contrôle des facteurs de risque (LDL, PA, glycémie, poids)",
+        "Réduction de l'inflammation"
+      ],
+      "macronutriments": {
+        "glucides": "50% AET, IG bas",
+        "lipides": "30-35% AET, AGS < 7%, oméga-3 1g/j",
+        "proteines": "15-20% AET",
+        "fibres": "≥ 30 g/j"
+      },
+      "micronutriments_cles": {
+        "omega_3_EPA_DHA": "1 g/jour (étude GISSI-Prevenzione)",
+        "vitamine_D": "Carence à corriger",
+        "magnesium": "320-420 mg/j",
+        "antioxydants": "Polyphénols (fruits rouges, thé vert, chocolat noir > 70%)"
+      },
+      "aliments_recommandes": {
+        "poissons_gras": ["Saumon, sardine, maquereau, hareng - 2-3x/sem"],
+        "fruits_legumes": ["≥ 400 g/jour", "Tous colorés"],
+        "huiles": ["Olive vierge extra (40-50 mL/j)", "Colza"],
+        "oleagineux": ["Noix surtout (30g/j)", "Amandes"],
+        "legumineuses": ["3-4 portions/semaine"],
+        "cereales_completes": ["Avoine", "Quinoa", "Pain complet"]
+      },
+      "aliments_a_eviter": {
+        "graisses_trans": ["Viennoiseries industrielles", "Frites industrielles", "Plats préparés"],
+        "viandes_rouges_grasses": ["Bœuf gras", "Agneau gras"],
+        "charcuterie": ["Saucisses", "Bacon", "Salami - cancérogène groupe 1 OMS"]
+      },
+      "aliments_a_limiter": {
+        "alcool": "Max 1 verre/j F, 2 verres/j H (vin rouge non protecteur démontré)",
+        "sel": "< 5 g/j",
+        "sucres": "< 25 g/j"
+      },
+      "hydratation": "1.5 L/jour",
+      "exemple_journee_type": {
+        "petit_dejeuner": "Pain complet + huile d'olive + tomate + 1 œuf + 1 fruit + thé vert",
+        "dejeuner": "Salade méditerranéenne (tomate, concombre, olives, féta modérée, huile olive) + sardines + pain complet + 1 fruit",
+        "collation": "Carré chocolat noir 70% + amandes (15g)",
+        "diner": "Soupe de légumes + poulet aux herbes + ratatouille + pois chiches + yaourt grec nature"
+      },
+      "conseils_pratiques": [
+        "Adopter le régime méditerranéen (étude PREDIMED : -30% événements CV)",
+        "Réadaptation cardiaque structurée (3 mois)",
+        "Activité physique : 30 min/jour 5j/semaine",
+        "Arrêt total du tabac",
+        "Gestion stress, sommeil de qualité",
+        "Observance médicamenteuse stricte (antiagrégant, statine, IEC, bêtabloquant)"
+      ],
+      "contre_indications": [
+        "Pamplemousse si statine forte dose",
+        "Compléments alimentaires aux phytoœstrogènes (anticoagulants)"
+      ],
+      "interactions_medicamenteuses": [
+        "Pamplemousse + statines/clopidogrel : à éviter",
+        "AVK + vitamine K alimentaire : stabilité d'apport",
+        "Millepertuis + clopidogrel/AVK : interactions majeures"
+      ],
+      "suivi_recommande": [
+        "Bilan lipidique tous les 3-6 mois (objectif LDL < 0.55 g/L)",
+        "Pression artérielle",
+        "ECG, échographie",
+        "Test d'effort selon indication"
+      ],
+      "sources": [
+        "ESC Guidelines on Cardiovascular Disease Prevention (2021)",
+        "Étude PREDIMED - NEJM",
+        "HAS - Post-infarctus",
+        "AHA - American Heart Association Diet Guidelines"
+      ]
+    },
+
+    {
+      "id": "MAL_008",
+      "nom": "Insuffisance rénale chronique",
+      "nom_en": "Chronic Kidney Disease",
+      "categorie": "CAT_RENAL",
+      "code_cim10": "N18",
+      "description_courte": "Diminution progressive et irréversible de la fonction rénale (DFG < 60 mL/min/1.73m² pendant > 3 mois). 5 stades de gravité.",
+      "objectifs_nutritionnels": [
+        "Ralentir la progression de la maladie",
+        "Prévenir les complications (HTA, anémie, troubles phosphocalciques, acidose)",
+        "Prévenir la dénutrition",
+        "Adapter selon stade et dialyse"
+      ],
+      "macronutriments": {
+        "glucides": "50-60% AET",
+        "lipides": "30-35% AET",
+        "proteines_stade_3_4": "0.6-0.8 g/kg/j (restriction modérée)",
+        "proteines_dialyse": "1.0-1.2 g/kg/j (HD), 1.2-1.3 g/kg/j (DP)",
+        "energie": "30-35 kcal/kg/j pour prévenir catabolisme"
+      },
+      "micronutriments_cles": {
+        "sodium": "< 2.3 g/j (sel < 6 g/j)",
+        "potassium": "À restreindre selon kaliémie (2-3 g/j si hyperK+)",
+        "phosphore": "800-1000 mg/j (selon phosphatémie)",
+        "calcium": "Apport adapté + vitamine D active prescrite",
+        "fer": "Souvent supplémentation IV nécessaire en dialyse"
+      },
+      "aliments_recommandes": {
+        "proteines_haute_valeur": ["Œufs", "Poisson blanc", "Viande blanche maigre"],
+        "feculents": ["Pâtes, riz, pain (non salé)", "Pommes de terre cuites avec changement d'eau si hyperK+"],
+        "legumes_pauvres_K": ["Concombre", "Courgette", "Aubergine", "Haricots verts", "Carottes (bouillies)"],
+        "fruits_pauvres_K": ["Pomme", "Poire", "Myrtille", "Pastèque (en quantité modérée)"],
+        "matieres_grasses": ["Huile olive, colza", "Beurre doux"]
+      },
+      "aliments_a_eviter": {
+        "tres_riches_potassium": ["Banane", "Abricot sec", "Pomme de terre frite/chips", "Avocat", "Épinards crus", "Chocolat noir", "Café soluble fort"],
+        "tres_riches_phosphore": ["Fromages affinés", "Charcuteries", "Sodas cola", "Levure de bière", "Sons", "Fruits secs"],
+        "tres_sales": ["Charcuterie", "Plats préparés", "Conserves salées", "Fromages très salés"]
+      },
+      "aliments_a_limiter": {
+        "produits_laitiers": "Limiter à 1-2 portions/j (riches en P et K)",
+        "legumineuses": "Modérées (riches en K et P)",
+        "fruits_secs_noix": "Très riches en K et P"
+      },
+      "hydratation": "Adaptée à diurèse et stade : libre stade 1-3, restreinte stade 5 (500 mL + diurèse de la veille)",
+      "exemple_journee_type": {
+        "petit_dejeuner": "Pain non salé + beurre + miel + thé léger + 1 yaourt nature",
+        "dejeuner": "Salade concombre + filet de poulet (100g) + pâtes (80g cru) + courgettes + 1 pomme",
+        "collation": "1 yaourt + 1 biscotte",
+        "diner": "Bouillon de légumes + poisson blanc (100g) + riz + haricots verts (bouillis 2x) + compote sans sucre"
+      },
+      "conseils_pratiques": [
+        "Suivi diététique spécialisé indispensable (néphro-diététicien)",
+        "Trempage et double cuisson des légumes en eau pour réduire potassium",
+        "Cuisson maison, éviter ultra-transformés",
+        "Lire les étiquettes (sodium, phosphate additifs E338-E452)",
+        "Activité physique adaptée",
+        "Sevrage tabagique",
+        "Vaccinations à jour"
+      ],
+      "contre_indications": [
+        "Sels de régime au potassium : INTERDITS",
+        "Compléments alimentaires sans avis médical",
+        "AINS à éviter (néphrotoxiques)",
+        "Phytothérapie déconseillée (aristoloches, certaines plantes néphrotoxiques)"
+      ],
+      "interactions_medicamenteuses": [
+        "IEC/ARA2 + aliments riches K+ : risque hyperkaliémie",
+        "Chélateurs de phosphore : à prendre pendant les repas",
+        "Fer oral + thé/café : diminue absorption (espacer 2h)"
+      ],
+      "suivi_recommande": [
+        "DFG, créatinine tous les 3-6 mois",
+        "Ionogramme (K+, Na+, bicarbonates)",
+        "Calcium, phosphore, PTH",
+        "Hémoglobine, ferritine, CST",
+        "Albuminémie (état nutritionnel)",
+        "Protéinurie/microalbuminurie"
+      ],
+      "sources": [
+        "KDIGO 2024 Clinical Practice Guideline for CKD",
+        "HAS - Maladie rénale chronique de l'adulte",
+        "ESPEN guideline on clinical nutrition in CKD (2021)",
+        "Société Francophone de Néphrologie"
+      ]
+    },
+
+    {
+      "id": "MAL_009",
+      "nom": "Lithiase urinaire (calculs rénaux)",
+      "nom_en": "Kidney Stones / Urolithiasis",
+      "categorie": "CAT_RENAL",
+      "code_cim10": "N20",
+      "description_courte": "Formation de calculs dans les voies urinaires (oxalate de calcium 70%, acide urique, struvite, cystine).",
+      "objectifs_nutritionnels": [
+        "Prévenir la récidive (50% à 5 ans sans traitement)",
+        "Augmenter la diurèse",
+        "Adapter le régime au type de calcul"
+      ],
+      "macronutriments": {
+        "glucides": "50% AET",
+        "lipides": "30-35% AET",
+        "proteines": "0.8-1 g/kg/j (limiter excès)"
+      },
+      "micronutriments_cles": {
+        "calcium": "800-1000 mg/j (PAS de restriction : protège des calculs oxalo-calciques)",
+        "sodium": "< 5 g de sel/j (réduit calciurie)",
+        "magnesium": "Protecteur",
+        "citrate": "Augmenter (agrumes)"
+      },
+      "aliments_recommandes": {
+        "boissons": ["Eau (≥ 2.5 L/j)", "Jus de citron dilué (citrate)", "Eaux minéralement équilibrées"],
+        "agrumes": ["Citron", "Orange", "Pamplemousse (sauf si statines)"],
+        "produits_laitiers": ["Lait, yaourts, fromage en quantité normale (PAS de restriction)"],
+        "feculents_complets": ["Pain complet", "Riz complet", "Avoine"],
+        "fruits_legumes": ["Variés - sauf riches en oxalates"]
+      },
+      "aliments_a_eviter": {
+        "tres_riches_oxalates_si_calcul_oxalique": ["Épinards", "Rhubarbe", "Bettes", "Cacao", "Chocolat", "Noix", "Thé noir fort", "Betterave"],
+        "tres_riches_purines_si_calcul_urique": ["Abats", "Charcuterie", "Anchois", "Sardines en conserve", "Gibier", "Bière"],
+        "trop_sales": ["Charcuterie", "Plats préparés"]
+      },
+      "aliments_a_limiter": {
+        "viandes_proteines_animales": "Modérer (calculs uriques)",
+        "sucres_ajoutes": "< 25 g/j",
+        "sodas": "Surtout sodas cola (acide phosphorique)",
+        "vitamine_C_supplements": "Pas > 1 g/j (précurseur oxalates)"
+      },
+      "hydratation": "≥ 2.5 L/jour (diurèse ≥ 2 L/jour), répartis sur la journée et la nuit",
+      "exemple_journee_type": {
+        "petit_dejeuner": "Pain complet + beurre + miel + 1 yaourt + jus d'orange pressé + grand verre d'eau",
+        "dejeuner": "Salade verte + filet de poulet + quinoa + courgettes + 1 fromage + 1 fruit + eau citronnée",
+        "collation": "1 yaourt + 1 pomme + verre d'eau",
+        "diner": "Soupe + poisson blanc + pâtes + haricots verts + fromage blanc + eau"
+      },
+      "conseils_pratiques": [
+        "Boire RÉGULIÈREMENT, y compris la nuit",
+        "Diurèse > 2 L/jour (urines claires)",
+        "Ne pas restreindre le calcium alimentaire",
+        "Adapter le régime au type de calcul (analyse essentielle)",
+        "Activité physique régulière",
+        "Maintenir poids santé"
+      ],
+      "contre_indications": [
+        "Supplémentation calcique sans avis médical",
+        "Méga-doses de vitamine C",
+        "Régimes hyperprotéinés"
+      ],
+      "interactions_medicamenteuses": [
+        "Allopurinol + alcool : risque réduit d'efficacité",
+        "Citrate de potassium + IEC/ARA2 : risque hyperkaliémie"
+      ],
+      "suivi_recommande": [
+        "Bilan métabolique des lithiases (sang + urines des 24h)",
+        "Analyse spectrophotométrique du calcul",
+        "Échographie rénale",
+        "Suivi diurèse"
+      ],
+      "sources": [
+        "EAU Guidelines on Urolithiasis (2024)",
+        "AFU - Association Française d'Urologie",
+        "AUA - American Urological Association"
+      ]
+    },
+
+    {
+      "id": "MAL_010",
+      "nom": "Reflux gastro-œsophagien (RGO)",
+      "nom_en": "Gastroesophageal Reflux Disease",
+      "categorie": "CAT_DIGEST",
+      "code_cim10": "K21",
+      "description_courte": "Remontée du contenu gastrique acide dans l'œsophage, responsable de pyrosis et régurgitations.",
+      "objectifs_nutritionnels": [
+        "Réduire la fréquence et l'intensité des reflux",
+        "Améliorer la qualité de vie",
+        "Prévenir les complications (œsophagite, sténose, endobrachyœsophage)"
+      ],
+      "macronutriments": {
+        "glucides": "50-55% AET",
+        "lipides": "< 30% AET (ralentissent vidange gastrique)",
+        "proteines": "15-20% AET"
+      },
+      "micronutriments_cles": {
+        "vitamine_B12": "Carence possible sous IPP au long cours",
+        "magnesium": "Carence possible sous IPP",
+        "calcium": "Risque de malabsorption sous IPP"
+      },
+      "aliments_recommandes": {
+        "legumes_peu_acides": ["Brocoli", "Haricots verts", "Courgettes", "Carottes", "Concombre"],
+        "fruits_peu_acides": ["Banane", "Poire", "Pomme cuite", "Melon"],
+        "feculents": ["Riz", "Pain complet", "Avoine", "Pommes de terre vapeur"],
+        "proteines_maigres": ["Volaille sans peau", "Poisson blanc", "Œufs", "Tofu"],
+        "produits_laitiers": ["Yaourt nature 0%", "Lait écrémé", "Fromage blanc"]
+      },
+      "aliments_a_eviter": {
+        "acides": ["Tomate et sauce tomate", "Agrumes", "Vinaigre", "Sauces vinaigrées"],
+        "epices_irritants": ["Piment", "Poivre en excès", "Curry fort"],
+        "gras": ["Fritures", "Charcuterie", "Plats en sauce gras", "Pizza", "Beurre en excès"],
+        "stimulants_relaxation_sphincter": ["Café", "Thé noir fort", "Chocolat", "Menthe"],
+        "boissons_gazeuses": ["Sodas", "Eaux pétillantes", "Bière"]
+      },
+      "aliments_a_limiter": {
+        "alcool": "À éviter, surtout vins blancs et liqueurs",
+        "ail_oignon_crus": "Si mal tolérés",
+        "agrumes": "Selon tolérance individuelle"
+      },
+      "hydratation": "1.5 L/j, eau plate, en petites quantités au repas",
+      "exemple_journee_type": {
+        "petit_dejeuner": "Flocons d'avoine + lait écrémé + banane + thé léger (pas de café)",
+        "dejeuner": "Filet de poulet grillé + riz basmati + courgettes vapeur + 1 yaourt + 1 poire",
+        "collation": "1 biscotte + 1 yaourt nature",
+        "diner": "Velouté de carottes (sans crème) + poisson en papillote + purée + compote (3h avant coucher)"
+      },
+      "conseils_pratiques": [
+        "Ne pas se coucher dans les 3h après le repas",
+        "Surélever la tête du lit (15 cm)",
+        "Fractionner en petits repas",
+        "Manger lentement, mâcher",
+        "Perdre du poids si surpoids (très efficace)",
+        "Éviter vêtements serrés",
+        "Arrêt du tabac",
+        "Limiter le stress"
+      ],
+      "contre_indications": [
+        "Position allongée après repas",
+        "Repas copieux du soir"
+      ],
+      "interactions_medicamenteuses": [
+        "IPP + calcium/B12 : à surveiller au long cours",
+        "Antiacides + autres médicaments : espacer 2h"
+      ],
+      "suivi_recommande": [
+        "Endoscopie si symptômes prolongés ou signes d'alarme",
+        "Bilan B12, magnésium si IPP > 1 an"
+      ],
+      "sources": [
+        "ACG Clinical Guidelines: Management of GERD (2022)",
+        "HAS - Reflux gastro-œsophagien",
+        "European Society for Neurogastroenterology"
+      ]
+    },
+
+    {
+      "id": "MAL_011",
+      "nom": "Ulcère gastro-duodénal",
+      "nom_en": "Peptic Ulcer Disease",
+      "categorie": "CAT_DIGEST",
+      "code_cim10": "K25-K27",
+      "description_courte": "Perte de substance de la muqueuse gastrique ou duodénale, principalement liée à Helicobacter pylori ou aux AINS.",
+      "objectifs_nutritionnels": [
+        "Favoriser la cicatrisation",
+        "Réduire la sécrétion acide",
+        "Prévenir les récidives"
+      ],
+      "macronutriments": {
+        "glucides": "50-55% AET",
+        "lipides": "25-30% AET",
+        "proteines": "15-20% AET"
+      },
+      "micronutriments_cles": {
+        "vitamine_C": "Cicatrisation",
+        "zinc": "Cicatrisation",
+        "vitamine_A": "Muqueuse"
+      },
+      "aliments_recommandes": {
+        "proteines_maigres": ["Poisson blanc", "Volaille", "Œufs", "Tofu"],
+        "legumes_doux": ["Courgettes", "Carottes", "Haricots verts", "Brocolis cuits"],
+        "fruits_doux": ["Banane", "Pomme cuite", "Poire", "Melon"],
+        "feculents": ["Riz blanc", "Pâtes", "Pain de mie", "Pommes de terre"],
+        "produits_laitiers": ["Yaourt nature", "Lait demi-écrémé"]
+      },
+      "aliments_a_eviter": {
+        "irritants": ["Épices fortes", "Piment", "Moutarde forte"],
+        "acides": ["Agrumes (en phase aiguë)", "Tomate", "Vinaigre"],
+        "stimulants_acidite": ["Café", "Thé fort", "Chocolat", "Sodas"],
+        "gras_fritures": ["Fritures", "Charcuteries grasses"]
+      },
+      "aliments_a_limiter": {
+        "alcool": "Strictement à éviter en phase aiguë",
+        "tabac": "Arrêt obligatoire"
+      },
+      "hydratation": "1.5 L/jour d'eau plate",
+      "exemple_journee_type": {
+        "petit_dejeuner": "Pain blanc + beurre + miel + tisane camomille + 1 banane",
+        "dejeuner": "Poulet vapeur + riz + carottes cuites + 1 yaourt + 1 compote",
+        "collation": "1 yaourt + biscottes",
+        "diner": "Velouté de courgettes + poisson + purée + 1 fruit"
+      },
+      "conseils_pratiques": [
+        "Repas réguliers, fractionnés (5/jour)",
+        "Mastication lente",
+        "Pas de repas trop copieux",
+        "Pas de jeûne prolongé",
+        "Arrêt tabac IMPÉRATIF",
+        "Éviter AINS, aspirine",
+        "Gestion du stress"
+      ],
+      "contre_indications": [
+        "AINS (sauf prescription avec protection)",
+        "Aspirine non protégée",
+        "Alcool"
+      ],
+      "interactions_medicamenteuses": [
+        "IPP + calcium/B12/magnésium : surveillance",
+        "Antiacides + antibiotiques : espacer"
+      ],
+      "suivi_recommande": [
+        "Test H. pylori et éradication",
+        "Endoscopie de contrôle pour ulcère gastrique"
+      ],
+      "sources": [
+        "Maastricht VI Consensus on H. pylori (2022)",
+        "HAS - Ulcère gastro-duodénal",
+        "ACG Guidelines"
+      ]
+    },
+
+    {
+      "id": "MAL_012",
+      "nom": "Maladie de Crohn",
+      "nom_en": "Crohn's Disease",
+      "categorie": "CAT_AUTOIMM",
+      "code_cim10": "K50",
+      "description_courte": "Maladie inflammatoire chronique de l'intestin pouvant toucher tout le tube digestif, avec poussées et rémissions.",
+      "objectifs_nutritionnels": [
+        "Adapter à la phase (poussée vs rémission)",
+        "Prévenir la dénutrition et carences",
+        "Maintenir un état nutritionnel optimal",
+        "Croissance normale chez l'enfant"
+      ],
+      "macronutriments": {
+        "glucides": "50-55% AET",
+        "lipides": "30-35% AET",
+        "proteines": "1.2-1.5 g/kg/j (besoins augmentés)",
+        "energie": "30-35 kcal/kg/j, plus si dénutrition"
+      },
+      "micronutriments_cles": {
+        "fer": "Anémie ferriprive fréquente",
+        "vitamine_B12": "Carence si atteinte iléale ou résection",
+        "folates": "Carence sous méthotrexate, sulfasalazine",
+        "vitamine_D": "Carence quasi-constante",
+        "calcium": "1000-1200 mg/j (corticoïdes)",
+        "zinc": "Diarrhée, fistules",
+        "magnesium": "Pertes digestives"
+      },
+      "aliments_recommandes": {
+        "phase_remission": {
+          "proteines": ["Poisson", "Volaille", "Œufs", "Viande maigre", "Tofu"],
+          "feculents": ["Riz", "Pâtes", "Quinoa", "Pommes de terre"],
+          "fruits_legumes": ["Cuits, pelés, sans pépins ni peau au début, puis réintroduction progressive"],
+          "produits_laitiers": ["Yaourts (souvent bien tolérés)", "Fromages affinés", "Si intolérance lactose : sans lactose"]
+        },
+        "phase_poussee": {
+          "aliments_doux": ["Bouillons", "Riz blanc", "Carottes cuites", "Poulet", "Poisson blanc"],
+          "compotes": ["Pomme, poire, coing"]
+        }
+      },
+      "aliments_a_eviter": {
+        "phase_poussee": ["Fibres insolubles (légumes crus, peaux, pépins)", "Légumineuses", "Choux", "Lait si intolérance lactose", "Épices fortes", "Alcool", "Café"],
+        "general": ["Aliments ultra-transformés", "Émulsifiants (carraghénanes, polysorbate 80)", "Édulcorants intenses"]
+      },
+      "aliments_a_limiter": {
+        "fibres_insolubles": "En cas de sténose : régime sans résidus",
+        "alcool": "Très limité, parfois proscrit",
+        "graisses_trans": "À éviter"
+      },
+      "hydratation": "2 L/j (compenser pertes diarrhéiques) - solutés de réhydratation orale si diarrhée importante",
+      "exemple_journee_type_remission": {
+        "petit_dejeuner": "Pain blanc grillé + beurre + miel + 1 œuf + 1 yaourt + thé léger",
+        "dejeuner": "Filet de poulet + riz + carottes cuites + 1 banane",
+        "collation": "1 yaourt + biscottes",
+        "diner": "Soupe carottes-courgettes + poisson + purée + compote"
+      },
+      "conseils_pratiques": [
+        "Suivi diététique spécialisé essentiel",
+        "Tenir un journal alimentaire pour identifier les déclencheurs personnels",
+        "Repas fractionnés 5-6/jour si malabsorption",
+        "Nutrition entérale exclusive : option en pédiatrie pour induire la rémission",
+        "Activité physique adaptée",
+        "Arrêt tabac (aggrave Crohn)",
+        "Vaccinations à jour (immunosuppresseurs)"
+      ],
+      "contre_indications": [
+        "Régimes restrictifs sans encadrement (risque dénutrition)",
+        "Probiotiques sans avis médical si immunosuppression"
+      ],
+      "interactions_medicamenteuses": [
+        "Méthotrexate + alcool : risque hépatique",
+        "Azathioprine + allopurinol : majoration toxicité",
+        "Corticoïdes : limiter sel, surveiller calcium/vitamine D"
+      ],
+      "suivi_recommande": [
+        "Calprotectine fécale",
+        "CRP, NFS, ferritine, B12, folates, vit D",
+        "Albuminémie, préalbumine",
+        "Coloscopie selon protocole",
+        "Densité minérale osseuse"
+      ],
+      "sources": [
+        "ECCO Guidelines on Therapeutics in Crohn's Disease (2024)",
+        "ESPEN guideline: Clinical Nutrition in IBD (2023)",
+        "GETAID - Groupe d'étude thérapeutique des affections inflammatoires du tube digestif",
+        "HAS - Maladie de Crohn"
+      ]
+    },
+
+    {
+      "id": "MAL_013",
+      "nom": "Rectocolite hémorragique (RCH)",
+      "nom_en": "Ulcerative Colitis",
+      "categorie": "CAT_AUTOIMM",
+      "code_cim10": "K51",
+      "description_courte": "Maladie inflammatoire chronique limitée au côlon et au rectum, évoluant par poussées et rémissions.",
+      "objectifs_nutritionnels": [
+        "Maintenir l'état nutritionnel",
+        "Adapter au stade (poussée/rémission)",
+        "Compenser les pertes sanguines (fer)",
+        "Limiter l'inflammation"
+      ],
+      "macronutriments": {
+        "glucides": "50-55% AET",
+        "lipides": "30-35% AET (privilégier oméga-3)",
+        "proteines": "1.2-1.5 g/kg/j"
+      },
+      "micronutriments_cles": {
+        "fer": "Anémie ferriprive très fréquente",
+        "folates": "Carence sous sulfasalazine",
+        "vitamine_D": "Carence fréquente",
+        "calcium": "Si corticothérapie"
+      },
+      "aliments_recommandes": {
+        "remission": ["Alimentation normale équilibrée méditerranéenne", "Poissons gras (oméga-3)", "Fruits, légumes cuits puis crus progressivement", "Curcuma (anti-inflammatoire)"],
+        "poussee": ["Régime pauvre en résidus", "Riz blanc, pâtes", "Volaille, poisson blanc", "Carottes cuites", "Banane, compote"]
+      },
+      "aliments_a_eviter": {
+        "poussee": ["Fibres insolubles", "Légumes crus", "Légumineuses", "Lait si intolérance", "Sodas", "Alcool", "Épices fortes"]
+      },
+      "aliments_a_limiter": {
+        "viande_rouge": "Associée à risque de poussée",
+        "alcool": "À limiter",
+        "additifs": "Émulsifiants, édulcorants à éviter"
+      },
+      "hydratation": "2 L/j",
+      "exemple_journee_type_remission": {
+        "petit_dejeuner": "Pain complet + huile d'olive + 1 œuf + 1 fruit + thé",
+        "dejeuner": "Saumon + quinoa + courgettes + 1 yaourt",
+        "collation": "1 fruit + amandes",
+        "diner": "Soupe + poulet + riz complet + brocolis + 1 yaourt"
+      },
+      "conseils_pratiques": [
+        "Régime méditerranéen en rémission",
+        "Adapter à la phase",
+        "Suivi diététique",
+        "Activité physique"
+      ],
+      "contre_indications": [
+        "Régimes très restrictifs prolongés"
+      ],
+      "interactions_medicamenteuses": [
+        "Sulfasalazine + folates : supplémentation",
+        "Corticoïdes : sel, calcium, vit D"
+      ],
+      "suivi_recommande": [
+        "Calprotectine fécale, CRP",
+        "Bilan martial",
+        "Coloscopie",
+        "Vit D, B12, folates"
+      ],
+      "sources": [
+        "ECCO Guidelines on Ulcerative Colitis (2022)",
+        "ESPEN guideline IBD (2023)",
+        "GETAID"
+      ]
+    },
+
+    {
+      "id": "MAL_014",
+      "nom": "Maladie cœliaque",
+      "nom_en": "Celiac Disease",
+      "categorie": "CAT_AUTOIMM",
+      "code_cim10": "K90.0",
+      "description_courte": "Entéropathie auto-immune induite par le gluten chez sujets génétiquement prédisposés (HLA-DQ2/DQ8).",
+      "objectifs_nutritionnels": [
+        "Régime sans gluten STRICT à vie",
+        "Réparation de la muqueuse intestinale",
+        "Correction des carences",
+        "Prévention des complications (lymphome, ostéoporose)"
+      ],
+      "macronutriments": {
+        "glucides": "50-55% AET (sources sans gluten)",
+        "lipides": "30-35% AET",
+        "proteines": "15-20% AET",
+        "fibres": "Souvent insuffisantes en sans gluten - à surveiller"
+      },
+      "micronutriments_cles": {
+        "fer": "Carence quasi-systématique au diagnostic",
+        "vitamine_B12": "Souvent carencée",
+        "folates": "Carence fréquente",
+        "calcium": "1000-1200 mg/j",
+        "vitamine_D": "Carence quasi-systématique",
+        "zinc": "Malabsorption"
+      },
+      "aliments_recommandes": {
+        "cereales_sans_gluten": ["Riz", "Maïs", "Quinoa", "Sarrasin", "Millet", "Amarante", "Teff", "Sorgho"],
+        "feculents": ["Pommes de terre", "Patate douce", "Manioc", "Légumineuses"],
+        "proteines": ["Toutes viandes, poissons, œufs (non panés)", "Légumineuses", "Tofu"],
+        "produits_laitiers": ["Tous (sauf si intolérance lactose associée)"],
+        "fruits_legumes": ["Tous"],
+        "produits_sans_gluten": ["Logo épi barré certifié"]
+      },
+      "aliments_a_eviter": {
+        "cereales_avec_gluten": ["Blé (et toutes variétés : épeautre, kamut, engrain)", "Orge", "Seigle", "Triticale", "Avoine non certifiée sans gluten"],
+        "produits_derives": ["Pain", "Pâtes classiques", "Couscous, boulghour, semoule", "Bière", "Sauce soja classique"],
+        "contamination_croisee": ["Plats préparés non certifiés", "Friteuses partagées", "Planches/ustensiles communs"]
+      },
+      "aliments_a_limiter": {
+        "produits_ultra_transformes_sans_gluten": "Souvent gras et sucrés",
+        "alcool": "Bière à éviter, vin et spiritueux purs OK"
+      },
+      "hydratation": "1.5 L/j",
+      "exemple_journee_type": {
+        "petit_dejeuner": "Pain sans gluten + beurre + confiture + œuf + yaourt + fruits + thé/café",
+        "dejeuner": "Salade + filet de poisson + riz/quinoa + légumes + huile olive + fromage + fruit",
+        "collation": "Galette de riz + houmous + fruits secs",
+        "diner": "Soupe + poulet + pommes de terre + ratatouille + yaourt + compote"
+      },
+      "conseils_pratiques": [
+        "Régime sans gluten STRICT à vie (même petites quantités délétères)",
+        "Lire toutes les étiquettes (gluten parfois caché)",
+        "Éviter contamination croisée à la maison et au restaurant",
+        "Adhérer à AFDIAG (Association Française Des Intolérants Au Gluten)",
+        "Dépister les apparentés au 1er degré (10% de risque)",
+        "Vaccinations à jour (pneumocoque - hyposplénisme)",
+        "Activité physique régulière (ostéoporose)"
+      ],
+      "contre_indications": [
+        "Toute exposition au gluten",
+        "Avoine en début de régime (réintroduction prudente sous surveillance)"
+      ],
+      "interactions_medicamenteuses": [
+        "Vérifier excipients des médicaments (amidon de blé)",
+        "Lévothyroxine : absorption normalisée après régime"
+      ],
+      "suivi_recommande": [
+        "Anticorps anti-transglutaminase à 6-12 mois",
+        "Bilan martial, B12, folates, vit D, calcium",
+        "Densité minérale osseuse",
+        "Évaluation TSH (thyroïdite auto-immune associée)",
+        "Biopsie de contrôle si symptômes persistants"
+      ],
+      "sources": [
+        "ESPGHAN Guidelines on Celiac Disease (2022)",
+        "ACG Clinical Guidelines: Celiac Disease (2023)",
+        "HAS - Maladie cœliaque",
+        "AFDIAG"
+      ]
+    },
+
+    {
+      "id": "MAL_015",
+      "nom": "Syndrome de l'intestin irritable (SII)",
+      "nom_en": "Irritable Bowel Syndrome",
+      "categorie": "CAT_DIGEST",
+      "code_cim10": "K58",
+      "description_courte": "Trouble fonctionnel digestif chronique : douleurs abdominales associées à des troubles du transit (critères de Rome IV).",
+      "objectifs_nutritionnels": [
+        "Réduire les symptômes (douleurs, ballonnements, troubles transit)",
+        "Identifier les déclencheurs alimentaires",
+        "Améliorer la qualité de vie",
+        "Régime FODMAP en option"
+      ],
+      "macronutriments": {
+        "glucides": "50% AET",
+        "lipides": "30-35% AET",
+        "proteines": "15-20% AET",
+        "fibres": "25-30 g/j (privilégier solubles si diarrhée prédominante)"
+      },
+      "micronutriments_cles": {
+        "vitamine_D": "À doser",
+        "fer": "Si SII-D",
+        "calcium": "Si éviction lactose"
+      },
+      "aliments_recommandes": {
+        "phase_pauvre_FODMAP": {
+          "feculents": ["Riz", "Pommes de terre", "Quinoa", "Avoine", "Pain sans gluten"],
+          "proteines": ["Volaille, poisson, œufs, tofu ferme"],
+          "legumes_pauvres_FODMAP": ["Carottes", "Courgettes", "Épinards", "Tomates", "Aubergines", "Haricots verts"],
+          "fruits_pauvres_FODMAP": ["Banane (peu mûre)", "Fruits rouges", "Kiwi", "Orange", "Raisin"],
+          "produits_laitiers": ["Sans lactose", "Fromages affinés"],
+          "matieres_grasses": ["Huiles", "Beurre en quantité modérée"]
+        }
+      },
+      "aliments_a_eviter": {
+        "riches_FODMAP": {
+          "fructanes": ["Blé en grande quantité", "Oignon", "Ail", "Artichaut", "Asperge"],
+          "lactose": ["Lait", "Yaourts", "Fromages frais (selon tolérance)"],
+          "fructose_excessif": ["Pomme", "Poire", "Mangue", "Miel", "Sirop d'agave"],
+          "polyols": ["Édulcorants en -ol (sorbitol, mannitol, xylitol)", "Champignons", "Chou-fleur", "Avocat", "Pruneaux"],
+          "GOS": ["Légumineuses", "Pistaches", "Noix de cajou"]
+        },
+        "autres": ["Édulcorants", "Boissons gazeuses", "Café excessif", "Alcool fort", "Plats épicés"]
+      },
+      "aliments_a_limiter": {
+        "fibres_insolubles": "Si ballonnements",
+        "matières_grasses": "Si troubles transit",
+        "cafe_alcool": "Modérer"
+      },
+      "hydratation": "1.5-2 L/j d'eau plate",
+      "exemple_journee_type_pauvre_FODMAP": {
+        "petit_dejeuner": "Flocons d'avoine + lait sans lactose + fraises + thé",
+        "dejeuner": "Filet de poulet + riz + carottes + courgettes + huile olive + 1 kiwi",
+        "collation": "Yaourt sans lactose + amandes (10)",
+        "diner": "Saumon + pommes de terre + épinards + fromage affiné"
+      },
+      "conseils_pratiques": [
+        "Régime pauvre en FODMAP : 3 phases (élimination 4-6 sem, réintroduction, personnalisation)",
+        "Toujours sous suivi diététique spécialisé",
+        "Tenir un journal symptômes-aliments",
+        "Repas réguliers, mastication lente",
+        "Gestion du stress (TCC, hypnose médicale, sophrologie)",
+        "Activité physique régulière",
+        "Probiotiques : preuves limitées mais possibles"
+      ],
+      "contre_indications": [
+        "Régime FODMAP prolongé strict (dysbiose)",
+        "Auto-éviction multiple sans diagnostic"
+      ],
+      "interactions_medicamenteuses": [
+        "Spasmolytiques : pas d'interaction alimentaire majeure",
+        "Antidépresseurs tricycliques : effets digestifs"
+      ],
+      "suivi_recommande": [
+        "Calprotectine fécale (différentiel avec MICI)",
+        "Sérologie cœliaque",
+        "NFS, CRP, ferritine",
+        "Suivi diététique"
+      ],
+      "sources": [
+        "Critères de Rome IV (2016)",
+        "Monash University FODMAP Guidelines",
+        "ACG Clinical Guideline: Management of IBS (2021)",
+        "HAS - SII"
+      ]
+    },
+
+    {
+      "id": "MAL_016",
+      "nom": "Stéatose hépatique non alcoolique (NAFLD/NASH)",
+      "nom_en": "Non-Alcoholic Fatty Liver Disease",
+      "categorie": "CAT_DIGEST",
+      "code_cim10": "K76.0",
+      "description_courte": "Accumulation de graisse dans le foie non liée à l'alcool, pouvant évoluer vers stéatohépatite (NASH), fibrose, cirrhose.",
+      "objectifs_nutritionnels": [
+        "Perte de poids 7-10% (réduit stéatose et fibrose)",
+        "Régime méditerranéen",
+        "Contrôle métabolique (diabète, dyslipidémie)",
+        "Arrêt de l'alcool"
+      ],
+      "macronutriments": {
+        "glucides": "45-50% AET, IG bas, fructose limité",
+        "lipides": "30-35% AET, AGS < 7%, oméga-3 ++, AGMI",
+        "proteines": "1-1.2 g/kg/j",
+        "fibres": "≥ 30 g/j"
+      },
+      "micronutriments_cles": {
+        "vitamine_E": "800 UI/j (NASH sans diabète) - sur prescription",
+        "choline": "Méthyle donneur (œufs, soja)",
+        "vitamine_D": "Carence fréquente"
+      },
+      "aliments_recommandes": {
+        "regime_mediterraneen": ["Huile d'olive vierge extra", "Poissons gras 3x/sem", "Légumes 5+ portions/j", "Fruits avec modération (limiter fructose)", "Légumineuses", "Noix (30g/j)", "Café noir non sucré (effet protecteur prouvé)", "Thé vert"]
+      },
+      "aliments_a_eviter": {
+        "fructose_industriel": ["Sodas", "Jus de fruits industriels", "Sirop de glucose-fructose"],
+        "sucres_ajoutes": ["Pâtisseries", "Confiseries"],
+        "graisses_trans": ["Plats industriels"],
+        "alcool": "Strictement à éviter même petites quantités"
+      },
+      "aliments_a_limiter": {
+        "viande_rouge": "≤ 500g/sem",
+        "charcuterie": "Éviter",
+        "feculents_raffines": "Limiter"
+      },
+      "hydratation": "1.5-2 L/j, café 2-3 tasses noir (effet protecteur)",
+      "exemple_journee_type": {
+        "petit_dejeuner": "Pain complet + huile olive + tomate + 1 œuf + 1 fruit + café",
+        "dejeuner": "Saumon + quinoa + légumes méditerranéens + huile olive + 1 yaourt grec",
+        "collation": "Noix (30g) + thé vert",
+        "diner": "Soupe + tofu mariné + lentilles + brocolis + 1 fruit"
+      },
+      "conseils_pratiques": [
+        "Perte de poids progressive (0.5-1 kg/sem)",
+        "Activité physique : 150 min/sem aérobie + renforcement",
+        "Arrêt total alcool",
+        "Café noir non sucré : 2-3 tasses/j (protecteur)",
+        "Pas de fructose ajouté"
+      ],
+      "contre_indications": [
+        "Perte de poids trop rapide (aggrave stéatose)",
+        "Régimes hyperprotéinés stricts non encadrés"
+      ],
+      "interactions_medicamenteuses": [
+        "Vit E supraphysiologique : risque hémorragique avec AVK",
+        "Statines : généralement bien tolérées"
+      ],
+      "suivi_recommande": [
+        "ALAT, ASAT, GGT",
+        "Score FIB-4, NAFLD fibrosis score",
+        "Elastographie hépatique",
+        "Bilan métabolique"
+      ],
+      "sources": [
+        "EASL-EASD-EASO Clinical Practice Guidelines on NAFLD (2024)",
+        "AASLD Guidelines",
+        "HAS - Stéatose hépatique"
+      ]
+    },
+
+    {
+      "id": "MAL_017",
+      "nom": "Cirrhose hépatique",
+      "nom_en": "Liver Cirrhosis",
+      "categorie": "CAT_DIGEST",
+      "code_cim10": "K74",
+      "description_courte": "Fibrose hépatique extensive avec nodules de régénération, stade terminal de nombreuses hépatopathies chroniques.",
+      "objectifs_nutritionnels": [
+        "Prévenir la dénutrition (sarcopénie présente chez 60%)",
+        "Réduire le risque d'encéphalopathie",
+        "Adapter aux complications (ascite, varices)",
+        "Sevrage alcool absolu"
+      ],
+      "macronutriments": {
+        "glucides": "50-60% AET (collation tardive cruciale)",
+        "lipides": "30-35% AET",
+        "proteines": "1.2-1.5 g/kg/j (PAS de restriction, sauf encéphalopathie aiguë)",
+        "energie": "30-35 kcal/kg/j"
+      },
+      "micronutriments_cles": {
+        "sodium": "< 2 g/j si ascite",
+        "zinc": "Carence fréquente",
+        "vitamines_liposolubles": "A, D, E, K (malabsorption)",
+        "thiamine_B1": "Surtout si cause alcoolique",
+        "magnesium": "Carence fréquente"
+      },
+      "aliments_recommandes": {
+        "proteines_vegetales": ["Légumineuses (mieux tolérées que viande pour encéphalopathie)", "Tofu", "Quinoa"],
+        "proteines_animales": ["Poisson", "Volaille", "Œufs", "Produits laitiers"],
+        "feculents": ["Pain (sans sel si ascite)", "Pâtes", "Riz", "Pommes de terre"],
+        "legumes_fruits": ["Frais, variés"]
+      },
+      "aliments_a_eviter": {
+        "alcool": "INTERDIT ABSOLU",
+        "sel_si_ascite": ["Tous aliments salés", "Charcuterie", "Conserves", "Plats préparés"],
+        "crudités_si_immunodepression": ["Risque infectieux"]
+      },
+      "aliments_a_limiter": {
+        "abats": "Risque infectieux",
+        "champignons_sauvages": "Risque toxique amplifié"
+      },
+      "hydratation": "Restriction si ascite/hyponatrémie (1-1.5 L/j)",
+      "exemple_journee_type": {
+        "petit_dejeuner": "Pain sans sel + beurre doux + miel + 1 œuf + lait + 1 fruit",
+        "dejeuner": "Filet poulet + riz + courgettes + huile olive + yaourt + fruit",
+        "collation_apres_midi": "Fromage blanc + biscottes + fruit",
+        "diner": "Soupe sans sel + poisson + pâtes + légumes + compote",
+        "collation_tardive_22h": "ESSENTIELLE - lait + biscuits sans sel ou yaourt + pain - réduit catabolisme nocturne"
+      },
+      "conseils_pratiques": [
+        "Repas fractionnés : 4-6/jour",
+        "COLLATION TARDIVE OBLIGATOIRE (avant coucher) - cruciale pour éviter sarcopénie",
+        "Sevrage alcool absolu",
+        "Activité physique adaptée",
+        "Vaccinations (hépatite A, B, grippe, pneumocoque)",
+        "Éviter automédication (paracétamol max 2 g/j)"
+      ],
+      "contre_indications": [
+        "Alcool",
+        "AINS",
+        "Phytothérapie hépatotoxique",
+        "Aliments crus si immunodepression",
+        "Fer en supplémentation sans indication"
+      ],
+      "interactions_medicamenteuses": [
+        "Beaucoup de médicaments à adapter (métabolisme hépatique altéré)",
+        "Paracétamol : max 2 g/j",
+        "Diurétiques : surveillance ionogramme"
+      ],
+      "suivi_recommande": [
+        "Score Child-Pugh, MELD",
+        "Bilan hépatique, NFS, plaquettes, TP",
+        "Échographie + alpha-fœtoprotéine /6 mois (dépistage CHC)",
+        "FOGD pour varices œsophagiennes",
+        "Évaluation nutritionnelle (poids, MUAC, force préhension)"
+      ],
+      "sources": [
+        "EASL Clinical Practice Guidelines on Nutrition in Chronic Liver Disease (2019)",
+        "ESPEN guideline on clinical nutrition in liver disease (2019)",
+        "AASLD Guidelines",
+        "HAS - Cirrhose"
+      ]
+    },
+
+    {
+      "id": "MAL_018",
+      "nom": "Goutte / Hyperuricémie",
+      "nom_en": "Gout / Hyperuricemia",
+      "categorie": "CAT_METABO",
+      "code_cim10": "M10",
+      "description_courte": "Arthrite inflammatoire causée par dépôts de cristaux d'urate, secondaire à une hyperuricémie chronique.",
+      "objectifs_nutritionnels": [
+        "Réduire l'uricémie < 60 mg/L",
+        "Prévenir les crises",
+        "Réduire le poids si surpoids",
+        "Limiter les purines"
+      ],
+      "macronutriments": {
+        "glucides": "50-55% AET, peu de fructose",
+        "lipides": "30% AET",
+        "proteines": "Modérées (privilégier végétales et laitières)"
+      },
+      "micronutriments_cles": {
+        "vitamine_C": "500 mg/j (effet uricosurique modeste)"
+      },
+      "aliments_recommandes": {
+        "produits_laitiers_maigres": ["Lait écrémé", "Yaourt 0%", "Fromage blanc - effet uricosurique"],
+        "fruits_legumes": ["Tous (sauf exceptions)", "Cerises (effet anti-inflammatoire prouvé)"],
+        "cereales_completes": ["Avoine", "Quinoa", "Pain complet"],
+        "legumineuses": ["Lentilles, haricots (purines vegetales pas associées aux crises)"],
+        "boissons": ["Eau abondante", "Café (effet protecteur)", "Thé"]
+      },
+      "aliments_a_eviter": {
+        "tres_riches_purines": ["Abats (foie, rognon, ris)", "Gibier", "Anchois", "Sardines", "Harengs", "Maquereau", "Coquillages", "Crevettes"],
+        "alcool": ["Bière surtout (purines + alcool)", "Spiritueux"],
+        "fructose": ["Sodas sucrés", "Sirop de glucose-fructose", "Jus de fruits industriels"]
+      },
+      "aliments_a_limiter": {
+        "viandes": "Modérées (bœuf, porc, agneau)",
+        "fruits_de_mer": "Modérés",
+        "vin": "1 verre/j max",
+        "champignons_asperges_epinards": "Modérés (purines mais effet moindre)"
+      },
+      "hydratation": "≥ 2 L/j (eau, café, thé)",
+      "exemple_journee_type": {
+        "petit_dejeuner": "Flocons d'avoine + lait écrémé + cerises/myrtilles + café",
+        "dejeuner": "Salade + œufs + lentilles + tomates + huile olive + yaourt 0%",
+        "collation": "1 fruit + yaourt",
+        "diner": "Soupe + poulet (100g) + quinoa + légumes verts + fromage blanc + cerises"
+      },
+      "conseils_pratiques": [
+        "Perte de poids progressive si surpoids (rapide = crises)",
+        "Hydratation abondante",
+        "Activité physique modérée",
+        "Pas d'auto-arrêt du traitement (allopurinol, fébuxostat)",
+        "Cerises : 10-12/jour ou 1 verre jus de cerise"
+      ],
+      "contre_indications": [
+        "Jeûnes prolongés (élève uricémie)",
+        "Régimes hyperprotéinés"
+      ],
+      "interactions_medicamenteuses": [
+        "Allopurinol + azathioprine : majoration toxicité",
+        "Diurétiques thiazidiques : aggravent hyperuricémie",
+        "Aspirine faible dose : aggrave hyperuricémie"
+      ],
+      "suivi_recommande": [
+        "Uricémie tous les 3-6 mois (cible < 60 mg/L)",
+        "Bilan rénal",
+        "Glycémie, lipides (syndrome métabolique souvent associé)"
+      ],
+      "sources": [
+        "EULAR Recommendations for Management of Gout (2023)",
+        "ACR Guideline for the Management of Gout (2020)",
+        "HAS - Goutte"
+      ]
+    },
+
+    {
+      "id": "MAL_019",
+      "nom": "Ostéoporose",
+      "nom_en": "Osteoporosis",
+      "categorie": "CAT_OSTEO",
+      "code_cim10": "M81",
+      "description_courte": "Maladie squelettique caractérisée par une diminution de la résistance osseuse, augmentant le risque de fractures.",
+      "objectifs_nutritionnels": [
+        "Apports optimaux en calcium et vitamine D",
+        "Apports protéiques adéquats",
+        "Prévention des chutes",
+        "Maintien masse maigre"
+      ],
+      "macronutriments": {
+        "glucides": "50% AET",
+        "lipides": "30-35% AET",
+        "proteines": "1-1.2 g/kg/j (essentiel pour os et muscles)"
+      },
+      "micronutriments_cles": {
+        "calcium": "1000-1200 mg/j (1200 mg femme ménopausée, > 70 ans)",
+        "vitamine_D": "800-1000 UI/j (supplémentation souvent nécessaire)",
+        "vitamine_K2": "Carboxylation ostéocalcine",
+        "magnesium": "300-400 mg/j",
+        "phosphore": "Apport équilibré (pas d'excès)",
+        "proteines": "1-1.2 g/kg/j"
+      },
+      "aliments_recommandes": {
+        "produits_laitiers": ["Lait, yaourts, fromage - 3 portions/j", "Fromages affinés (Comté, Emmental) riches en calcium"],
+        "poissons_avec_aretes": ["Sardines en boîte", "Anchois", "Saumon en conserve"],
+        "legumes_verts_calcium": ["Chou kale", "Brocoli", "Cresson", "Roquette"],
+        "fruits_secs_oleagineux": ["Amandes", "Figues sèches", "Noix"],
+        "eaux_calciques": ["Hépar, Contrex, Talians (> 150 mg Ca/L)"],
+        "sources_vit_D": ["Poissons gras", "Œufs (jaune)", "Champignons exposés UV", "Soleil 15 min/j"]
+      },
+      "aliments_a_eviter": {
+        "alcool_excessif": "Toxicité osseuse",
+        "sodas_cola": "Acide phosphorique (effet débattu mais à limiter)",
+        "tabac": "Facteur de risque majeur"
+      },
+      "aliments_a_limiter": {
+        "sel": "< 6 g/j (favorise calciurie)",
+        "cafe": "Max 3 tasses/j (compense par lait)",
+        "proteines_animales_excessives": "Charge acide augmente calciurie"
+      },
+      "hydratation": "1.5 L/j, dont eau minérale calcique",
+      "exemple_journee_type": {
+        "petit_dejeuner": "Lait demi-écrémé + flocons d'avoine + amandes + figues + 1 fruit",
+        "dejeuner": "Salade chou kale + sardines + quinoa + huile olive + yaourt",
+        "collation": "Fromage blanc + amandes + 1 fruit",
+        "diner": "Soupe brocolis + œuf + lentilles + fromage (comté) + 1 fruit"
+      },
+      "conseils_pratiques": [
+        "Activité physique en charge (marche, course, danse)",
+        "Renforcement musculaire 2-3x/sem",
+        "Exercices d'équilibre (Tai-chi, yoga)",
+        "Arrêt tabac/alcool",
+        "Exposition solaire 15 min/j",
+        "Supplémentation vit D systématique > 65 ans",
+        "Prévention chutes (domicile sécurisé, vue, audition)"
+      ],
+      "contre_indications": [
+        "Excès de protéines animales sans calcium suffisant",
+        "Régimes restrictifs sans encadrement"
+      ],
+      "interactions_medicamenteuses": [
+        "Bisphosphonates oraux : à jeun, avec verre d'eau du robinet, attendre 30 min",
+        "Calcium + lévothyroxine : espacer 4h",
+        "Calcium + antibiotiques (fluoroquinolones, cyclines) : espacer 2h"
+      ],
+      "suivi_recommande": [
+        "Ostéodensitométrie /2-5 ans",
+        "Calcémie, phosphorémie",
+        "Vitamine D",
+        "PTH si calcémie anormale",
+        "FRAX score"
+      ],
+      "sources": [
+        "ESCEO/IOF Guidelines on Osteoporosis (2024)",
+        "HAS - Ostéoporose post-ménopausique",
+        "GRIO - Groupe de Recherche et d'Information sur les Ostéoporoses"
+      ]
+    },
+
+    {
+      "id": "MAL_020",
+      "nom": "Polyarthrite rhumatoïde",
+      "nom_en": "Rheumatoid Arthritis",
+      "categorie": "CAT_AUTOIMM",
+      "code_cim10": "M05-M06",
+      "description_courte": "Maladie auto-immune inflammatoire chronique touchant les articulations, avec atteinte systémique possible.",
+      "objectifs_nutritionnels": [
+        "Réduire l'inflammation",
+        "Prévenir comorbidités cardiovasculaires",
+        "Prévenir ostéoporose (corticoïdes)",
+        "Maintenir poids santé"
+      ],
+      "macronutriments": {
+        "glucides": "50% AET",
+        "lipides": "30-35% AET, oméga-3 ++",
+        "proteines": "1-1.2 g/kg/j"
+      },
+      "micronutriments_cles": {
+        "omega_3_EPA_DHA": "2-3 g/j (effet anti-inflammatoire)",
+        "vitamine_D": "Carence quasi-constante",
+        "calcium": "1200 mg/j (corticoïdes)",
+        "folates": "5 mg/sem si méthotrexate"
+      },
+      "aliments_recommandes": {
+        "regime_mediterraneen": ["Poissons gras 3x/sem", "Huile olive, colza", "Fruits, légumes 5+/j", "Légumineuses", "Noix", "Curcuma", "Gingembre", "Thé vert"]
+      },
+      "aliments_a_eviter": {
+        "pro_inflammatoires": ["Viandes rouges en excès", "Charcuterie", "Sucres ajoutés", "Plats ultra-transformés", "Graisses trans"]
+      },
+      "aliments_a_limiter": {
+        "alcool": "Surtout avec méthotrexate",
+        "sel": "Si corticothérapie"
+      },
+      "hydratation": "1.5-2 L/j",
+      "exemple_journee_type": {
+        "petit_dejeuner": "Pain complet + huile olive + œuf + tomate + thé vert",
+        "dejeuner": "Salade + saumon + quinoa + curcuma + huile olive + yaourt + fruits rouges",
+        "collation": "Noix + 1 fruit",
+        "diner": "Soupe + tofu + lentilles + légumes + gingembre + 1 fruit"
+      },
+      "conseils_pratiques": [
+        "Régime méditerranéen prouvé bénéfique",
+        "Activité physique adaptée (rhumatologue, kinésithérapeute)",
+        "Arrêt tabac (aggrave PR)",
+        "Vaccinations à jour",
+        "Repos lors des poussées"
+      ],
+      "contre_indications": [
+        "Compléments immunostimulants si biothérapie",
+        "Alcool si méthotrexate"
+      ],
+      "interactions_medicamenteuses": [
+        "Méthotrexate + alcool : hépatotoxicité",
+        "Méthotrexate : supplémentation folates obligatoire",
+        "Corticoïdes : sel, calcium, vit D"
+      ],
+      "suivi_recommande": [
+        "DAS28, CRP, VS",
+        "NFS, bilan hépatique (méthotrexate)",
+        "Bilan lipidique (risque CV)",
+        "Ostéodensitométrie",
+        "Vit D"
+      ],
+      "sources": [
+        "EULAR Recommendations for RA Management (2023)",
+        "ACR Guidelines",
+        "HAS - Polyarthrite rhumatoïde"
+      ]
+    },
+
+    {
+      "id": "MAL_021",
+      "nom": "Cancer (généralités oncologie nutritionnelle)",
+      "nom_en": "Cancer - General Oncology Nutrition",
+      "categorie": "CAT_CANCER",
+      "code_cim10": "C00-D48",
+      "description_courte": "Prise en charge nutritionnelle générale en oncologie : prévention de la dénutrition, adaptation aux traitements (chimio, radio, chirurgie).",
+      "objectifs_nutritionnels": [
+        "Prévenir et corriger la dénutrition (20-70% des patients)",
+        "Maintenir la masse musculaire",
+        "Améliorer la tolérance aux traitements",
+        "Maintenir la qualité de vie"
+      ],
+      "macronutriments": {
+        "glucides": "45-50% AET",
+        "lipides": "30-35% AET, oméga-3 (EPA 2g/j)",
+        "proteines": "1.2-1.5 g/kg/j (jusqu'à 2 g/kg si dénutrition)",
+        "energie": "25-30 kcal/kg/j (30-35 si dénutrition)"
+      },
+      "micronutriments_cles": {
+        "vitamine_D": "Carence fréquente",
+        "fer": "Anémie chimio-induite",
+        "albuminémie": "Marqueur nutritionnel"
+      },
+      "aliments_recommandes": {
+        "proteines_haute_qualite": ["Œufs", "Poissons", "Volailles", "Viandes maigres", "Légumineuses", "Produits laitiers"],
+        "aliments_caloriques_si_amaigrissement": ["Avocat", "Oléagineux", "Huiles", "Beurre", "Crème"],
+        "fruits_legumes": ["Variés selon tolérance"],
+        "complements_nutritionnels_oraux": ["Sur prescription si dénutrition"]
+      },
+      "aliments_a_eviter": {
+        "regimes_restrictifs_non_indiques": ["Pas de régimes alternatifs (Breuss, cétogène strict) sans encadrement"],
+        "alcool": "Cancérigène groupe 1 OMS",
+        "produits_crus_si_aplasie": ["Charcuterie crue", "Fromages au lait cru", "Œufs crus", "Sushis"]
+      },
+      "aliments_a_limiter": {
+        "viande_rouge": "≤ 500g/sem",
+        "charcuterie": "À éviter (cancérigène certain)",
+        "sucres_ajoutes": "Sans excès (pas de privation totale)"
+      },
+      "hydratation": "1.5-2 L/j, plus si vomissements/diarrhée",
+      "exemple_journee_type": {
+        "petit_dejeuner": "Pain + beurre + miel + œuf + lait + fruit",
+        "collation_matin": "Yaourt + biscuits + fruits secs",
+        "dejeuner": "Entrée + viande/poisson + féculents + légumes + fromage + dessert",
+        "collation_apres_midi": "Fromage blanc + amandes + fruit",
+        "diner": "Soupe + protéines + féculents + légumes + dessert",
+        "collation_soir": "Tisane + biscuits si tolérance"
+      },
+      "conseils_pratiques": [
+        "Fractionner les repas (5-6/j) si faible appétit",
+        "Enrichir les plats (huile, fromage râpé, lait en poudre, œuf)",
+        "Adapter aux effets secondaires (nausées, mucite, dysgueusie)",
+        "Mucite : aliments mous, tièdes, sans acidité",
+        "Nausées : aliments froids, neutres, petites portions",
+        "Dysgueusie : épices douces, herbes, marinades",
+        "Diarrhée chimio : régime pauvre en fibres, hydratation",
+        "Activité physique adaptée (Sport-santé en oncologie)",
+        "Suivi par diététicien spécialisé en oncologie"
+      ],
+      "contre_indications": [
+        "Régimes restrictifs (cétogène strict, jeûne) sauf indication précise",
+        "Aliments crus si aplasie",
+        "Pamplemousse (interactions chimiothérapie)",
+        "Millepertuis (interactions)"
+      ],
+      "interactions_medicamenteuses": [
+        "Pamplemousse + nombreuses chimios oraux : contre-indiqué",
+        "Millepertuis + chimios : à éviter",
+        "Vitamine C haute dose + radiothérapie/chimio : controversé"
+      ],
+      "suivi_recommande": [
+        "Poids hebdomadaire",
+        "NRI (Nutritional Risk Index)",
+        "Albumine, préalbumine",
+        "CRP, NFS",
+        "Évaluation diététique régulière"
+      ],
+      "sources": [
+        "ESPEN Practical Guideline: Clinical Nutrition in Cancer (2024)",
+        "WCRF - World Cancer Research Fund (2018)",
+        "INCa - Institut National du Cancer",
+        "SFNCM - Société Francophone Nutrition Clinique et Métabolisme"
+      ]
+    },
+
+    {
+      "id": "MAL_022",
+      "nom": "Cancer colorectal",
+      "nom_en": "Colorectal Cancer",
+      "categorie": "CAT_CANCER",
+      "code_cim10": "C18-C20",
+      "description_courte": "Cancer du côlon ou du rectum, fortement lié au mode de vie (alimentation, sédentarité, alcool, tabac).",
+      "objectifs_nutritionnels": [
+        "Prévention primaire et secondaire",
+        "Adaptation post-chirurgie / stomie",
+        "Prévention dénutrition durant traitements"
+      ],
+      "macronutriments": {
+        "glucides": "50% AET",
+        "lipides": "30-35% AET, oméga-3",
+        "proteines": "1.2-1.5 g/kg/j",
+        "fibres": "30 g/j (prévention) - à adapter post-chirurgie"
+      },
+      "micronutriments_cles": {
+        "vitamine_D": "Effet protecteur démontré",
+        "folates": "Apports alimentaires recommandés",
+        "calcium": "1000 mg/j (effet protecteur)"
+      },
+      "aliments_recommandes": {
+        "prevention": ["Fibres (légumes, fruits, céréales complètes, légumineuses)", "Aliments fermentés (yaourts, kéfir)", "Poissons (oméga-3)", "Ail, oignon", "Café (effet protecteur démontré)"],
+        "post_chirurgie": ["Selon recommandations chirurgicales, réintroduction progressive"]
+      },
+      "aliments_a_eviter": {
+        "cancerigenes_certains_OMS": ["Charcuteries (groupe 1)"],
+        "cancerigenes_probables": ["Viandes rouges en excès (groupe 2A)"],
+        "alcool": "Groupe 1 OMS",
+        "aliments_brules": "Acrylamides, HAP"
+      },
+      "aliments_a_limiter": {
+        "viande_rouge": "< 500g/semaine cuite",
+        "graisses_animales": "Modérer",
+        "sucres_raffines": "Limiter"
+      },
+      "hydratation": "1.5-2 L/j (plus si stomie)",
+      "exemple_journee_type_prevention": {
+        "petit_dejeuner": "Avoine + fruits rouges + yaourt + amandes + café",
+        "dejeuner": "Salade + poisson + quinoa + légumes + huile olive + 1 fruit",
+        "collation": "Yaourt + 1 fruit",
+        "diner": "Soupe + tofu + lentilles + brocolis + ail + 1 fruit"
+      },
+      "conseils_pratiques": [
+        "Régime méditerranéen riche en fibres en prévention",
+        "Activité physique 150 min/sem",
+        "Poids santé",
+        "Arrêt tabac et alcool",
+        "Dépistage organisé (test immunologique, coloscopie)",
+        "Post-chirurgie : adaptation progressive selon type de résection",
+        "Stomie : suivi stomathérapeute + diététicien"
+      ],
+      "contre_indications": [
+        "Fibres en grande quantité immédiatement post-chirurgie",
+        "Aliments à risque (graines, peaux) si stomie en début"
+      ],
+      "interactions_medicamenteuses": [
+        "Capécitabine + folates : peut majorer toxicité (à discuter)",
+        "Irinotécan + millepertuis : contre-indiqué"
+      ],
+      "suivi_recommande": [
+        "ACE (antigène carcino-embryonnaire)",
+        "Coloscopies de surveillance",
+        "Évaluation nutritionnelle",
+        "État des stomies"
+      ],
+      "sources": [
+        "ESMO Guidelines on Colorectal Cancer",
+        "WCRF/AICR - Diet, Nutrition, Physical Activity and Cancer (2018)",
+        "INCa - Cancer colorectal",
+        "OMS - Carcinogenicity of consumption of red and processed meat (2015)"
+      ]
+    },
+
+    {
+      "id": "MAL_023",
+      "nom": "Cancer du sein",
+      "nom_en": "Breast Cancer",
+      "categorie": "CAT_CANCER",
+      "code_cim10": "C50",
+      "description_courte": "Cancer le plus fréquent chez la femme. Nutrition rôle en prévention et durant traitement.",
+      "objectifs_nutritionnels": [
+        "Maintien poids santé (surpoids = facteur de risque récidive)",
+        "Activité physique régulière",
+        "Régime méditerranéen",
+        "Limitation alcool"
+      ],
+      "macronutriments": {
+        "glucides": "50% AET",
+        "lipides": "30-35% AET (privilégier oméga-3, MGV)",
+        "proteines": "1-1.2 g/kg/j"
+      },
+      "micronutriments_cles": {
+        "vitamine_D": "À supplémenter si carence",
+        "calcium": "1200 mg/j (anti-aromatases)",
+        "phytoestrogenes": "Soja en aliment OK, suppléments contre-indiqués si récepteurs hormonaux+"
+      },
+      "aliments_recommandes": {
+        "regime_mediterraneen": ["Légumes crucifères (brocoli, chou-fleur)", "Fruits rouges", "Poissons gras", "Huile olive", "Légumineuses", "Soja en aliment (tofu, lait soja) : OK même cancer hormono-dépendant"]
+      },
+      "aliments_a_eviter": {
+        "alcool": "Facteur de risque démontré dose-dépendant",
+        "tabac": "À arrêter",
+        "phytoestrogenes_supplements": "Si cancer hormono-dépendant"
+      },
+      "aliments_a_limiter": {
+        "viande_rouge": "≤ 500g/sem",
+        "charcuterie": "Éviter",
+        "sucres_ajoutes": "Limiter (surpoids)"
+      },
+      "hydratation": "1.5-2 L/j",
+      "exemple_journee_type": {
+        "petit_dejeuner": "Avoine + lait soja + fruits rouges + amandes + thé vert",
+        "dejeuner": "Salade brocoli + saumon + quinoa + huile olive + yaourt",
+        "collation": "Tofu fumé + crudités",
+        "diner": "Soupe + tofu + légumes + 1 fruit"
+      },
+      "conseils_pratiques": [
+        "Activité physique : 150 min/sem (diminue récidive de 25%)",
+        "Maintien poids santé +++",
+        "Régime méditerranéen",
+        "Suivi diététique en post-traitement",
+        "Soja en aliment OK (effet protecteur démontré, même cancer RH+)",
+        "Pas de supplément phytoestrogénique sans avis oncologue"
+      ],
+      "contre_indications": [
+        "Suppléments à base de phytoestrogènes (cancer RH+)",
+        "Pamplemousse + tamoxifène (interaction possible)",
+        "Millepertuis + tamoxifène/chimios"
+      ],
+      "interactions_medicamenteuses": [
+        "Tamoxifène + millepertuis : diminue efficacité",
+        "Anti-aromatases : surveillance calcium, vit D",
+        "Pamplemousse + nombreuses chimios"
+      ],
+      "suivi_recommande": [
+        "Suivi oncologique selon protocole",
+        "Densité osseuse (anti-aromatases)",
+        "Vitamine D",
+        "Poids"
+      ],
+      "sources": [
+        "ESMO Clinical Practice Guidelines: Breast Cancer",
+        "WCRF/AICR - Breast Cancer Report (2018)",
+        "INCa - Cancer du sein",
+        "Étude WHEL, WINS sur nutrition et cancer du sein"
+      ]
+    },
+
+    {
+      "id": "MAL_024",
+      "nom": "Sclérose en plaques",
+      "nom_en": "Multiple Sclerosis",
+      "categorie": "CAT_NEURO",
+      "code_cim10": "G35",
+      "description_courte": "Maladie auto-immune démyélinisante du système nerveux central.",
+      "objectifs_nutritionnels": [
+        "Réduire l'inflammation",
+        "Maintenir poids santé",
+        "Prévenir ostéoporose (corticothérapies)",
+        "Adapter à la fatigue et troubles digestifs"
+      ],
+      "macronutriments": {
+        "glucides": "50% AET",
+        "lipides": "30-35% AET, oméga-3 ++",
+        "proteines": "1 g/kg/j"
+      },
+      "micronutriments_cles": {
+        "vitamine_D": "Très importante (3000-4000 UI/j sur prescription)",
+        "vitamine_B12": "Carence à corriger absolument",
+        "omega_3": "EPA+DHA 2g/j"
+      },
+      "aliments_recommandes": {
+        "regime_mediterraneen": ["Poissons gras 3x/sem", "Huile olive", "Légumes feuillus", "Fruits rouges", "Curcuma", "Légumineuses"]
+      },
+      "aliments_a_eviter": {
+        "pro_inflammatoires": ["Aliments ultra-transformés", "Graisses saturées en excès", "Sucres ajoutés"],
+        "sel_excessif": "Hypothèse aggravation"
+      },
+      "aliments_a_limiter": {
+        "viande_rouge": "Modérer",
+        "alcool": "Limiter"
+      },
+      "hydratation": "1.5-2 L/j",
+      "exemple_journee_type": {
+        "petit_dejeuner": "Pain complet + œuf + tomate + huile olive + 1 fruit",
+        "dejeuner": "Saumon + quinoa + légumes + curcuma + yaourt",
+        "collation": "Fruits rouges + amandes",
+        "diner": "Soupe + lentilles + brocolis + 1 fruit"
+      },
+      "conseils_pratiques": [
+        "Régime méditerranéen",
+        "Activité physique adaptée",
+        "Supplémentation vitamine D systématique",
+        "Arrêt tabac",
+        "Gestion fatigue",
+        "Rééducation"
+      ],
+      "contre_indications": [
+        "Régimes alternatifs sans preuve (régime Swank, Wahls : prudence)",
+        "Compléments immunostimulants"
+      ],
+      "interactions_medicamenteuses": [
+        "Corticoïdes : sel, calcium, vit D",
+        "Tériflunomide + alcool : hépatotoxicité"
+      ],
+      "suivi_recommande": [
+        "IRM",
+        "Vit D, B12",
+        "Bilan hépatique sous traitement",
+        "Densité osseuse"
+      ],
+      "sources": [
+        "ECTRIMS/EAN Guidelines on MS Treatment",
+        "AAN Guidelines",
+        "HAS - Sclérose en plaques"
+      ]
+    },
+
+    {
+      "id": "MAL_025",
+      "nom": "Maladie d'Alzheimer",
+      "nom_en": "Alzheimer's Disease",
+      "categorie": "CAT_NEURO",
+      "code_cim10": "G30",
+      "description_courte": "Maladie neurodégénérative caractérisée par déclin cognitif progressif.",
+      "objectifs_nutritionnels": [
+        "Prévention par régime MIND/méditerranéen",
+        "Prévenir la dénutrition (fréquente)",
+        "Maintenir l'autonomie alimentaire",
+        "Adapter aux troubles de la déglutition"
+      ],
+      "macronutriments": {
+        "glucides": "50% AET",
+        "lipides": "30-35% AET, oméga-3 ++",
+        "proteines": "1.2-1.5 g/kg/j (sarcopénie)"
+      },
+      "micronutriments_cles": {
+        "vitamine_B12": "Carence aggrave troubles cognitifs",
+        "folates": "Carence aggrave troubles cognitifs",
+        "vitamine_D": "Carence fréquente",
+        "omega_3_DHA": "Important pour cerveau"
+      },
+      "aliments_recommandes": {
+        "regime_MIND": ["Légumes verts feuillus (chou, épinards)", "Autres légumes", "Fruits rouges (myrtilles ++)", "Noix", "Légumineuses", "Céréales complètes", "Poissons", "Volaille", "Huile olive", "Vin (1 verre/j optionnel)"]
+      },
+      "aliments_a_eviter": {
+        "regime_MIND_eviter": ["Viandes rouges", "Beurre, margarines", "Fromages > 30% MG", "Pâtisseries, sucreries", "Fritures", "Plats préparés"]
+      },
+      "aliments_a_limiter": {
+        "viande_rouge": "< 4 portions/sem",
+        "sel": "< 6 g/j",
+        "alcool": "Modéré"
+      },
+      "hydratation": "1.5 L/j (souvent insuffisante chez sujets âgés)",
+      "exemple_journee_type": {
+        "petit_dejeuner": "Avoine + myrtilles + amandes + lait + œuf",
+        "dejeuner": "Salade épinards + saumon + quinoa + huile olive + fruit",
+        "collation": "Noix + yaourt",
+        "diner": "Soupe + poulet + légumineuses + brocolis + fruit"
+      },
+      "conseils_pratiques": [
+        "Régime MIND : prouvé réduire risque Alzheimer de 53%",
+        "Stimulation cognitive et sociale",
+        "Activité physique régulière",
+        "Sommeil de qualité",
+        "Stade avancé : aide aux repas, texture modifiée si dysphagie",
+        "Prévention dénutrition (poids hebdomadaire)"
+      ],
+      "contre_indications": [
+        "Anticholinergiques aggravent les troubles",
+        "Alcool en excès"
+      ],
+      "interactions_medicamenteuses": [
+        "Inhibiteurs cholinestérase : troubles digestifs, prendre au cours du repas"
+      ],
+      "suivi_recommande": [
+        "Évaluation cognitive (MMSE)",
+        "Poids, MNA",
+        "Vit B12, folates, vit D",
+        "TSH"
+      ],
+      "sources": [
+        "MIND Diet - Rush University",
+        "EAN Guidelines on Dementia",
+        "HAS - Maladie d'Alzheimer",
+        "Étude FINGER"
+      ]
+    },
+
+    {
+      "id": "MAL_026",
+      "nom": "Hypothyroïdie",
+      "nom_en": "Hypothyroidism",
+      "categorie": "CAT_METABO",
+      "code_cim10": "E03",
+      "description_courte": "Diminution de la sécrétion d'hormones thyroïdiennes, le plus souvent par thyroïdite auto-immune (Hashimoto).",
+      "objectifs_nutritionnels": [
+        "Apports adéquats en iode, sélénium, zinc",
+        "Maintenir poids santé",
+        "Adapter à la fatigue, constipation",
+        "Optimiser absorption lévothyroxine"
+      ],
+      "macronutriments": {
+        "glucides": "50% AET",
+        "lipides": "30% AET",
+        "proteines": "1 g/kg/j",
+        "fibres": "25-30 g/j (constipation)"
+      },
+      "micronutriments_cles": {
+        "iode": "150 μg/j (250 grossesse)",
+        "selenium": "55-70 μg/j (anti-inflammatoire thyroïdien)",
+        "zinc": "11 mg H, 8 mg F",
+        "fer": "Carence aggrave hypothyroïdie",
+        "vitamine_D": "Carence fréquente"
+      },
+      "aliments_recommandes": {
+        "iode": ["Poissons de mer", "Fruits de mer", "Algues (modérément)", "Sel iodé", "Œufs", "Produits laitiers"],
+        "selenium": ["Noix du Brésil (2-3/jour)", "Poissons", "Œufs", "Champignons"],
+        "fibres": ["Fruits, légumes, céréales complètes"],
+        "anti_inflammatoire": ["Régime méditerranéen"]
+      },
+      "aliments_a_eviter": {
+        "interferent_levothyroxine_au_petit_dejeuner": ["Café fort", "Soja", "Calcium, fer en supplément"]
+      },
+      "aliments_a_limiter": {
+        "goitrigenes_si_crus_excessifs": ["Choux", "Brocoli", "Manioc", "Soja - effet modéré, surtout si carence iode"],
+        "ultra_transformes": "Sel non iodé"
+      },
+      "hydratation": "1.5 L/j",
+      "exemple_journee_type": {
+        "petit_dejeuner": "Levothyroxine à JEUN, attendre 30-60 min puis : pain complet + œuf + 1 fruit + thé (sans soja)",
+        "dejeuner": "Salade + poisson + quinoa + brocolis cuits + 2 noix du Brésil",
+        "collation": "Yaourt + fruits",
+        "diner": "Soupe + œuf + lentilles + légumes + fromage"
+      },
+      "conseils_pratiques": [
+        "Lévothyroxine à jeun, 30-60 min avant petit-déjeuner",
+        "Espacer 4h du calcium, fer, soja, café fort",
+        "Activité physique régulière",
+        "Suivi TSH",
+        "Sel iodé en cuisine"
+      ],
+      "contre_indications": [
+        "Régime sans iode (sauf préparation iode radioactif)",
+        "Excès de soja chez sujets à risque"
+      ],
+      "interactions_medicamenteuses": [
+        "Lévothyroxine + calcium, fer, soja, café : diminue absorption",
+        "Lévothyroxine + IPP : diminue absorption"
+      ],
+      "suivi_recommande": [
+        "TSH, T4L à 6-8 semaines puis tous les 6-12 mois",
+        "Anti-TPO si Hashimoto",
+        "Vit D, B12, fer"
+      ],
+      "sources": [
+        "ATA Guidelines for Hypothyroidism (2014, mise à jour)",
+        "ETA Guidelines",
+        "HAS - Hypothyroïdie de l'adulte"
+      ]
+    },
+
+    {
+      "id": "MAL_027",
+      "nom": "Hyperthyroïdie",
+      "nom_en": "Hyperthyroidism",
+      "categorie": "CAT_METABO",
+      "code_cim10": "E05",
+      "description_courte": "Excès d'hormones thyroïdiennes (souvent maladie de Basedow).",
+      "objectifs_nutritionnels": [
+        "Maintenir poids et masse musculaire",
+        "Apports énergétiques augmentés (hypermétabolisme)",
+        "Limiter l'iode si Basedow non traité",
+        "Apports calciques pour os"
+      ],
+      "macronutriments": {
+        "glucides": "50% AET",
+        "lipides": "30-35% AET",
+        "proteines": "1.2-1.5 g/kg/j (catabolisme augmenté)",
+        "energie": "Augmenter de 10-20% pendant phase active"
+      },
+      "micronutriments_cles": {
+        "calcium": "1200 mg/j (résorption osseuse)",
+        "vitamine_D": "À supplémenter",
+        "vitamine_B12": "Souvent carencée"
+      },
+      "aliments_recommandes": {
+        "calcium": ["Produits laitiers", "Eaux calciques", "Légumes verts feuillus"],
+        "antioxydants": ["Fruits, légumes colorés"],
+        "fibres": ["Si transit accéléré, modérer"]
+      },
+      "aliments_a_eviter": {
+        "excitants": ["Café fort", "Thé fort", "Boissons énergisantes", "Alcool"],
+        "iode_si_basedow_non_traite": ["Algues", "Excès de poissons de mer", "Sel iodé en excès"]
+      },
+      "aliments_a_limiter": {
+        "epices": "Si transit accéléré"
+      },
+      "hydratation": "2 L/j (pertes augmentées)",
+      "exemple_journee_type": {
+        "petit_dejeuner": "Pain complet + beurre + œuf + lait + fruit + tisane",
+        "dejeuner": "Salade + viande/poisson + féculents + légumes + fromage + dessert",
+        "collation": "Yaourt + fruits + amandes",
+        "diner": "Soupe + protéines + féculents + légumes + dessert"
+      },
+      "conseils_pratiques": [
+        "Repas enrichis si amaigrissement",
+        "Éviter excitants",
+        "Surveiller poids",
+        "Activité physique modérée pendant phase active",
+        "Repos suffisant"
+      ],
+      "contre_indications": [
+        "Iode radioactif : régime pauvre iode avant",
+        "Excès iode en phase active"
+      ],
+      "interactions_medicamenteuses": [
+        "Antithyroïdiens : pas d'interactions alimentaires majeures"
+      ],
+      "suivi_recommande": [
+        "TSH, T4L, T3L",
+        "Anti-récepteurs TSH",
+        "Poids",
+        "Densité osseuse si prolongée"
+      ],
+      "sources": [
+        "ATA Guidelines for Hyperthyroidism (2024)",
+        "ETA Guidelines",
+        "HAS - Hyperthyroïdie"
+      ]
+    },
+
+    {
+      "id": "MAL_028",
+      "nom": "Anémie ferriprive",
+      "nom_en": "Iron Deficiency Anemia",
+      "categorie": "CAT_CARENCE",
+      "code_cim10": "D50",
+      "description_courte": "Anémie par carence en fer, la plus fréquente des anémies.",
+      "objectifs_nutritionnels": [
+        "Corriger la carence en fer",
+        "Recharger les stocks (ferritine)",
+        "Identifier la cause"
+      ],
+      "macronutriments": {
+        "glucides": "50% AET",
+        "lipides": "30-35% AET",
+        "proteines": "1-1.2 g/kg/j"
+      },
+      "micronutriments_cles": {
+        "fer_heminique": "Hautement biodisponible (viandes, poissons)",
+        "fer_non_heminique": "Moins absorbé (légumineuses, légumes verts) - améliorer par vit C",
+        "vitamine_C": "Augmente absorption fer (+ 3x)",
+        "vitamine_B12": "Souvent associée",
+        "folates": "Souvent associés"
+      },
+      "aliments_recommandes": {
+        "fer_heminique_haute_absorption": ["Boudin noir (15 mg/100g)", "Foie (8 mg)", "Viande rouge (3 mg)", "Poisson (1-2 mg)", "Volaille (1 mg)"],
+        "fer_non_heminique": ["Lentilles", "Haricots blancs", "Pois chiches", "Tofu", "Épinards", "Quinoa", "Graines de courge", "Spiruline"],
+        "vitamine_C_associer": ["Agrumes", "Kiwi", "Poivron", "Fraises", "Brocoli - à consommer en même temps"]
+      },
+      "aliments_a_eviter": {
+        "diminuent_absorption_fer_en_meme_temps": ["Thé (tanins)", "Café (polyphénols)", "Calcium en supplément", "Lait en grande quantité"]
+      },
+      "aliments_a_limiter": {
+        "the_cafe_au_repas": "Espacer de 1-2h des repas",
+        "son_de_ble": "Phytates inhibent absorption"
+      },
+      "hydratation": "1.5 L/j",
+      "exemple_journee_type": {
+        "petit_dejeuner": "Pain complet + œuf + jus d'orange (vit C) + 1 kiwi",
+        "dejeuner": "Steak haché + lentilles + poivron rouge + persil + 1 fruit (vit C)",
+        "collation": "Fruits secs (abricots) + amandes",
+        "diner": "Soupe + boudin noir occasionnel ou tofu + quinoa + brocolis + 1 fruit"
+      },
+      "conseils_pratiques": [
+        "Associer fer + vitamine C au même repas",
+        "Espacer thé/café des repas (1-2h)",
+        "Espacer calcium et fer (2h)",
+        "Identifier cause (règles abondantes, perte digestive, carence d'apport)",
+        "Suivi diététique si végétarisme/végétalisme",
+        "Fer oral : à jeun (mais effets digestifs), ou avec jus orange"
+      ],
+      "contre_indications": [
+        "Supplémentation sans bilan complet",
+        "Fer + lait/café/thé simultanés"
+      ],
+      "interactions_medicamenteuses": [
+        "Fer oral + IPP : diminue absorption",
+        "Fer oral + hormones thyroïdiennes : espacer 4h",
+        "Fer oral + cyclines/fluoroquinolones : espacer 2h"
+      ],
+      "suivi_recommande": [
+        "NFS",
+        "Ferritine, CST",
+        "CRP (ferritine faussement élevée si inflammation)",
+        "Recherche cause (digestif, gynéco)"
+      ],
+      "sources": [
+        "OMS - Anaemia prevention",
+        "HAS - Carence en fer chez l'adulte",
+        "BSH British Society of Haematology Guidelines"
+      ]
+    },
+
+    {
+      "id": "MAL_029",
+      "nom": "Carence en vitamine B12",
+      "nom_en": "Vitamin B12 Deficiency",
+      "categorie": "CAT_CARENCE",
+      "code_cim10": "E53.8 / D51",
+      "description_courte": "Carence vitaminique pouvant entraîner anémie macrocytaire et troubles neurologiques.",
+      "objectifs_nutritionnels": [
+        "Corriger la carence",
+        "Identifier la cause (Biermer, gastrectomie, végétalisme, IPP, metformine)",
+        "Prévenir récidive"
+      ],
+      "macronutriments": {
+        "glucides": "50% AET",
+        "lipides": "30-35% AET",
+        "proteines": "1 g/kg/j"
+      },
+      "micronutriments_cles": {
+        "vitamine_B12": "4 μg/j adulte, 4.5 μg/j femme enceinte"
+      },
+      "aliments_recommandes": {
+        "sources_animales": ["Foie (60 μg/100g)", "Coquillages (palourdes, huîtres)", "Poissons gras", "Œufs", "Produits laitiers", "Viande"],
+        "vegetaliens": ["Aliments enrichis (laits végétaux, levures alimentaires enrichies)", "Supplémentation orale OBLIGATOIRE"]
+      },
+      "aliments_a_eviter": {
+        "rien_de_specifique": ["Mais surveiller les médicaments qui diminuent l'absorption"]
+      },
+      "aliments_a_limiter": {},
+      "hydratation": "1.5 L/j",
+      "exemple_journee_type": {
+        "petit_dejeuner": "Œuf + lait + pain complet + fruit",
+        "dejeuner": "Salade + viande/poisson + féculents + légumes + yaourt",
+        "collation": "Yaourt + fruit",
+        "diner": "Soupe + protéines (poisson, œuf) + féculents + légumes + fromage"
+      },
+      "conseils_pratiques": [
+        "Si végétalien : supplémentation B12 OBLIGATOIRE à vie",
+        "Vérifier la cause de la carence",
+        "Maladie de Biermer : injections B12 à vie",
+        "Carence simple : B12 orale efficace",
+        "Surveillance sous IPP/metformine"
+      ],
+      "contre_indications": [],
+      "interactions_medicamenteuses": [
+        "Metformine : diminue absorption B12 (surveillance)",
+        "IPP au long cours : diminue absorption",
+        "Antiépileptiques : possible interférence"
+      ],
+      "suivi_recommande": [
+        "NFS, B12 sérique",
+        "Holotranscobalamine (plus sensible)",
+        "Acide méthylmalonique, homocystéine",
+        "Anticorps anti-FI, anti-cellules pariétales (Biermer)"
+      ],
+      "sources": [
+        "BSH British Society of Haematology Guidelines (2024)",
+        "HAS - Carence en vitamine B12",
+        "ANSES - Apports nutritionnels"
+      ]
+    },
+
+    {
+      "id": "MAL_030",
+      "nom": "Carence en vitamine D",
+      "nom_en": "Vitamin D Deficiency",
+      "categorie": "CAT_CARENCE",
+      "code_cim10": "E55",
+      "description_courte": "Carence très fréquente (jusqu'à 80% population), impact osseux, musculaire, immunitaire.",
+      "objectifs_nutritionnels": [
+        "Atteindre 25-OH-D > 30 ng/mL (75 nmol/L)",
+        "Supplémentation souvent nécessaire",
+        "Apports alimentaires + exposition solaire"
+      ],
+      "macronutriments": {},
+      "micronutriments_cles": {
+        "vitamine_D": "ANSES : 15 μg/j (600 UI), souvent recommandé 800-2000 UI/j",
+        "calcium": "Apport adéquat associé"
+      },
+      "aliments_recommandes": {
+        "sources_alimentaires": ["Poissons gras : saumon, sardine, maquereau, hareng, thon", "Huile de foie de morue", "Jaune d'œuf", "Produits laitiers enrichis", "Champignons exposés UV", "Foie de veau"]
+      },
+      "aliments_a_eviter": {},
+      "aliments_a_limiter": {},
+      "hydratation": "Normale",
+      "exemple_journee_type": {
+        "petit_dejeuner": "Œuf + pain + lait enrichi + 1 fruit",
+        "dejeuner": "Saumon + légumes + 1 yaourt",
+        "collation": "Fromage + biscottes",
+        "diner": "Soupe + sardines en boîte + féculents + 1 fruit"
+      },
+      "conseils_pratiques": [
+        "Exposition solaire 15-30 min/j (bras + visage, sans écran)",
+        "Poissons gras 2-3x/semaine",
+        "Supplémentation systématique en hiver pour population à risque",
+        "Doses adaptées au taux sanguin et au stade",
+        "Vit D3 préférée à vit D2"
+      ],
+      "contre_indications": [
+        "Hypercalcémie",
+        "Lithiase calcique active"
+      ],
+      "interactions_medicamenteuses": [
+        "Vit D + diurétiques thiazidiques : risque hypercalcémie",
+        "Cholestyramine, orlistat : diminuent absorption vit D"
+      ],
+      "suivi_recommande": [
+        "25-OH-vitamine D",
+        "Calcémie",
+        "PTH si carence sévère"
+      ],
+      "sources": [
+        "ANSES - Vitamine D",
+        "Société Française d'Endocrinologie",
+        "Endocrine Society Guidelines"
+      ]
+    },
+
+    {
+      "id": "MAL_031",
+      "nom": "Dénutrition / Malnutrition",
+      "nom_en": "Malnutrition / Undernutrition",
+      "categorie": "CAT_CARENCE",
+      "code_cim10": "E40-E46",
+      "description_courte": "État résultant d'un apport insuffisant ou d'un déséquilibre en nutriments, fréquent en gériatrie, oncologie, MICI.",
+      "objectifs_nutritionnels": [
+        "Restaurer apports énergétiques et protéiques",
+        "Reprendre du poids progressivement",
+        "Préserver/restaurer masse musculaire",
+        "Corriger carences associées"
+      ],
+      "macronutriments": {
+        "glucides": "50-55% AET",
+        "lipides": "30-35% AET",
+        "proteines": "1.2-1.5 g/kg/j (1.5-2 g/kg si dénutrition sévère)",
+        "energie": "30-35 kcal/kg/j (40 kcal si renutrition)"
+      },
+      "micronutriments_cles": {
+        "vitamines": "Souvent multi-carences",
+        "oligoelements": "Zinc, sélénium, fer",
+        "thiamine_B1": "Avant renutrition (risque syndrome de renutrition)"
+      },
+      "aliments_recommandes": {
+        "enrichissement": ["Lait en poudre dans préparations", "Crème, beurre, huile en supplément", "Fromage râpé", "Œuf dans purées, soupes"],
+        "proteines": ["Tous types", "Compléments oraux protéinés"],
+        "feculents": ["Bien représentés"],
+        "compléments_nutritionnels_oraux": ["Sur prescription"]
+      },
+      "aliments_a_eviter": {
+        "regimes_restrictifs": ["Pas de privation"],
+        "boissons_sucrees_seules": ["Volume sans densité nutritionnelle"]
+      },
+      "aliments_a_limiter": {
+        "satiation_avant_repas": ["Boissons avant repas"]
+      },
+      "hydratation": "1.5 L/j, en dehors des repas",
+      "exemple_journee_type": {
+        "petit_dejeuner": "Pain + beurre + miel + œuf + lait entier + fromage + fruit",
+        "collation_matin": "Yaourt entier + biscuits + fruits secs",
+        "dejeuner": "Entrée enrichie + viande/poisson + féculents avec beurre/huile + légumes au fromage + dessert lacté + pain",
+        "collation_apres_midi": "Fromage blanc + compote + amandes + biscuits",
+        "diner": "Soupe enrichie (crème, fromage, œuf) + protéines + féculents + légumes + dessert",
+        "collation_soir": "Boisson lactée chaude + biscuit"
+      },
+      "conseils_pratiques": [
+        "Fractionner 5-6 repas/j",
+        "Enrichir les plats (jamais boire avant manger)",
+        "Compléments nutritionnels oraux entre les repas",
+        "Texture adaptée (mixée, hachée si dysphagie)",
+        "Convivialité des repas",
+        "Activité physique adaptée pour reconstituer muscle",
+        "Suivi diététicien spécialisé",
+        "Syndrome de renutrition : danger initial, supplémentation B1 préventive"
+      ],
+      "contre_indications": [
+        "Renutrition trop rapide = syndrome de renutrition (hypophosphorémie, mortel)",
+        "Régimes restrictifs"
+      ],
+      "interactions_medicamenteuses": [
+        "Adapter posologie aux poids",
+        "Surveiller phosphorémie en renutrition"
+      ],
+      "suivi_recommande": [
+        "Poids hebdomadaire, IMC",
+        "Albumine, préalbumine, transferrine",
+        "NFS, ionogramme, phosphore (renutrition)",
+        "CRP",
+        "MNA (sujet âgé)",
+        "Force préhension (dynamomètre)"
+      ],
+      "sources": [
+        "ESPEN Guidelines on Malnutrition (2022)",
+        "HAS - Dénutrition adulte et personne âgée (2021)",
+        "GLIM Criteria for Malnutrition (2019)",
+        "SFNCM"
+      ]
+    },
+
+    {
+      "id": "MAL_032",
+      "nom": "Bronchopneumopathie chronique obstructive (BPCO)",
+      "nom_en": "Chronic Obstructive Pulmonary Disease",
+      "categorie": "CAT_RESPIR",
+      "code_cim10": "J44",
+      "description_courte": "Obstruction chronique des voies aériennes, principalement liée au tabac.",
+      "objectifs_nutritionnels": [
+        "Prévenir/traiter la dénutrition (30-60% des patients sévères)",
+        "Maintenir masse musculaire",
+        "Réduire le travail respiratoire (rôle des glucides)",
+        "Adapter à la dyspnée pendant les repas"
+      ],
+      "macronutriments": {
+        "glucides": "45-50% AET (excès = production CO2)",
+        "lipides": "35-40% AET",
+        "proteines": "1.2-1.5 g/kg/j",
+        "energie": "30-35 kcal/kg/j"
+      },
+      "micronutriments_cles": {
+        "vitamine_D": "Carence quasi-constante",
+        "antioxydants": "Vit C, E, sélénium",
+        "calcium": "Si corticoïdes"
+      },
+      "aliments_recommandes": {
+        "proteines_haute_qualite": ["Œufs", "Poissons", "Viandes", "Laitages", "Légumineuses"],
+        "matieres_grasses": ["Huile olive, colza, beurre", "Oléagineux"],
+        "fruits_legumes": ["Variés", "Antioxydants"],
+        "complements_oraux": ["Si dénutrition"]
+      },
+      "aliments_a_eviter": {
+        "ballonnants_si_dyspnee": ["Légumineuses en excès", "Choux", "Boissons gazeuses"],
+        "ultra_transformes": ["Aggravent inflammation"]
+      },
+      "aliments_a_limiter": {
+        "repas_copieux": "Aggravent dyspnée"
+      },
+      "hydratation": "1.5-2 L/j (fluidification sécrétions)",
+      "exemple_journee_type": {
+        "petit_dejeuner": "Pain + beurre + œuf + lait entier + fruit + amandes",
+        "collation": "Yaourt enrichi + biscuits + fruits secs",
+        "dejeuner": "Petit volume mais enrichi : viande/poisson + féculents + huile + légumes + fromage",
+        "collation_apres_midi": "Fromage + biscuits + fruit",
+        "diner": "Petit repas mais enrichi"
+      },
+      "conseils_pratiques": [
+        "Repas fractionnés 5-6/jour",
+        "Petits volumes, denses en énergie",
+        "Position semi-assise pendant repas",
+        "Oxygène pendant repas si prescrit",
+        "Réadaptation respiratoire",
+        "Activité physique adaptée",
+        "Sevrage tabac ABSOLU",
+        "Vaccinations grippe, pneumocoque, COVID"
+      ],
+      "contre_indications": [
+        "Excès de glucides (production CO2)",
+        "Régimes hypocaloriques sauf surpoids majeur"
+      ],
+      "interactions_medicamenteuses": [
+        "Corticoïdes : surveillance glycémie, calcium, vit D, sel",
+        "Théophylline + caféine : effets additifs"
+      ],
+      "suivi_recommande": [
+        "Poids, IMC",
+        "Albumine, préalbumine",
+        "Gaz du sang",
+        "EFR",
+        "Force musculaire"
+      ],
+      "sources": [
+        "GOLD - Global Initiative for COPD (2024)",
+        "ESPEN Guideline on COPD nutrition",
+        "HAS - BPCO"
+      ]
+    },
+
+    {
+      "id": "MAL_033",
+      "nom": "Asthme",
+      "nom_en": "Asthma",
+      "categorie": "CAT_RESPIR",
+      "code_cim10": "J45",
+      "description_courte": "Maladie inflammatoire chronique des voies aériennes.",
+      "objectifs_nutritionnels": [
+        "Réduire l'inflammation",
+        "Maintenir poids santé (obésité aggrave)",
+        "Identifier allergies alimentaires associées",
+        "Prévenir ostéoporose si corticoïdes au long cours"
+      ],
+      "macronutriments": {
+        "glucides": "50% AET",
+        "lipides": "30-35% AET, oméga-3",
+        "proteines": "1 g/kg/j"
+      },
+      "micronutriments_cles": {
+        "vitamine_D": "Carence aggrave asthme",
+        "magnesium": "Bronchodilatateur naturel",
+        "antioxydants": "Vit C, E, caroténoïdes",
+        "omega_3": "Anti-inflammatoires"
+      },
+      "aliments_recommandes": {
+        "anti_inflammatoires": ["Fruits, légumes 5+/j", "Poissons gras 2-3x/sem", "Noix, graines", "Huile olive", "Curcuma", "Gingembre", "Pommes (quercétine)"]
+      },
+      "aliments_a_eviter": {
+        "allergenes_individuels": ["Si allergie identifiée (arachide, fruits à coque, lait, œuf, etc.)"],
+        "sulfites": ["Vin", "Fruits secs", "Crustacés", "Plats préparés - peuvent déclencher crises"],
+        "ultra_transformes": ["Aggravent inflammation"]
+      },
+      "aliments_a_limiter": {
+        "sel": "Excès = bronchoconstriction",
+        "ultra_transformes": "Limiter"
+      },
+      "hydratation": "1.5-2 L/j",
+      "exemple_journee_type": {
+        "petit_dejeuner": "Avoine + lait + myrtilles + amandes + thé",
+        "dejeuner": "Salade + saumon + quinoa + brocolis + huile olive + 1 pomme",
+        "collation": "Yaourt + noix",
+        "diner": "Soupe + tofu + lentilles + légumes + curcuma + fruit"
+      },
+      "conseils_pratiques": [
+        "Régime méditerranéen recommandé",
+        "Activité physique adaptée (échauffement progressif)",
+        "Identifier déclencheurs (allergies)",
+        "Arrêt tabac, éviter tabagisme passif",
+        "Vaccinations grippe",
+        "Observance traitements de fond"
+      ],
+      "contre_indications": [
+        "Aliments contenant sulfites si sensibilité",
+        "Allergènes individuels"
+      ],
+      "interactions_medicamenteuses": [
+        "Théophylline + caféine : effets additifs",
+        "Corticoïdes inhalés : rinçage bouche après inhalation"
+      ],
+      "suivi_recommande": [
+        "EFR",
+        "DEP",
+        "Vit D",
+        "Si corticoïdes : densité osseuse"
+      ],
+      "sources": [
+        "GINA - Global Initiative for Asthma (2024)",
+        "HAS - Asthme",
+        "ERS Guidelines"
+      ]
+    },
+
+    {
+      "id": "MAL_034",
+      "nom": "Syndrome métabolique",
+      "nom_en": "Metabolic Syndrome",
+      "categorie": "CAT_METABO",
+      "code_cim10": "E88.81",
+      "description_courte": "Association d'au moins 3 critères : obésité abdominale, hyperglycémie, HTA, hypertriglycéridémie, HDL bas.",
+      "objectifs_nutritionnels": [
+        "Perte de poids 5-10%",
+        "Réduction tour de taille",
+        "Régime méditerranéen",
+        "Activité physique"
+      ],
+      "macronutriments": {
+        "glucides": "45-50% AET, IG bas",
+        "lipides": "30-35% AET, oméga-3, AGMI",
+        "proteines": "1.2-1.5 g/kg poids cible",
+        "fibres": "≥ 30 g/j"
+      },
+      "micronutriments_cles": {
+        "magnesium": "Carence fréquente",
+        "vitamine_D": "Carence fréquente",
+        "potassium": "3500-4700 mg/j"
+      },
+      "aliments_recommandes": {
+        "regime_mediterraneen": ["Légumes ++", "Fruits modérés", "Poissons gras 3x/sem", "Huile olive", "Légumineuses", "Céréales complètes", "Noix", "Yaourt nature"]
+      },
+      "aliments_a_eviter": {
+        "sucres_rapides": ["Sodas", "Jus", "Pâtisseries"],
+        "graisses_trans": ["Industriels"],
+        "ultra_transformes": ["Plats préparés", "Charcuterie"]
+      },
+      "aliments_a_limiter": {
+        "alcool": "Max 1-2 verres/j",
+        "sel": "< 6 g/j",
+        "viande_rouge": "Modérer"
+      },
+      "hydratation": "1.5-2 L/j d'eau",
+      "exemple_journee_type": {
+        "petit_dejeuner": "Avoine + lait demi-écrémé + fruits rouges + noix + thé vert",
+        "dejeuner": "Salade méditerranéenne + saumon + quinoa + huile olive + yaourt",
+        "collation": "1 fruit + 30g amandes",
+        "diner": "Soupe + tofu + lentilles + ratatouille + 1 fruit"
+      },
+      "conseils_pratiques": [
+        "Régime méditerranéen + activité physique = traitement de référence",
+        "Perte de poids progressive",
+        "Activité physique 150-300 min/semaine + renforcement",
+        "Arrêt tabac",
+        "Sommeil de qualité"
+      ],
+      "contre_indications": [
+        "Régimes très restrictifs sans suivi"
+      ],
+      "interactions_medicamenteuses": [
+        "Selon traitements associés"
+      ],
+      "suivi_recommande": [
+        "Tour de taille",
+        "Glycémie à jeun, HbA1c",
+        "Bilan lipidique",
+        "PA",
+        "Bilan hépatique"
+      ],
+      "sources": [
+        "IDF Definition of Metabolic Syndrome",
+        "ATP III/NCEP",
+        "ESC Guidelines",
+        "HAS"
+      ]
+    },
+
+    {
+      "id": "MAL_035",
+      "nom": "Pancréatite chronique",
+      "nom_en": "Chronic Pancreatitis",
+      "categorie": "CAT_DIGEST",
+      "code_cim10": "K86",
+      "description_courte": "Inflammation chronique du pancréas conduisant à insuffisance exocrine et endocrine (diabète).",
+      "objectifs_nutritionnels": [
+        "Prévenir/traiter dénutrition",
+        "Compenser insuffisance pancréatique exocrine",
+        "Adapter au diabète secondaire",
+        "Arrêt absolu de l'alcool"
+      ],
+      "macronutriments": {
+        "glucides": "50% AET",
+        "lipides": "30-35% AET (avec enzymes pancréatiques)",
+        "proteines": "1-1.5 g/kg/j",
+        "energie": "30-35 kcal/kg/j"
+      },
+      "micronutriments_cles": {
+        "vitamines_liposolubles": "ADEK (malabsorption)",
+        "vitamine_B12": "Carence possible",
+        "calcium": "Si stéatorrhée importante",
+        "magnesium": "Souvent carencé"
+      },
+      "aliments_recommandes": {
+        "proteines_maigres": ["Poisson", "Volaille", "Œufs", "Tofu"],
+        "feculents": ["Riz, pâtes, pommes de terre"],
+        "fruits_legumes": ["Bien cuits, peu fibreux"],
+        "matieres_grasses": ["MCT (triglycérides à chaîne moyenne) si malabsorption sévère", "Huile olive en quantité modérée"]
+      },
+      "aliments_a_eviter": {
+        "alcool": "INTERDIT ABSOLU",
+        "gras_satures_excessifs": ["Charcuteries", "Fritures", "Plats en sauce gras"]
+      },
+      "aliments_a_limiter": {
+        "graisses_si_steatorrhee": "À adapter aux enzymes",
+        "fibres_excessives": "Aggravent symptômes"
+      },
+      "hydratation": "1.5-2 L/j",
+      "exemple_journee_type": {
+        "petit_dejeuner": "Pain + beurre doux + œuf + 1 fruit cuit + tisane (+ enzymes pancréatiques)",
+        "dejeuner": "Filet poisson + riz + courgettes vapeur + huile olive + fromage + compote (+ enzymes)",
+        "collation": "Yaourt + biscottes",
+        "diner": "Velouté + poulet + pâtes + carottes + 1 fruit (+ enzymes)"
+      },
+      "conseils_pratiques": [
+        "Arrêt alcool ABSOLU et définitif",
+        "Arrêt tabac",
+        "Repas fractionnés 5-6/jour",
+        "Enzymes pancréatiques PENDANT les repas (extraits pancréatiques)",
+        "Supplémentation vitamines ADEK",
+        "Surveillance diabète",
+        "Activité physique adaptée"
+      ],
+      "contre_indications": [
+        "Alcool",
+        "Tabac",
+        "AINS"
+      ],
+      "interactions_medicamenteuses": [
+        "Enzymes pancréatiques : prendre PENDANT les repas",
+        "Anti-acides + enzymes : peuvent diminuer efficacité"
+      ],
+      "suivi_recommande": [
+        "Poids",
+        "Stéatorrhée des 24h",
+        "Élastase fécale",
+        "Glycémie, HbA1c",
+        "Vit ADEK, B12",
+        "Albumine"
+      ],
+      "sources": [
+        "ESPEN Guideline on Pancreatic Diseases (2020)",
+        "UEG United European Gastroenterology Guidelines",
+        "HAS - Pancréatite chronique"
+      ]
+    },
+
+    {
+      "id": "MAL_036",
+      "nom": "Lupus érythémateux disséminé",
+      "nom_en": "Systemic Lupus Erythematosus",
+      "categorie": "CAT_AUTOIMM",
+      "code_cim10": "M32",
+      "description_courte": "Maladie auto-immune systémique multi-organes.",
+      "objectifs_nutritionnels": [
+        "Réduire inflammation",
+        "Prévenir comorbidités CV (risque majeur)",
+        "Prévenir ostéoporose (corticoïdes)",
+        "Adapter à l'atteinte rénale"
+      ],
+      "macronutriments": {
+        "glucides": "50% AET, IG bas si corticothérapie",
+        "lipides": "30-35% AET, oméga-3 ++",
+        "proteines": "1 g/kg/j (adapter si néphropathie)"
+      },
+      "micronutriments_cles": {
+        "vitamine_D": "Carence majeure - supplémentation systématique",
+        "calcium": "1200 mg/j (corticoïdes)",
+        "omega_3": "Anti-inflammatoire"
+      },
+      "aliments_recommandes": {
+        "anti_inflammatoires": ["Régime méditerranéen", "Poissons gras", "Curcuma", "Légumes verts", "Fruits rouges"]
+      },
+      "aliments_a_eviter": {
+        "alfalfa": ["Luzerne - aggrave SLE"],
+        "ultra_transformes": ["Pro-inflammatoires"]
+      },
+      "aliments_a_limiter": {
+        "sel": "< 6 g/j (corticoïdes, HTA)",
+        "sucres_rapides": "Si corticoïdes",
+        "alcool": "Modérer"
+      },
+      "hydratation": "1.5-2 L/j (sauf néphropathie)",
+      "exemple_journee_type": {
+        "petit_dejeuner": "Pain complet + huile olive + œuf + 1 fruit + thé vert",
+        "dejeuner": "Salade + saumon + quinoa + brocolis + curcuma + yaourt",
+        "collation": "Fruits rouges + amandes",
+        "diner": "Soupe + tofu + lentilles + légumes + 1 fruit"
+      },
+      "conseils_pratiques": [
+        "Régime méditerranéen",
+        "Protection solaire IMPÉRATIVE",
+        "Activité physique adaptée",
+        "Arrêt tabac",
+        "Vaccinations",
+        "Surveillance CV"
+      ],
+      "contre_indications": [
+        "Luzerne (alfalfa)",
+        "Compléments immunostimulants (échinacée)",
+        "Exposition solaire excessive"
+      ],
+      "interactions_medicamenteuses": [
+        "Hydroxychloroquine : avec repas pour digestion",
+        "Méthotrexate + alcool : hépatotoxicité",
+        "Corticoïdes : sel, sucre, calcium, vit D"
+      ],
+      "suivi_recommande": [
+        "Complément C3, C4, anti-DNA",
+        "Bilan rénal (créat, protéinurie)",
+        "Bilan lipidique",
+        "Vit D",
+        "Densité osseuse"
+      ],
+      "sources": [
+        "EULAR Recommendations for SLE (2023)",
+        "ACR Guidelines",
+        "HAS - Lupus systémique"
+      ]
+    },
+
+    {
+      "id": "MAL_037",
+      "nom": "Grossesse (besoins nutritionnels)",
+      "nom_en": "Pregnancy Nutrition",
+      "categorie": "CAT_METABO",
+      "code_cim10": "Z34",
+      "description_courte": "État physiologique nécessitant adaptation nutritionnelle pour santé mère et fœtus.",
+      "objectifs_nutritionnels": [
+        "Couvrir besoins augmentés",
+        "Prévenir anomalies de fermeture du tube neural",
+        "Prévenir anémie",
+        "Éviter aliments à risque (listériose, toxoplasmose)",
+        "Prise de poids adaptée (11.5-16 kg si IMC normal)"
+      ],
+      "macronutriments": {
+        "glucides": "50% AET",
+        "lipides": "35% AET, DHA 200-300 mg/j",
+        "proteines": "+ 1 g/j T1, + 9 g/j T2, + 25 g/j T3",
+        "energie": "+ 150 kcal/j T1, + 350 kcal/j T2, + 450 kcal/j T3"
+      },
+      "micronutriments_cles": {
+        "folates_B9": "400 μg/j PRÉCONCEPTION, 600 μg/j grossesse (prévention spina bifida)",
+        "fer": "27 mg/j",
+        "iode": "200-250 μg/j",
+        "calcium": "1000 mg/j",
+        "vitamine_D": "10-15 μg/j (400-600 UI)",
+        "DHA": "200-300 mg/j",
+        "vitamine_B12": "4.5 μg/j"
+      },
+      "aliments_recommandes": {
+        "proteines": ["Viandes bien cuites", "Poissons (3x/sem)", "Œufs cuits", "Légumineuses"],
+        "calcium": ["Produits laitiers pasteurisés"],
+        "folates": ["Légumes verts feuillus", "Légumineuses", "Foie cuit (max 1x)", "Levure"],
+        "fer": ["Viande", "Lentilles avec vit C"],
+        "iode": ["Sel iodé", "Poissons de mer", "Œufs"],
+        "DHA": ["Poissons gras 2x/sem (saumon, sardine - éviter gros poissons mercure)"]
+      },
+      "aliments_a_eviter": {
+        "alcool": "INTERDIT ABSOLU (syndrome alcoolisation fœtale)",
+        "listeria": ["Fromages au lait cru", "Croûtes de fromage", "Charcuterie crue", "Poissons fumés", "Coquillages crus", "Œufs crus, mayonnaise maison"],
+        "toxoplasmose_si_seronegative": ["Viandes crues/peu cuites", "Charcuteries", "Crudités mal lavées", "Eviter contact chat"],
+        "mercure": ["Espadon, requin, marlin, thon en gros morceaux"],
+        "foie_excessif": "Vit A toxique (1 portion max/grossesse)",
+        "caffeine_excessive": "Max 200-300 mg/j"
+      },
+      "aliments_a_limiter": {
+        "sel": "Modéré",
+        "sucres_rapides": "Modérer",
+        "cafe": "≤ 200 mg caféine/j"
+      },
+      "hydratation": "2-2.5 L/j",
+      "exemple_journee_type": {
+        "petit_dejeuner": "Pain complet + beurre + miel + œuf cuit + yaourt nature + jus d'orange + 1 fruit",
+        "collation": "Yaourt + amandes + fruit",
+        "dejeuner": "Salade verte + saumon cuit + quinoa + brocolis + huile colza + fromage pasteurisé + 1 fruit",
+        "collation_apres_midi": "Pain complet + fromage blanc + fruits rouges",
+        "diner": "Soupe lentilles + viande bien cuite ou poisson + riz + légumes + yaourt + 1 fruit"
+      },
+      "conseils_pratiques": [
+        "Folates 400 μg/j 1 mois AVANT conception et 1er trimestre",
+        "Pas d'alcool, même petite quantité",
+        "Cuisson bien à cœur (viande, œuf)",
+        "Lavage rigoureux fruits, légumes, mains",
+        "Fromages pasteurisés uniquement, sans croûte",
+        "Activité physique adaptée (marche, natation, yoga prénatal)",
+        "Sevrage tabac",
+        "Supplémentation : folates systématique, fer/vit D selon bilan"
+      ],
+      "contre_indications": [
+        "Alcool ABSOLU",
+        "Tabac",
+        "Compléments à base d'iode/vit A sans avis médical",
+        "Phytothérapie sans avis (certaines plantes abortives)"
+      ],
+      "interactions_medicamenteuses": [
+        "Folates haute dose si antiépileptique",
+        "Lévothyroxine : surveiller TSH au cours"
+      ],
+      "suivi_recommande": [
+        "Sérologies (toxoplasmose, rubéole, syphilis, hépatites, VIH)",
+        "Glycémie à jeun, HGPO 24-28 SA",
+        "NFS, ferritine",
+        "Tension artérielle",
+        "Poids mensuel"
+      ],
+      "sources": [
+        "ANSES - Femmes enceintes",
+        "HAS - Suivi grossesse",
+        "OMS - Nutrition grossesse",
+        "ACOG Guidelines"
+      ]
+    },
+
+    {
+      "id": "MAL_038",
+      "nom": "Allaitement (besoins nutritionnels)",
+      "nom_en": "Lactation Nutrition",
+      "categorie": "CAT_METABO",
+      "code_cim10": "Z39.1",
+      "description_courte": "Période d'allaitement maternel, augmentation des besoins énergétiques et nutritionnels.",
+      "objectifs_nutritionnels": [
+        "Couvrir besoins augmentés",
+        "Maintenir qualité du lait",
+        "Hydratation suffisante",
+        "Récupération maternelle"
+      ],
+      "macronutriments": {
+        "glucides": "50% AET",
+        "lipides": "35% AET, DHA 200-300 mg/j",
+        "proteines": "+ 19 g/j (1.2 g/kg/j)",
+        "energie": "+ 450-500 kcal/j (puise dans réserves)"
+      },
+      "micronutriments_cles": {
+        "vitamine_D": "10-15 μg/j",
+        "iode": "250 μg/j",
+        "calcium": "1000 mg/j",
+        "vitamine_B12": "5 μg/j (4 μg + 1)",
+        "DHA": "200-300 mg/j"
+      },
+      "aliments_recommandes": {
+        "proteines": ["Tous types, bien cuits"],
+        "calcium": ["Produits laitiers (pasteurisés ou non)"],
+        "DHA": ["Poissons gras 2x/sem"],
+        "fruits_legumes": ["Tous, variés"],
+        "feculents": ["Complets"],
+        "matieres_grasses": ["Huiles végétales", "Oléagineux"]
+      },
+      "aliments_a_eviter": {
+        "alcool": "Éviter, ou attendre 2-3h après 1 verre avant tétée",
+        "poissons_riches_mercure": ["Espadon, requin, thon en gros morceaux"]
+      },
+      "aliments_a_limiter": {
+        "cafeine": "Max 200-300 mg/j",
+        "aliments_allergisants_si_terrain_atopique": "Discussion individuelle"
+      },
+      "hydratation": "2-2.5 L/j (besoin majoré)",
+      "exemple_journee_type": {
+        "petit_dejeuner": "Pain + beurre + miel + œuf + lait + fruit + amandes",
+        "collation": "Yaourt + fruits + biscuits complets",
+        "dejeuner": "Salade + saumon + féculents + légumes + fromage + fruit",
+        "collation_apres_midi": "Pain + fromage + fruit + eau",
+        "diner": "Soupe + viande/poisson + féculents + légumes + dessert lacté"
+      },
+      "conseils_pratiques": [
+        "Manger à sa faim, équilibré",
+        "Pas de régime restrictif pendant allaitement",
+        "Hydratation importante",
+        "Continuer supplémentations (vit D, iode si carence)",
+        "Repos, soutien"
+      ],
+      "contre_indications": [
+        "Alcool en excès",
+        "Tabagisme",
+        "Cannabis et autres drogues",
+        "Certains médicaments (vérifier compatibilité)"
+      ],
+      "interactions_medicamenteuses": [
+        "Vérifier compatibilité allaitement (CRAT)"
+      ],
+      "suivi_recommande": [
+        "Poids maternel",
+        "Suivi pédiatrique de l'enfant"
+      ],
+      "sources": [
+        "ANSES - Femmes allaitantes",
+        "OMS - Allaitement maternel",
+        "CRAT - Centre de Référence sur les Agents Tératogènes"
+      ]
+    }
+
+  ],
+  "regimes_nutritionnels_de_reference": [
+    {
+      "id": "REG_001",
+      "nom": "Régime méditerranéen",
+      "indications": ["Prévention CV", "Diabète T2", "Stéatose hépatique", "Cancer", "Maladies neurodégénératives", "Maladies auto-immunes"],
+      "principes": "Huile olive, poissons, légumes, fruits, légumineuses, céréales complètes, fruits secs, vin modéré, peu de viande rouge",
+      "preuves_scientifiques": "PREDIMED (NEJM 2018), Lyon Diet Heart Study"
+    },
+    {
+      "id": "REG_002",
+      "nom": "Régime DASH",
+      "indications": ["HTA", "Syndrome métabolique"],
+      "principes": "Riche en fruits, légumes, produits laitiers maigres, céréales complètes, pauvre en sodium, gras saturés, sucres",
+      "preuves_scientifiques": "Études NIH/NHLBI"
+    },
+    {
+      "id": "REG_003",
+      "nom": "Régime MIND",
+      "indications": ["Prévention Alzheimer", "Déclin cognitif"],
+      "principes": "Combinaison méditerranéen et DASH, accent sur fruits rouges et légumes verts feuillus",
+      "preuves_scientifiques": "Rush University Studies"
+    },
+    {
+      "id": "REG_004",
+      "nom": "Régime pauvre en FODMAP",
+      "indications": ["Syndrome de l'intestin irritable", "MICI en poussée"],
+      "principes": "Élimination puis réintroduction des Fermentable Oligo-, Di-, Monosaccharides And Polyols",
+      "preuves_scientifiques": "Monash University Research"
+    },
+    {
+      "id": "REG_005",
+      "nom": "Régime sans gluten",
+      "indications": ["Maladie cœliaque", "Sensibilité au gluten non cœliaque"],
+      "principes": "Éviction stricte du blé, orge, seigle, avoine non certifiée",
+      "preuves_scientifiques": "Indication médicale stricte, ESPGHAN/ACG"
+    },
+    {
+      "id": "REG_006",
+      "nom": "Régime pauvre en sodium",
+      "indications": ["HTA", "Insuffisance cardiaque", "Cirrhose avec ascite", "Insuffisance rénale"],
+      "principes": "< 2-3 g sodium/j (< 5-6 g sel)",
+      "preuves_scientifiques": "OMS, ESC, ESH"
+    },
+    {
+      "id": "REG_007",
+      "nom": "Régime pauvre en potassium",
+      "indications": ["Insuffisance rénale stade 4-5", "Hyperkaliémie"],
+      "principes": "Limiter aliments riches en K+, technique double cuisson",
+      "preuves_scientifiques": "KDIGO"
+    },
+    {
+      "id": "REG_008",
+      "nom": "Régime pauvre en purines",
+      "indications": ["Goutte", "Hyperuricémie"],
+      "principes": "Limiter abats, gibier, fruits de mer, alcool",
+      "preuves_scientifiques": "EULAR, ACR"
+    }
+  ],
+  "notes_techniques_developpeurs": {
+    "format_aliments": "Les listes d'aliments sont en français. Pour internationalisation, utiliser les noms anglais en clé secondaire si besoin.",
+    "categorisation": "Chaque maladie possède un ID unique, un code CIM-10 international, et une catégorie pour navigation hiérarchique.",
+    "extensibilite": "Le schéma permet l'ajout de nouvelles maladies en respectant la structure définie dans metadata.schema.",
+    "personnalisation_utilisateur": "Les recommandations doivent être croisées avec le profil utilisateur (âge, sexe, IMC, médicaments, allergies) avant affichage.",
+    "validation_medicale": "Bien que basées sur des sources officielles, ces informations doivent être validées par un professionnel de santé avant intégration finale.",
+    "mises_a_jour": "Les recommandations évoluent. Prévoir un cycle de revue annuelle."
+  }
+}

@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OrientDZ – Trouvez vos spécialistes et établissements de santé instantanément</title>
+  <meta name="description" content="OrientDZ, la plateforme intelligente d’orientation médicale et d’urgence en Algérie. Spécialistes et établissements de santé, assistant IA et conseils personnalisés." />
+  <meta property="og:title" content="OrientDZ – Plateforme d’orientation médicale en Algérie" />
+  <meta property="og:description" content="Trouvez vos spécialistes et établissements de santé, consultez notre assistant IA médical et obtenez des conseils personnalisés." />
+  <meta property="og:type"        content="website" />
+  <meta property="og:image"       content="assets/img/og-home.jpg" />
+  <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg" />
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/pages/landing.css" />
+  <script src="js/i18n.js" defer></script>
+  <style>
+    /* ── Navbar : pill + groupe droit ─────────────────────── */
+    /* Passe de space-between à flex-start + flex:1 sur <nav>  */
+    .navbar{justify-content:flex-start}
+    .navbar>nav{flex:1;display:flex;justify-content:center}
+    /* Conteneur pill + boutons : toujours affiché */
+    .nav-right-group{display:flex;align-items:center;gap:10px;flex-shrink:0;margin-left:auto}
+    html[dir="rtl"] .nav-right-group{flex-direction:row-reverse;margin-left:0;margin-right:auto}
+    /* Mobile : on masque les boutons connexion/commencer,           */
+    /* mais le pill reste visible juste avant le burger             */
+    @media(max-width:768px){
+      .navbar>nav{display:none}
+      .nav-right-group .nav-actions{display:none}
+      .nav-right-group{gap:0;margin-right:6px}
+      /* Re-affiche les liens et boutons dans le drawer ouvert */
+      body.nav-open .nav-drawer .nav-links{display:flex!important}
+      body.nav-open .nav-drawer .nav-actions{display:flex!important}
+    }
+  </style>
+</head>
+<body>
+
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+     NAVBAR
+     â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<header class="navbar glass-strong">
+  <a href="index.html" class="logo">
+    <span class="logo-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/>
+        <path d="m8.5 8.5 7 7"/>
+      </svg>
+    </span>
+    <span class="logo-wordmark">Orient<span class="text-primary">DZ</span></span>
+  </a>
+
+  <nav aria-label="Navigation principale">
+    <ul class="nav-links">
+      <li><a href="index.html" class="active" data-i18n="nav.home">Accueil</a></li>
+      <li><a href="ai.html" data-i18n="nav.chatbot">Assistant AI</a></li>
+      <li><a href="carte.html" data-i18n="nav.map">Carte</a></li>
+      <li><a href="nutrition.html" data-i18n="nav.nutri">OrientNutri</a></li>
+      <li><a href="emergency_qr.html" style="color:#DC2626;font-weight:700" data-i18n="nav.sauvemoi">🆘 SauveMoi QR</a></li>
+    </ul>
+  </nav>
+
+  <!-- Groupe droit : pill langue + boutons (pill reste visible sur mobile) -->
+  <div class="nav-right-group">
+    <div class="pw-lang-pill" role="tablist" aria-label="Langue / اللغة">
+      <button class="pw-lang-opt is-active" data-lang="fr" role="tab" aria-selected="true">FR</button>
+      <button class="pw-lang-opt" data-lang="ar" role="tab" aria-selected="false">AR</button>
+    </div>
+    <div class="nav-actions">
+      <a href="login.html"  class="btn btn-ghost btn-sm" data-i18n="nav.login">Connexion</a>
+      <a href="signup.html" class="btn btn-primary btn-sm" data-i18n="nav.signup">Commencer</a>
+    </div>
+  </div>
+
+  <button class="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- Overlay mobile -->
+<div class="nav-overlay" role="presentation"></div>
+
+<!-- Drawer mobile -->
+<div class="nav-drawer" role="navigation" aria-label="Menu mobile">
+  <ul class="nav-links">
+    <li><a href="index.html" data-i18n="nav.home">Accueil</a></li>
+    <li><a href="ai.html" data-i18n="nav.chatbot">Assistant AI</a></li>
+    <li><a href="carte.html" data-i18n="nav.map">Carte</a></li>
+    <li><a href="nutrition.html" data-i18n="nav.nutri">OrientNutri</a></li>
+    <li><a href="emergency_qr.html" style="color:#DC2626;font-weight:700" data-i18n="nav.sauvemoi">🆘 SauveMoi QR</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a href="login.html"  class="btn btn-secondary" data-i18n="nav.login">Connexion</a>
+    <a href="signup.html" class="btn btn-primary" data-i18n="nav.signup">Commencer</a>
+  </div>
+</div>
+
+<main>
+
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+       HERO
+       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <section class="hero" aria-labelledby="hero-title">
+    <!-- Blobs décoratifs -->
+    <div class="hero-blob hero-blob-1" aria-hidden="true"></div>
+    <div class="hero-blob hero-blob-2" aria-hidden="true"></div>
+    <div class="hero-blob hero-blob-3" aria-hidden="true"></div>
+
+    <div class="container hero-inner">
+      <!-- Colonne contenu -->
+      <div class="hero-content">
+        <div class="hero-badge animate-fade-up">
+          <span class="hero-badge-dot" aria-hidden="true"></span>
+          <span data-i18n="hero.badge">🚨 Urgences & Orientation Médicale 24h/24</span>
+        </div>
+
+        <h1 id="hero-title" class="hero-title animate-fade-up delay-100">
+          <span data-i18n="hero.titleL1">Trouvez vos</span>
+          <span class="text-primary" data-i18n="hero.titleL2">spécialistes</span>
+          <span data-i18n="hero.titleL3">et établissements de santé</span><br>
+          <span data-i18n="hero.titleL4">instantanément</span>
+        </h1>
+
+        <p class="hero-subtitle animate-fade-up delay-200" data-i18n="hero.subtitle">
+          La plateforme intelligente d'orientation médicale et d'urgence en Algérie.
+          Professionnels de santé à proximité, assistant IA et conseils personnalisés.
+          </p>
+
+        <div class="hero-actions animate-fade-up delay-300">
+          <a href="carte.html" class="btn btn-primary btn-lg">
+            <!-- Icône map-pin -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+            <span data-i18n="hero.cta1">📍 Explorer la Carte Santé</span>
+          </a>
+          <a href="ai.html" class="btn btn-secondary btn-lg">
+            <!-- Icône sparkles -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/>
+            </svg>
+            <span data-i18n="hero.cta2">Essayer le Chatbot</span>
+          </a>
+        </div>
+
+        <div class="hero-trust animate-fade-up delay-400">
+          <span class="hero-trust-item">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            <span data-i18n="hero.trust1">Gratuit</span>
+          </span>
+          <span class="hero-trust-item">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            <span data-i18n="hero.trust2">Sans inscription</span>
+          </span>
+          <span class="hero-trust-item">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+            <span data-i18n="hero.trust3">Données sécurisées</span>
+          </span>
+        </div>
+      </div>
+
+      <!-- Colonne illustration -->
+      <div class="hero-visual" aria-hidden="true">
+        <div class="hero-card-main">
+          <!-- Illustration principale -->
+          <div class="hero-illustration">
+            <!-- Orbes décoratifs -->
+            <div class="orb orb-1"></div>
+            <div class="orb orb-2"></div>
+            <div class="orb orb-3"></div>
+            <!-- Illustration DNA SVG -->
+            <div class="dna-helix">
+              <svg viewBox="0 0 380 200" xmlns="http://www.w3.org/2000/svg" fill="none">
+                <!-- Hélice ADN stylisée -->
+                <defs>
+                  <linearGradient id="dna-grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%"   stop-color="oklch(0.58 0.18 245)" stop-opacity="0.7"/>
+                    <stop offset="100%" stop-color="oklch(0.72 0.16 195)" stop-opacity="0.6"/>
+                  </linearGradient>
+                  <linearGradient id="dna-grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%"   stop-color="oklch(0.72 0.16 195)" stop-opacity="0.5"/>
+                    <stop offset="100%" stop-color="oklch(0.72 0.17 165)" stop-opacity="0.4"/>
+                  </linearGradient>
+                </defs>
+                <!-- Brin 1 -->
+                <path d="M 60 180 C 90 150, 110 120, 140 100 C 170 80, 190 60, 220 40 C 250 20, 270 30, 300 20"
+                      stroke="url(#dna-grad1)" stroke-width="3" stroke-linecap="round"/>
+                <!-- Brin 2 -->
+                <path d="M 60 20 C 90 50, 110 80, 140 100 C 170 120, 190 140, 220 160 C 250 180, 270 170, 300 180"
+                      stroke="url(#dna-grad2)" stroke-width="3" stroke-linecap="round"/>
+                <!-- Barreaux de liaison -->
+                <line x1="90"  y1="155" x2="90"  y2="45"  stroke="url(#dna-grad1)" stroke-width="1.5" stroke-opacity="0.5"/>
+                <line x1="120" y1="135" x2="120" y2="65"  stroke="url(#dna-grad1)" stroke-width="1.5" stroke-opacity="0.5"/>
+                <line x1="150" y1="108" x2="150" y2="92"  stroke="url(#dna-grad1)" stroke-width="1.5" stroke-opacity="0.7"/>
+                <line x1="180" y1="95"  x2="180" y2="105" stroke="url(#dna-grad1)" stroke-width="1.5" stroke-opacity="0.7"/>
+                <line x1="210" y1="82"  x2="210" y2="118" stroke="url(#dna-grad1)" stroke-width="1.5" stroke-opacity="0.5"/>
+                <line x1="240" y1="62"  x2="240" y2="138" stroke="url(#dna-grad1)" stroke-width="1.5" stroke-opacity="0.5"/>
+                <line x1="270" y1="45"  x2="270" y2="155" stroke="url(#dna-grad1)" stroke-width="1.5" stroke-opacity="0.4"/>
+                <!-- Nœuds -->
+                <circle cx="90"  cy="155" r="5" fill="url(#dna-grad1)" opacity="0.8"/>
+                <circle cx="90"  cy="45"  r="5" fill="url(#dna-grad2)" opacity="0.8"/>
+                <circle cx="150" cy="100" r="6" fill="url(#dna-grad1)" opacity="0.9"/>
+                <circle cx="210" cy="100" r="6" fill="url(#dna-grad2)" opacity="0.9"/>
+                <circle cx="270" cy="45"  r="5" fill="url(#dna-grad1)" opacity="0.8"/>
+                <circle cx="270" cy="155" r="5" fill="url(#dna-grad2)" opacity="0.8"/>
+                <!-- Grandes sphères décoratives -->
+                <circle cx="310" cy="50"  r="28" fill="url(#dna-grad1)" opacity="0.20"/>
+                <circle cx="50"  cy="150" r="22" fill="url(#dna-grad2)" opacity="0.18"/>
+                <circle cx="310" cy="150" r="18" fill="url(#dna-grad2)" opacity="0.15"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Badge "Réponse instantanée" -->
+          <div class="hero-floating-badge" data-i18n="hero.float.badge">
+            ✦ Réponse instantanée
+          </div>
+
+          <!-- Info pharmacie -->
+          <div class="hero-floating-pharmacy">
+            <div class="pharmacy-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+            </div>
+            <div class="pharmacy-info">
+              <strong data-i18n="hero.float.pharmacy">Urgences & Gardes</strong>
+              <small data-i18n="hero.float.distance">à 380 m de vous</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+       STATISTIQUES
+       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <section class="stats-section section-sm" aria-label="Nos chiffres clés">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item reveal">
+          <div class="stat-value" data-count="500" data-suffix="+">0</div>
+          <div class="stat-label" data-i18n="stats.pharmacies">Établissements & Praticiens</div>
+        </div>
+        <div class="stat-item reveal delay-200">
+          <div class="stat-value" data-count="48" data-suffix="">0</div>
+          <div class="stat-label" data-i18n="stats.cities">Wilayas disponibles</div>
+        </div>
+        <div class="stat-item reveal delay-300">
+          <div class="stat-value" data-count="24" data-suffix="/7">0</div>
+          <div class="stat-label" data-i18n="stats.availability">Disponibilité garantie</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+       COMMENT ÇA MARCHE
+       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <section class="how-section section" id="how" aria-labelledby="how-title">
+    <div class="container">
+      <header class="section-header">
+        <span class="section-label" data-i18n="how.label">COMMENT ÇA MARCHE</span>
+        <h2 id="how-title" class="section-title reveal" data-i18n="how.title">3 étapes pour votre santé</h2>
+        <p class="section-subtitle reveal delay-100" data-i18n="how.subtitle">
+          En quelques secondes, accédez aux professionnels de santé, consultez notre IA et obtenez votre solution.
+          </p>
+      </header>
+
+      <div class="steps-grid">
+
+        <!-- Étape 1 -->
+        <article class="step-card reveal">
+          <div class="step-number" aria-hidden="true">1</div>
+          <div class="step-icon-wrap">
+            <!-- map-pin -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+          </div>
+          <h3 data-i18n="how.step1.title">Activez votre localisation</h3>
+          <p data-i18n="how.step1.desc">Autorisez l'accès GPS pour découvrir les professionnels et structures de santé à proximité en temps réel.</p>
+        </article>
+
+        <!-- Étape 2 -->
+        <article class="step-card reveal delay-200">
+          <div class="step-number" aria-hidden="true">2</div>
+          <div class="step-icon-wrap">
+            <!-- sparkles -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/>
+            </svg>
+          </div>
+          <h3 data-i18n="how.step2.title">Découvrez &amp; consultez</h3>
+          <p data-i18n="how.step2.desc">Visualisez les structures de santé, leurs spécialités, et discutez avec notre assistant AI.</p>
+        </article>
+
+        <!-- Étape 3 -->
+        <article class="step-card reveal delay-400">
+          <div class="step-number" aria-hidden="true">3</div>
+          <div class="step-icon-wrap">
+            <!-- shield-check -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <polyline points="9 12 11 14 15 10"/>
+            </svg>
+          </div>
+          <h3 data-i18n="how.step3.title">Obtenez votre solution</h3>
+          <p data-i18n="how.step3.desc">Notices simplifiées, conseils nutrition et suivi santé personnalisés.</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+       FONCTIONNALITÉS
+       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <section class="features-section section" id="features" aria-labelledby="features-title">
+    <div class="container">
+      <header class="section-header">
+        <span class="section-label" data-i18n="feat.label">FONCTIONNALITÉS</span>
+        <h2 id="features-title" class="section-title reveal" data-i18n="feat.title">
+          Une plateforme complète pour votre santé
+        </h2>
+        <p class="section-subtitle reveal delay-100" data-i18n="feat.subtitle">
+          Tout ce dont vous avez besoin, réuni en une seule application intelligente et sécurisée.
+        </p>
+      </header>
+
+      <div class="features-grid">
+
+        <!-- 1 · Structures de santé en temps réel -->
+        <article class="feature-card reveal">
+          <div class="feature-icon feature-icon-primary" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
+          </div>
+          <h3 data-i18n="feat.pharmacy.title">Structures de santé en temps réel</h3>
+          <p data-i18n="feat.pharmacy.desc">Géolocalisation, spécialités médicales et services d’urgence mis à jour en permanence.</p>
+        </article>
+
+        <!-- 2 · chatbot-->
+        <article class="feature-card reveal delay-100">
+          <div class="feature-icon feature-icon-teal" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/>
+            </svg>
+          </div>
+          <h3 data-i18n="feat.ai.title">Assistant AI</h3>
+          <p data-i18n="feat.ai.desc">Décrivez vos symptômes, obtenez des conseils et le bon spécialiste.</p>
+        </article>
+
+        <!-- 3 · SauveMoi QR -->
+        <article class="feature-card reveal delay-200">
+          <div class="feature-icon feature-icon-indigo" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+              <rect x="3" y="14" width="7" height="7" rx="1"/>
+              <rect x="14" y="14" width="3" height="3"/><rect x="18" y="14" width="3" height="3"/>
+              <rect x="14" y="18" width="3" height="3"/><rect x="18" y="18" width="3" height="3"/>
+            </svg>
+          </div>
+          <h3 data-i18n="feat.notice.title">SauveMoi QR</h3>
+          <p data-i18n="feat.notice.desc">Générez votre carte d'urgence chiffrée. Scannée par les secouristes en 1 seconde.</p>
+        </article>
+
+        <!-- 4 · OrientNutri IA -->
+        <article class="feature-card reveal delay-100">
+          <div class="feature-icon feature-icon-green" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 20h10"/>
+              <path d="M10 20c5.5-2.5.8-6.4 3-10"/>
+              <path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/>
+              <path d="M14.1 6a7 7 0 0 1 1.3 4.5c-1.9-.1-3.3-.8-4.3-1.8-.9-1-1.3-2.3-1.1-3.9 2.1.5 3.5 1.1 4.1 1.2z"/>
+            </svg>
+          </div>
+          <h3 data-i18n="feat.nutri.title">OrientNutri AI</h3>
+          <p data-i18n="feat.nutri.desc">Plan nutrition personnalisé selon votre condition de santé.</p>
+        </article>
+
+        <!-- 5 · Disponible 24h/24 -->
+        <article class="feature-card reveal delay-200">
+          <div class="feature-icon feature-icon-amber" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </div>
+          <h3 data-i18n="feat.h24.title">Disponible 24h/24</h3>
+          <p data-i18n="feat.h24.desc">Urgences, gardes et services de santé — tous les jours, à toute heure.</p>
+        </article>
+
+        <!-- 6 · Données sécurisées -->
+        <article class="feature-card reveal delay-300">
+          <div class="feature-icon feature-icon-health" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <polyline points="9 12 11 14 15 10"/>
+            </svg>
+          </div>
+          <h3 data-i18n="feat.secure.title">Données sécurisées</h3>
+          <p data-i18n="feat.secure.desc">Chiffrement de bout en bout, RGPD, vos données restent privées.</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+       SECTION URGENCE
+       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <section class="urgency-section" aria-labelledby="urgency-title">
+    <div class="container">
+      <div class="urgency-card reveal-scale">
+        <div class="urgency-inner">
+          <div class="urgency-content">
+            <div class="urgency-badge">
+              <!-- info -->
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="8"/>
+                <line x1="12" y1="12" x2="12" y2="16"/>
+              </svg>
+              <span data-i18n="urg.badge">Urgence médicale</span>
+            </div>
+
+            <h2 id="urgency-title" data-i18n="urg.title">
+              Un service de santé adapté à proximité, à toute heure.
+            </h2>
+
+            <p data-i18n="urg.desc">
+              En cas de besoin, OrientDZ localise instantanément le spécialiste, l'hôpital ou la pharmacie la plus proche et vous guide pas à pas.
+            </p>
+
+            <div class="urgency-actions">
+              <a href="carte.html" class="btn btn-white-outline btn-lg">
+                <!-- map-pin -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/>
+                  <circle cx="12" cy="10" r="3"/>
+                </svg>
+                <span data-i18n="urg.cta1">Urgences & Gardes</span>
+                <!-- arrow-right -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:15px;height:15px;">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </a>
+              <a href="ai.html" class="btn btn-white-outline btn-lg">
+                <!-- message-circle -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>
+                </svg>
+                <span data-i18n="urg.cta2">Consulter l'AI</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Icône décorative avec anneaux -->
+          <div class="urgency-visual" aria-hidden="true">
+            <div class="urgency-icon-wrap">
+              <div class="urgency-ring"></div>
+              <div class="urgency-ring urgency-ring-2"></div>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+     FOOTER
+     â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+
+      <!-- Marque -->
+      <div class="footer-brand">
+        <a href="index.html" class="logo" aria-label="OrientDZ – Accueil">
+          <span class="logo-icon" style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" style="color:white;">
+              <path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/>
+              <path d="m8.5 8.5 7 7"/>
+            </svg>
+          </span>
+          <span class="logo-wordmark">Orient<span class="text-primary">DZ</span></span>
+        </a>
+        <p data-i18n="footer.about">La plateforme intelligente d'orientation médicale et d'urgence en Algérie pour tous.</p>
+        <nav aria-label="Réseaux sociaux" class="footer-socials">
+          <a href="#" class="footer-social-link" aria-label="Twitter / X">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 4l16 16M4 20L20 4"/>
+            </svg>
+          </a>
+          <a href="#" class="footer-social-link" aria-label="LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+              <rect x="2" y="9" width="4" height="12"/>
+              <circle cx="4" cy="4" r="2"/>
+            </svg>
+          </a>
+          <a href="#" class="footer-social-link" aria-label="Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+              <circle cx="12" cy="12" r="5"/>
+              <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/>
+            </svg>
+          </a>
+          <a href="#" class="footer-social-link" aria-label="GitHub">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.2c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
+              <path d="M9 18c-4.51 2-5-2-7-2"/>
+            </svg>
+          </a>
+        </nav>
+      </div>
+
+      <!-- Produit -->
+      <div class="footer-col">
+        <h4 data-i18n="footer.product">Produit</h4>
+        <ul>
+          <li><a href="carte.html" data-i18n="nav.map">Carte des pharmacies</a></li>
+          <li><a href="ai.html" data-i18n="nav.chatbot">Assistant AI</a></li>
+          <li><a href="nutrition.html" data-i18n="nav.nutri">OrientNutri</a></li>
+          <li><a href="emergency_qr.html" style="color:#DC2626;font-weight:700" data-i18n="nav.sauvemoi">🆘 SauveMoi QR</a></li>
+        </ul>
+      </div>
+
+      <!-- Support -->
+      <div class="footer-col">
+        <h4 data-i18n="footer.support">Support</h4>
+        <ul>
+          <li><a href="#" data-i18n="footer.help">Centre d'aide</a></li>
+          <li><a href="#" data-i18n="footer.contact">Contact</a></li>
+          <li><a href="#" data-i18n="footer.status">Statut</a></li>
+          <li><a href="#" data-i18n="footer.docs">Documentation</a></li>
+        </ul>
+      </div>
+
+      <!-- Légal -->
+      <div class="footer-col">
+        <h4 data-i18n="footer.legal">Légal</h4>
+        <ul>
+          <li><a href="#" data-i18n="footer.privacy">Confidentialité</a></li>
+          <li><a href="#" data-i18n="footer.cgu">CGU</a></li>
+          <li><a href="#" data-i18n="footer.cookies">Cookies</a></li>
+          <li><a href="#" data-i18n="footer.mentions">Mentions légales</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Bas de footer -->
+    <div class="footer-bottom">
+      <span data-i18n="footer.copy">© 2026 OrientDZ. Tous droits réservés.</span>
+      <span data-i18n="footer.care">Conçu avec soin pour votre santé.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script type="module" src="js/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carte Santé – OrientDZ</title>
+  <meta name="description" content="Localisez les pharmacies et pharmacies de garde près de chez vous en Algérie." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F8FAFC;--surface:#FFFFFF;--surface-alt:#F1F5F9;
+  --primary:#2DD4BF;--primary-dk:#14B8A6;--primary-xlt:#F0FDFA;
+  --blue:#3B82F6;--blue-dk:#2563EB;--blue-lt:#EFF6FF;
+  --green:#10B981;--green-lt:#ECFDF5;--green-ring:#A7F3D0;
+  --red:#EF4444;--red-lt:#FEF2F2;--red-ring:#FECACA;--red-dark:#B91C1C;
+  --orange:#F59E0B;--orange-lt:#FFFBEB;
+  --text:#0F172A;--muted:#64748B;--subtle:#94A3B8;
+  --border:#E2E8F0;
+  --grad:linear-gradient(135deg,#3B82F6,#2DD4BF);
+  --grad-green:linear-gradient(135deg,#10B981,#059669);
+  --sh-xs:0 1px 2px rgba(15,23,42,.04);
+  --sh-sm:0 1px 3px rgba(15,23,42,.06),0 1px 2px rgba(15,23,42,.04);
+  --sh-md:0 4px 12px rgba(15,23,42,.08);
+  --sh-cyan:0 4px 20px rgba(59,130,246,.22);
+  --sidebar-w:260px;--topbar-h:60px;
+}
+html,body{height:100%;font-family:'Inter',-apple-system,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+html[dir="rtl"] body,html[dir="rtl"] *{font-family:'Cairo','Inter',sans-serif}
+body{display:flex;overflow:hidden;height:100vh}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;font-family:inherit;border:none;background:none}
+ul{list-style:none}
+svg{display:block}
+input{font-family:inherit}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:99px}
+
+/* ── SIDEBAR ── */
+.sidebar{width:var(--sidebar-w);min-width:var(--sidebar-w);height:100vh;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto;overflow-x:hidden;z-index:100;transition:transform .28s cubic-bezier(.4,0,.2,1)}
+html[dir="rtl"] .sidebar{border-right:none;border-left:1px solid var(--border)}
+.sb-logo{display:flex;align-items:center;gap:10px;padding:0 20px;height:64px;border-bottom:1px solid var(--border);flex-shrink:0}
+.sb-logo-icon{width:36px;height:36px;border-radius:10px;background:var(--grad);display:flex;align-items:center;justify-content:center;box-shadow:var(--sh-cyan);flex-shrink:0}
+.sb-logo-icon svg{width:19px;height:19px;color:#fff}
+.sb-logo-name{font-size:1.125rem;font-weight:800;letter-spacing:-.03em;color:var(--text)}
+.sb-logo-name b{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:800}
+.sb-nav{flex:1;padding:16px 12px;display:flex;flex-direction:column;gap:24px}
+.sb-label{font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--subtle);padding:0 8px;margin-bottom:4px}
+.sb-items{display:flex;flex-direction:column;gap:2px}
+.sb-link{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;font-size:.9375rem;font-weight:500;color:var(--muted);transition:background .14s,color .14s;position:relative;cursor:pointer}
+.sb-link svg{width:17px;height:17px;flex-shrink:0}
+.sb-link:hover{background:var(--surface-alt);color:var(--text)}
+.sb-link.active{background:var(--primary-xlt);color:var(--primary);font-weight:600}
+.sb-link.active svg{color:var(--primary)}
+.sb-link.active::before{content:'';position:absolute;left:0;top:50%;transform:translateY(-50%);width:3px;height:18px;background:var(--grad);border-radius:0 4px 4px 0}
+html[dir="rtl"] .sb-link.active::before{left:auto;right:0;border-radius:4px 0 0 4px}
+
+/* ── MAIN WRAP ── */
+.main-wrap{flex:1;min-width:0;display:flex;flex-direction:column;height:100vh;overflow:hidden}
+
+/* ── TOPBAR ── */
+.topbar{height:var(--topbar-h);min-height:var(--topbar-h);background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 20px;flex-shrink:0;position:relative;gap:10px}
+.topbar-burger{width:34px;height:34px;border-radius:7px;border:1px solid var(--border);background:var(--surface);display:none;align-items:center;justify-content:center;color:var(--muted);transition:background .14s;flex-shrink:0}
+.topbar-burger:hover{background:var(--surface-alt)}
+.topbar-burger svg{width:17px;height:17px}
+.topbar-brand{display:flex;align-items:center;gap:8px;text-decoration:none;flex-shrink:0}
+.topbar-brand-icon{width:30px;height:30px;border-radius:8px;background:var(--grad);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(6,182,212,.25)}
+.topbar-brand-icon svg{width:15px;height:15px;color:#fff}
+.topbar-brand-name{font-size:.9375rem;font-weight:800;letter-spacing:-.025em;color:var(--text)}
+.topbar-brand-name b{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.topbar-center{position:absolute;left:50%;transform:translateX(-50%);font-size:.9375rem;font-weight:700;color:var(--text);white-space:nowrap;letter-spacing:-.015em;pointer-events:none}
+.topbar-right{display:flex;align-items:center;gap:8px;margin-left:auto}
+html[dir="rtl"] .topbar-right{margin-left:0;margin-right:auto}
+.lang-pill{display:inline-flex;align-items:center;background:var(--surface-alt);border:1px solid var(--border);border-radius:9999px;padding:3px;gap:2px;height:34px;box-shadow:var(--sh-xs)}
+.lang-opt{padding:5px 14px;border-radius:9999px;font-size:.8125rem;font-weight:700;color:var(--muted);transition:all .18s;cursor:pointer;display:flex;align-items:center;gap:5px;line-height:1;min-width:48px;justify-content:center}
+.lang-opt.active{background:var(--surface);color:var(--text);box-shadow:0 1px 3px rgba(15,23,42,.1)}
+.lang-opt:hover:not(.active){color:var(--text)}
+.lang-opt.ar{font-family:'Cairo',sans-serif;font-size:.875rem}
+
+/* ── MAP LAYOUT ── */
+.map-wrap{flex:1;display:flex;overflow:hidden}
+
+/* ── PANEL GAUCHE ── */
+.map-panel{width:380px;min-width:380px;display:flex;flex-direction:column;background:var(--surface);border-right:1px solid var(--border);overflow:hidden}
+html[dir="rtl"] .map-panel{border-right:none;border-left:1px solid var(--border)}
+
+.panel-top{padding:16px 18px 14px;border-bottom:1px solid var(--border);flex-shrink:0}
+.panel-title{display:flex;align-items:center;gap:8px;font-size:1rem;font-weight:700;color:var(--text);margin-bottom:12px;letter-spacing:-.02em}
+.panel-title svg{width:18px;height:18px;color:var(--blue)}
+
+/* Barre recherche */
+.search-box{position:relative}
+.search-box svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:15px;height:15px;color:var(--muted);pointer-events:none}
+html[dir="rtl"] .search-box svg{left:auto;right:11px}
+.search-inp{width:100%;padding:9px 36px 9px 34px;border:1.5px solid var(--border);border-radius:10px;font-size:.875rem;color:var(--text);background:var(--surface-alt);outline:none;transition:border-color .15s,box-shadow .15s}
+html[dir="rtl"] .search-inp{padding:9px 34px 9px 36px}
+.search-inp:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(59,130,246,.12);background:var(--surface)}
+.search-inp::placeholder{color:var(--subtle)}
+.search-clear{position:absolute;right:10px;top:50%;transform:translateY(-50%);width:18px;height:18px;border-radius:50%;background:var(--subtle);color:#fff;display:none;align-items:center;justify-content:center;cursor:pointer}
+.search-clear.show{display:flex}
+.search-clear svg{width:10px;height:10px}
+
+/* Filtres rapides */
+.filters-row{display:flex;gap:6px;padding:10px 18px;border-bottom:1px solid var(--border);flex-shrink:0}
+.f-btn{display:inline-flex;align-items:center;gap:5px;padding:6px 13px;border-radius:9999px;font-size:.8125rem;font-weight:600;border:1.5px solid var(--border);background:var(--surface);color:var(--muted);cursor:pointer;transition:all .15s;white-space:nowrap;flex-shrink:0}
+.f-btn svg{width:13px;height:13px}
+.f-btn:hover{border-color:var(--blue);color:var(--blue-dk)}
+.f-btn.on-garde{background:var(--green-lt);border-color:var(--green-ring);color:var(--green)}
+.f-btn.on-open{background:var(--blue-lt);border-color:#BFDBFE;color:var(--blue-dk)}
+
+/* ── CARTE LOCALISATION (avant GPS) ── */
+.loc-card{display:flex;align-items:flex-start;gap:14px;background:linear-gradient(135deg,#EFF6FF 0%,#F0FDFA 100%);border:1.5px solid #BFDBFE;border-radius:16px;padding:16px 18px;margin:16px 18px}
+.loc-card-icon{width:44px;height:44px;min-width:44px;border-radius:9999px;background:var(--grad);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(59,130,246,.25);flex-shrink:0}
+.loc-card-icon svg{width:20px;height:20px;color:#fff}
+.loc-card-body{flex:1;min-width:0}
+.loc-card-title{font-size:.9375rem;font-weight:700;color:var(--blue-dk);margin-bottom:4px}
+.loc-card-desc{font-size:.8125rem;color:var(--muted);margin-bottom:13px;line-height:1.55}
+.btn-loc{display:inline-flex;align-items:center;gap:7px;padding:10px 20px;background:var(--grad);color:#fff;border:none;border-radius:9999px;font-size:.875rem;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(59,130,246,.28);transition:transform .18s,box-shadow .18s,opacity .18s}
+.btn-loc svg{width:15px;height:15px}
+.btn-loc:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 8px 28px rgba(59,130,246,.38)}
+.btn-loc:disabled{opacity:.55;cursor:not-allowed;transform:none;box-shadow:none}
+.loc-err{font-size:.8125rem;color:var(--red-dark);margin-top:10px;padding:7px 12px;background:var(--red-lt);border:1px solid var(--red-ring);border-radius:8px;line-height:1.4;display:none}
+
+/* ── POSITION DÉTECTÉE ── */
+.loc-detected{display:flex;align-items:flex-start;gap:12px;background:linear-gradient(135deg,#ECFDF5 0%,#F0FDFA 100%);border:1.5px solid var(--green-ring);border-radius:14px;padding:13px 15px;margin:12px 18px 0}
+.loc-det-icon{width:36px;height:36px;min-width:36px;border-radius:9999px;background:var(--grad-green);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 3px 12px rgba(16,185,129,.25)}
+.loc-det-icon svg{width:16px;height:16px;color:#fff}
+.loc-det-body{flex:1;min-width:0}
+.loc-det-label{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--green);margin-bottom:4px}
+.loc-det-place{font-size:.9375rem;font-weight:700;color:var(--text);line-height:1.3}
+.loc-det-wilaya{font-size:.8125rem;color:var(--muted);margin-top:2px;font-weight:500}
+.btn-relocate{display:inline-flex;align-items:center;gap:5px;margin-top:8px;font-size:.78rem;font-weight:600;color:var(--blue-dk);cursor:pointer;padding:4px 0;background:none;border:none}
+.btn-relocate svg{width:12px;height:12px}
+.btn-relocate:hover{text-decoration:underline}
+
+/* Compteur + tri */
+.list-head{display:flex;align-items:center;justify-content:space-between;padding:10px 18px 6px;flex-shrink:0}
+.list-count{font-size:.8125rem;color:var(--muted)}
+.list-count b{color:var(--blue-dk);font-weight:700}
+
+/* ── LISTE PHARMACIES ── */
+.pharma-list{flex:1;overflow-y:auto;padding:6px 12px 16px}
+.pharma-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:36px 20px;gap:10px;color:var(--muted);text-align:center}
+.pharma-empty svg{width:38px;height:38px;opacity:.3}
+.pharma-empty p{font-size:.875rem;line-height:1.5}
+
+/* Carte pharmacie */
+.pharma-card{border-radius:12px;border:1.5px solid var(--border);background:var(--surface);padding:12px 14px;margin-bottom:8px;cursor:pointer;transition:all .15s;position:relative;overflow:hidden}
+.pharma-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:transparent;transition:background .15s}
+.pharma-card.garde-card::before{background:var(--green)}
+.pharma-card:hover{border-color:#BFDBFE;box-shadow:0 4px 14px rgba(15,23,42,.08);transform:translateY(-1px)}
+.pharma-card.selected{border-color:var(--blue);box-shadow:0 0 0 3px rgba(59,130,246,.14)}
+.pharma-card.selected::before{background:var(--blue)}
+
+.pc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:5px}
+.pc-name{font-size:.9rem;font-weight:700;color:var(--text);line-height:1.3;flex:1}
+.pc-tags{display:flex;flex-direction:column;align-items:flex-end;gap:3px;flex-shrink:0}
+html[dir="rtl"] .pc-tags{align-items:flex-start}
+.tag{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:2px 8px;border-radius:9999px;white-space:nowrap}
+.tag-garde{background:var(--green-lt);color:var(--green);border:1px solid var(--green-ring)}
+.tag-open{background:var(--green-lt);color:var(--green);border:1px solid var(--green-ring)}
+.tag-closed{background:var(--red-lt);color:var(--red-dark);border:1px solid var(--red-ring)}
+
+.pc-commune{font-size:.78rem;color:var(--muted);font-weight:500;margin-bottom:7px}
+.pc-row{display:flex;align-items:flex-start;gap:7px;font-size:.8125rem;color:var(--muted);margin:3px 0;line-height:1.4}
+.pc-row svg{width:13px;height:13px;flex-shrink:0;margin-top:2px;color:var(--primary)}
+.pc-hours b{color:var(--text);font-weight:600}
+.pc-dist{display:inline-flex;align-items:center;gap:4px;font-size:.72rem;font-weight:600;color:var(--primary-dk);background:var(--primary-xlt);border:1px solid #99F6E4;padding:2px 8px;border-radius:9999px;margin-bottom:7px}
+.pc-dist svg{width:11px;height:11px}
+
+.pc-actions{display:flex;gap:6px;margin-top:10px;padding-top:9px;border-top:1px solid var(--border)}
+.pc-btn{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:8px 10px;border-radius:9px;font-size:.8rem;font-weight:600;transition:all .15s;border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer;text-decoration:none}
+.pc-btn:hover{background:var(--surface-alt);border-color:var(--blue);color:var(--blue-dk)}
+.pc-btn.primary{background:var(--grad);color:#fff;border:none;box-shadow:0 2px 8px rgba(59,130,246,.22)}
+.pc-btn.primary:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(59,130,246,.32);color:#fff}
+.pc-btn svg{width:13px;height:13px}
+
+/* ── GOOGLE MAP ── */
+.map-container{flex:1;position:relative;background:#e5e3df}
+#gmap{width:100%;height:100%}
+
+/* Overlay si pas encore de GPS */
+.map-hint{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:rgba(248,250,252,.82);backdrop-filter:blur(6px);z-index:10;pointer-events:none;transition:opacity .4s}
+.map-hint.hidden{opacity:0;pointer-events:none}
+.map-hint-icon{width:64px;height:64px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 24px rgba(59,130,246,.3)}
+.map-hint-icon svg{width:28px;height:28px;color:#fff}
+.map-hint p{font-size:.9375rem;font-weight:600;color:var(--muted);text-align:center;max-width:260px;line-height:1.5}
+
+/* ── Popup Leaflet ── */
+.leaflet-popup-content-wrapper{border-radius:12px!important;box-shadow:0 8px 24px rgba(15,23,42,.14)!important;border:1.5px solid #E2E8F0!important;padding:0!important}
+.leaflet-popup-content{margin:0!important}
+.leaflet-popup-tip-container{display:none}
+
+/* Overlay sidebar mobile */
+.sb-overlay{display:none;position:fixed;inset:0;background:rgba(15,23,42,.32);backdrop-filter:blur(3px);z-index:199}
+body.sb-open .sb-overlay{display:block}
+
+/* Responsive */
+@media (max-width:900px){.map-panel{width:320px;min-width:320px}}
+@media (max-width:768px){
+  .sidebar{position:fixed;top:0;left:0;height:100vh;transform:translateX(-100%);z-index:200;box-shadow:var(--sh-md)}
+  html[dir="rtl"] .sidebar{left:auto;right:0;transform:translateX(100%)}
+  body.sb-open .sidebar{transform:translateX(0)}
+  .topbar-burger{display:flex}
+  .topbar-center{display:none}
+  .topbar{padding-inline:14px}
+}
+@media (max-width:640px){
+  .map-wrap{flex-direction:column}
+  .map-panel{width:100%;min-width:0;height:55vh;border-right:none;border-bottom:1px solid var(--border)}
+  html[dir="rtl"] .map-panel{border-left:none}
+  .map-container{flex:1;min-height:45vh}
+}
+</style>
+</head>
+
+<body>
+<div class="sb-overlay" id="sb-overlay"></div>
+
+<!-- ── SIDEBAR ── -->
+<aside class="sidebar" id="sidebar">
+  <a href="index.html" class="sb-logo">
+    <div class="sb-logo-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg>
+    </div>
+    <span class="sb-logo-name">Orient<span class="text-primary">DZ</span></span>
+  </a>
+  <nav class="sb-nav">
+    <div>
+      <p class="sb-label">Principal</p>
+      <ul class="sb-items">
+        <li><a href="index.html" class="sb-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          <span>Vue d'ensemble</span>
+        </a></li>
+        <li><a href="ai.html" class="sb-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/></svg>
+          <span>Assistant IA</span>
+        </a></li>
+        <li><a href="map.html" class="sb-link active" aria-current="page">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg>
+          <span>Carte Pharmacies</span>
+        </a></li>
+        <li><a href="carte.html" class="sb-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>Carte Santé</span>
+        </a></li>
+        <li><a href="nutrition.html" class="sb-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+          <span>OrientNutri</span>
+        </a></li>
+      </ul>
+    </div>
+  </nav>
+</aside>
+
+<!-- ── MAIN ── -->
+<div class="main-wrap">
+  <header class="topbar">
+    <button class="topbar-burger" id="burger" aria-label="Menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <a href="index.html" class="topbar-brand">
+      <div class="topbar-brand-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg>
+      </div>
+      <span class="topbar-brand-name">Orient<span class="text-primary">DZ</span></span>
+    </a>
+    <span class="topbar-center">Carte des Pharmacies</span>
+    <div class="topbar-right">
+      <div class="lang-pill">
+        <button class="lang-opt active" id="btn-fr">🇫🇷 FR</button>
+        <button class="lang-opt ar" id="btn-ar">🇩🇿 AR</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="map-wrap">
+
+    <!-- ── PANEL GAUCHE ── -->
+    <aside class="map-panel">
+
+      <div class="panel-top">
+        <div class="panel-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg>
+          Pharmacies près de chez vous
+        </div>
+        <div class="search-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          <input id="search-inp" class="search-inp" type="search" placeholder="Rechercher une pharmacie…" autocomplete="off" />
+          <button class="search-clear" id="search-clear" title="Effacer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Filtres -->
+      <div class="filters-row">
+        <button class="f-btn" id="btn-garde">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Pharmacie de garde
+        </button>
+        <button class="f-btn" id="btn-open">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Ouvert maintenant
+        </button>
+      </div>
+
+      <!-- Carte "Activer ma position" (visible avant GPS) -->
+      <div class="loc-card" id="loc-card">
+        <div class="loc-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/>
+          </svg>
+        </div>
+        <div class="loc-card-body">
+          <p class="loc-card-title">Activez votre localisation</p>
+          <p class="loc-card-desc">Pour voir les pharmacies et pharmacies de garde les plus proches de vous sur la carte.</p>
+          <button class="btn-loc" id="btn-loc">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/>
+            </svg>
+            Activer ma position
+          </button>
+          <div class="loc-err" id="loc-err"></div>
+        </div>
+      </div>
+
+      <!-- Position détectée (visible après GPS) -->
+      <div class="loc-detected" id="loc-detected" style="display:none">
+        <div class="loc-det-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <div class="loc-det-body">
+          <div class="loc-det-label">Position détectée</div>
+          <div class="loc-det-place" id="det-place">—</div>
+          <div class="loc-det-wilaya" id="det-wilaya"></div>
+          <button class="btn-relocate" id="btn-relocate">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            Changer de position
+          </button>
+        </div>
+      </div>
+
+      <!-- Compteur -->
+      <div class="list-head" id="list-head" style="display:none">
+        <span class="list-count"><b id="pharma-count">0</b> pharmacies trouvées</span>
+      </div>
+
+      <!-- Liste -->
+      <div class="pharma-list" id="pharma-list">
+        <div class="pharma-empty">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg>
+          <p>Activez votre position pour voir les pharmacies près de vous</p>
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- ── GOOGLE MAP ── -->
+    <div class="map-container">
+      <div id="gmap"></div>
+      <!-- Hint avant GPS -->
+      <div class="map-hint" id="map-hint">
+        <div class="map-hint-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <p>Activez votre position pour voir les pharmacies sur la carte</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Données pharmacies -->
+<script src="js/utils/pharmacies-data.js"></script>
+
+<!-- Leaflet (carte gratuite, sans clé API) -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+/* ═══════════════════════════════════════════════════════════
+   OrientDZ — Carte des Pharmacies (Google Maps + GPS)
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── State ── */
+let lmap          = null;   // Leaflet map
+let userMarker    = null;
+let userLat       = null;
+let userLng       = null;
+let lmarkers      = {};     // id → Leaflet marker
+let ALL_P         = [];
+let FILTERED      = [];
+let selectedId    = null;
+let filterGarde   = false;
+let filterOpen    = false;
+let gpsActivated  = false;
+
+/* ── Coordonnées centre par wilaya ── */
+const WCOORDS = {
+  'Alger':[36.737,3.086],'Blida':[36.470,2.829],'Oran':[35.697,-0.632],
+  'Tipaza':[36.586,2.447],'Boumerdès':[36.769,3.477],'Béjaïa':[36.752,5.084],
+  'Tizi Ouzou':[36.717,4.045],'Jijel':[36.820,5.766],'Mostaganem':[35.931,0.089],
+  'Djelfa':[34.670,3.263],'Batna':[35.556,6.174],'Saïda':[34.840,0.151],'Biskra':[34.850,5.729],
+};
+
+/* Coords approximatives par commune (dispersion autour du centre wilaya) */
+const COFF = {};
+let _ci = 0;
+function approxCoord(wilaya, commune) {
+  const key = wilaya + '|' + commune;
+  if (!COFF[key]) {
+    _ci++;
+    const [blat, blng] = WCOORDS[wilaya] || [36.5, 3.0];
+    const ang = _ci * 137.508 * Math.PI / 180;
+    const r   = 0.06 + (_ci % 6) * 0.02;
+    COFF[key] = [blat + r * Math.sin(ang), blng + r * Math.cos(ang)];
+  }
+  return COFF[key];
+}
+
+/* ── Build flat list ── */
+function buildAll() {
+  const db = window.PHARMACIES_DB || {};
+  let id = 0;
+  for (const [wilaya, list] of Object.entries(db)) {
+    for (const p of list) {
+      ALL_P.push({ ...p, wilaya, id: ++id, garde: p.garde === 'Oui' || p.garde === true });
+    }
+  }
+}
+
+/* ── Helpers heure ── */
+function nowMin() { const d = new Date(); return d.getHours() * 60 + d.getMinutes(); }
+function t2m(t) {
+  if (!t) return null;
+  const [h, m] = String(t).split(':').map(Number);
+  return h * 60 + (m || 0);
+}
+function isOpen(p) {
+  const now = nowMin(), o = t2m(p.ouverture), f = t2m(p.fermeture);
+  if (o === null || f === null) return null;
+  if (f < o) return now >= o || now < f;
+  return now >= o && now < f;
+}
+function distKm(lat1, lng1, lat2, lng2) {
+  const R = 6371;
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLng = (lng2 - lng1) * Math.PI / 180;
+  const a = Math.sin(dLat / 2) ** 2 + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLng / 2) ** 2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
+/* ── Escape HTML ── */
+function esc(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+/* ── Initialiser Leaflet ── */
+function startMap() {
+  lmap = L.map('gmap', { zoomControl: false }).setView([28.0, 2.5], 5);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>',
+    maxZoom: 19
+  }).addTo(lmap);
+  L.control.zoom({ position: 'topright' }).addTo(lmap);
+}
+
+/* ── Icônes Leaflet (SVG div) ── */
+function mkIcon(color, size) {
+  return L.divIcon({
+    className: '',
+    html: `<div style="width:${size}px;height:${size}px;border-radius:50%;background:${color};border:3px solid #fff;box-shadow:0 3px 12px rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center">
+      <svg style="width:${Math.round(size*.42)}px;height:${Math.round(size*.42)}px" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg>
+    </div>`,
+    iconSize: [size, size],
+    iconAnchor: [size/2, size/2],
+    popupAnchor: [0, -(size/2+4)]
+  });
+}
+const ICO_NORMAL   = () => mkIcon('linear-gradient(135deg,#3B82F6,#2DD4BF)', 30);
+const ICO_GARDE    = () => mkIcon('linear-gradient(135deg,#10B981,#059669)', 34);
+const ICO_SELECTED = () => mkIcon('linear-gradient(135deg,#2563EB,#1D4ED8)', 36);
+
+/* ── GPS : Géocodage inverse Nominatim ── */
+async function reverseGeocode(lat, lng) {
+  try {
+    const r = await fetch(
+      `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}&zoom=14&accept-language=fr`,
+      { headers: { 'Accept-Language': 'fr' } }
+    );
+    const d = await r.json();
+    const addr = d.address || {};
+    return {
+      commune: addr.city || addr.town || addr.village || addr.suburb || addr.county || '',
+      wilaya:  addr.state || '',
+      display: addr.suburb || addr.city || addr.town || addr.village || '',
+    };
+  } catch { return { commune: '', wilaya: '', display: '' }; }
+}
+
+/* ── Trouver wilaya correspondante dans PHARMACIES_DB ── */
+function matchWilaya(nominatimState) {
+  if (!nominatimState || !window.PHARMACIES_DB) return null;
+  const norm = s => String(s).toLowerCase()
+    .normalize('NFD').replace(/[̀-ͯ]/g, '')
+    .replace(/^wilaya\s+(de\s+|d[''\s]*|du\s+)/i, '')
+    .replace(/['']/g, "'").trim();
+  const sn = norm(nominatimState);
+  for (const key of Object.keys(window.PHARMACIES_DB)) {
+    if (norm(key) === sn) return key;
+  }
+  for (const key of Object.keys(window.PHARMACIES_DB)) {
+    const kn = norm(key);
+    if (sn.includes(kn) || kn.includes(sn)) return key;
+  }
+  return null;
+}
+
+/* ── Filtrage ── */
+function applyFilters(wilayaKey) {
+  const q = (document.getElementById('search-inp').value || '').toLowerCase().trim();
+
+  FILTERED = ALL_P.filter(p => {
+    if (wilayaKey && p.wilaya !== wilayaKey) return false;
+    if (filterGarde && !p.garde) return false;
+    if (filterOpen) { const op = isOpen(p); if (op === false) return false; }
+    if (q) {
+      if (!`${p.nom} ${p.commune} ${p.adresse}`.toLowerCase().includes(q)) return false;
+    }
+    return true;
+  });
+
+  // Tri : pharmacies de garde en premier, puis par distance si GPS dispo
+  if (userLat !== null) {
+    FILTERED.sort((a, b) => {
+      if (a.garde && !b.garde) return -1;
+      if (!a.garde && b.garde) return 1;
+      const [alat, alng] = a.latitude ? [+a.latitude, +a.longitude] : approxCoord(a.wilaya, a.commune);
+      const [blat, blng] = b.latitude ? [+b.latitude, +b.longitude] : approxCoord(b.wilaya, b.commune);
+      return distKm(userLat, userLng, alat, alng) - distKm(userLat, userLng, blat, blng);
+    });
+  }
+
+  document.getElementById('pharma-count').textContent = FILTERED.length;
+  renderList();
+  renderMarkers();
+}
+
+/* ── Render liste ── */
+function renderList() {
+  const el = document.getElementById('pharma-list');
+  if (!FILTERED.length) {
+    el.innerHTML = `
+      <div class="pharma-empty">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg>
+        <p>Aucune pharmacie trouvée</p>
+      </div>`;
+    return;
+  }
+  el.innerHTML = FILTERED.map(p => cardHTML(p)).join('');
+}
+
+function cardHTML(p) {
+  const op = isOpen(p);
+  const openTag = op === true
+    ? '<span class="tag tag-open">Ouvert</span>'
+    : op === false ? '<span class="tag tag-closed">Fermé</span>' : '';
+  const gardeTag = p.garde ? '<span class="tag tag-garde">Garde</span>' : '';
+
+  const [plat, plng] = p.latitude ? [+p.latitude, +p.longitude] : approxCoord(p.wilaya, p.commune);
+  const dist = userLat !== null
+    ? `<div class="pc-dist"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>${distKm(userLat, userLng, plat, plng).toFixed(1)} km</div>`
+    : '';
+
+  // URL itinéraire Google Maps
+  const dest = p.latitude
+    ? `${p.latitude},${p.longitude}`
+    : encodeURIComponent(`${p.nom}, ${p.commune}, Algérie`);
+  const origin = userLat !== null ? `${userLat},${userLng}` : '';
+  const dirUrl = origin
+    ? `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${dest}&travelmode=driving`
+    : `https://www.google.com/maps/search/?api=1&query=${dest}`;
+
+  const telBtn = p.telephone
+    ? `<a class="pc-btn" href="tel:${esc(p.telephone.replace(/\s/g, ''))}" onclick="event.stopPropagation()">
+         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.28h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 18z"/></svg>
+         Appeler
+       </a>` : '';
+
+  return `
+    <div class="pharma-card${p.garde ? ' garde-card' : ''}${selectedId === p.id ? ' selected' : ''}"
+         data-id="${p.id}" onclick="selectCard(${p.id})">
+      <div class="pc-top">
+        <div class="pc-name">${esc(p.nom)}</div>
+        <div class="pc-tags">${gardeTag}${openTag}</div>
+      </div>
+      <div class="pc-commune">${esc(p.commune)} · ${esc(p.wilaya)}</div>
+      ${dist}
+      ${p.adresse ? `<div class="pc-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>${esc(p.adresse)}</div>` : ''}
+      <div class="pc-row">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span class="pc-hours"><b>${p.ouverture || '—'}–${p.fermeture || '—'}</b> · ${esc(p.jours || '')}</span>
+      </div>
+      <div class="pc-actions">
+        ${telBtn}
+        <a class="pc-btn primary" href="${dirUrl}" target="_blank" onclick="event.stopPropagation()" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" y1="3" x2="9" y2="18"/><line x1="15" y1="6" x2="15" y2="21"/></svg>
+          Itinéraire
+        </a>
+      </div>
+    </div>`;
+}
+
+/* ── Render markers Leaflet ── */
+function renderMarkers() {
+  if (!lmap) return;
+  for (const mk of Object.values(lmarkers)) mk.remove();
+  lmarkers = {};
+
+  for (const p of FILTERED) {
+    const [lat, lng] = p.latitude ? [+p.latitude, +p.longitude] : approxCoord(p.wilaya, p.commune);
+    const icon = p.id === selectedId ? ICO_SELECTED() : p.garde ? ICO_GARDE() : ICO_NORMAL();
+    const mk = L.marker([lat, lng], { icon, zIndexOffset: p.garde ? 100 : 0 });
+    mk.bindPopup(popupHTML(p), { maxWidth: 280, closeButton: false });
+    mk.on('click', () => selectCard(p.id, false));
+    mk.addTo(lmap);
+    lmarkers[p.id] = mk;
+  }
+}
+
+/* ── Popup Leaflet ── */
+function popupHTML(p) {
+  const op = isOpen(p);
+  const ob = op === true
+    ? `<span style="font-size:.67rem;font-weight:700;text-transform:uppercase;padding:2px 8px;border-radius:9999px;background:#ECFDF5;color:#10B981;border:1px solid #A7F3D0">Ouvert</span>`
+    : op === false
+      ? `<span style="font-size:.67rem;font-weight:700;text-transform:uppercase;padding:2px 8px;border-radius:9999px;background:#FEF2F2;color:#B91C1C;border:1px solid #FECACA">Fermé</span>`
+      : '';
+  const gb = p.garde
+    ? `<span style="font-size:.67rem;font-weight:700;text-transform:uppercase;padding:2px 8px;border-radius:9999px;background:#ECFDF5;color:#10B981;border:1px solid #A7F3D0;margin-right:4px">Garde</span>` : '';
+
+  const dest   = p.latitude ? `${p.latitude},${p.longitude}` : encodeURIComponent(`${p.nom}, ${p.commune}, Algérie`);
+  const origin = userLat !== null ? `${userLat},${userLng}` : '';
+  const dirUrl = origin
+    ? `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${dest}&travelmode=driving`
+    : `https://www.google.com/maps/search/?api=1&query=${dest}`;
+
+  return `
+    <div style="font-family:'Inter',sans-serif;min-width:220px">
+      <div style="padding:12px 14px 10px">
+        <div style="margin-bottom:7px">${gb}${ob}</div>
+        <div style="font-size:.9rem;font-weight:700;color:#0F172A;margin-bottom:3px;line-height:1.3">${esc(p.nom)}</div>
+        <div style="font-size:.78rem;color:#64748B;margin-bottom:8px">${esc(p.commune)} · ${esc(p.wilaya)}</div>
+        ${p.adresse ? `<div style="font-size:.8rem;color:#64748B;margin-bottom:4px">📍 ${esc(p.adresse)}</div>` : ''}
+        <div style="font-size:.8rem;color:#64748B">🕐 ${p.ouverture || '—'}–${p.fermeture || '—'} · ${esc(p.jours || '')}</div>
+      </div>
+      <div style="padding:9px 14px 12px;border-top:1px solid #E2E8F0;display:flex;gap:7px">
+        ${p.telephone ? `<a href="tel:${esc(p.telephone.replace(/\s/g,''))}" style="flex:1;display:inline-flex;align-items:center;justify-content:center;padding:8px;border-radius:8px;font-size:.8rem;font-weight:600;color:#0F172A;border:1px solid #E2E8F0;text-decoration:none;background:#fff">📞 Appeler</a>` : ''}
+        <a href="${dirUrl}" target="_blank" rel="noopener"
+           style="flex:1;display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:8px;border-radius:8px;font-size:.8rem;font-weight:700;color:#fff;background:linear-gradient(135deg,#3B82F6,#2DD4BF);text-decoration:none">
+          🗺️ Itinéraire
+        </a>
+      </div>
+    </div>`;
+}
+
+/* ── Sélectionner une pharmacie ── */
+function selectCard(id, panMap = true) {
+  selectedId = id;
+  renderList();
+  renderMarkers();
+
+  const card = document.querySelector(`.pharma-card[data-id="${id}"]`);
+  if (card) card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+  const p = FILTERED.find(x => x.id === id);
+  if (p && lmap && lmarkers[p.id]) {
+    const [lat, lng] = p.latitude ? [+p.latitude, +p.longitude] : approxCoord(p.wilaya, p.commune);
+    if (panMap) lmap.setView([lat, lng], Math.max(lmap.getZoom(), 15), { animate: true });
+    lmarkers[p.id].openPopup();
+  }
+}
+
+/* ── Clic "Activer ma position" ── */
+async function activateGPS() {
+  const btn    = document.getElementById('btn-loc');
+  const errEl  = document.getElementById('loc-err');
+
+  if (!navigator.geolocation) {
+    errEl.textContent = "Votre navigateur ne supporte pas la géolocalisation.";
+    errEl.style.display = 'block';
+    return;
+  }
+
+  btn.disabled  = true;
+  btn.innerHTML = `<svg style="animation:spin .8s linear infinite" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> Localisation en cours…`;
+  errEl.style.display = 'none';
+
+  navigator.geolocation.getCurrentPosition(
+    async pos => {
+      userLat = pos.coords.latitude;
+      userLng = pos.coords.longitude;
+
+      /* Reverse geocode */
+      const place = await reverseGeocode(userLat, userLng);
+
+      /* Trouver la wilaya dans notre base */
+      const wilayaKey = matchWilaya(place.wilaya) || Object.keys(WCOORDS).reduce((best, w) => {
+        const [wlat, wlng] = WCOORDS[w];
+        const prev = best ? Math.hypot(userLat - WCOORDS[best][0], userLng - WCOORDS[best][1]) : Infinity;
+        return Math.hypot(userLat - wlat, userLng - wlng) < prev ? w : best;
+      }, null);
+
+      /* Afficher position détectée */
+      document.getElementById('loc-card').style.display    = 'none';
+      document.getElementById('loc-detected').style.display = 'flex';
+      document.getElementById('list-head').style.display    = 'flex';
+      document.getElementById('det-place').textContent    = place.display || place.commune || 'Position détectée';
+      document.getElementById('det-wilaya').textContent   = wilayaKey ? `Wilaya de ${wilayaKey}` : place.wilaya || '';
+
+      /* Masquer l'overlay hint */
+      document.getElementById('map-hint').classList.add('hidden');
+
+      /* Marqueur utilisateur sur la carte Leaflet */
+      if (lmap) {
+        if (userMarker) userMarker.remove();
+        userMarker = L.circleMarker([userLat, userLng], {
+          radius: 9, fillColor: '#3B82F6', fillOpacity: 1,
+          color: '#fff', weight: 3,
+        }).addTo(lmap).bindPopup('📍 Votre position');
+        lmap.setView([userLat, userLng], 13, { animate: true });
+      }
+
+      /* Filtrer et afficher les pharmacies */
+      applyFilters(wilayaKey);
+      gpsActivated = true;
+    },
+    err => {
+      btn.disabled = false;
+      btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> Activer ma position`;
+      const msgs = {
+        1: "Permission refusée. Autorisez la localisation dans les paramètres du navigateur.",
+        2: "Position indisponible. Vérifiez votre connexion.",
+        3: "Délai dépassé. Réessayez.",
+      };
+      errEl.textContent  = msgs[err.code] || "Erreur de localisation.";
+      errEl.style.display = 'block';
+    },
+    { timeout: 10000, enableHighAccuracy: true }
+  );
+}
+
+/* ── Changer de position ── */
+function resetGPS() {
+  gpsActivated  = false;
+  userLat       = null;
+  userLng       = null;
+  selectedId    = null;
+  FILTERED      = [];
+  if (userMarker) { userMarker.setMap(null); userMarker = null; }
+  for (const mk of Object.values(gmarkers)) mk.setMap(null);
+  gmarkers = {};
+  if (openInfoWin) { openInfoWin.close(); openInfoWin = null; }
+
+  document.getElementById('loc-card').style.display     = 'flex';
+  document.getElementById('loc-detected').style.display = 'none';
+  document.getElementById('list-head').style.display    = 'none';
+  document.getElementById('map-hint').classList.remove('hidden');
+  document.getElementById('search-inp').value           = '';
+  document.getElementById('search-clear').classList.remove('show');
+
+  const btn = document.getElementById('btn-loc');
+  btn.disabled  = false;
+  btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> Activer ma position`;
+
+  document.getElementById('pharma-list').innerHTML = `
+    <div class="pharma-empty">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></svg>
+      <p>Activez votre position pour voir les pharmacies près de vous</p>
+    </div>`;
+
+  if (lmap) { lmap.setView([28.0, 2.5], 5, { animate: true }); }
+}
+
+/* ── CSS animation spin ── */
+const style = document.createElement('style');
+style.textContent = '@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}';
+document.head.appendChild(style);
+
+/* ── Init ── */
+document.addEventListener('DOMContentLoaded', () => {
+  buildAll();
+  startMap();
+
+  /* Burger sidebar */
+  document.getElementById('burger')?.addEventListener('click', () => document.body.classList.toggle('sb-open'));
+  document.getElementById('sb-overlay')?.addEventListener('click', () => document.body.classList.remove('sb-open'));
+
+  /* Lang */
+  document.getElementById('btn-fr')?.addEventListener('click', () => {
+    document.documentElement.lang = 'fr';
+    document.documentElement.dir  = 'ltr';
+    document.getElementById('btn-fr').classList.add('active');
+    document.getElementById('btn-ar').classList.remove('active');
+  });
+  document.getElementById('btn-ar')?.addEventListener('click', () => {
+    document.documentElement.lang = 'ar';
+    document.documentElement.dir  = 'rtl';
+    document.getElementById('btn-ar').classList.add('active');
+    document.getElementById('btn-fr').classList.remove('active');
+  });
+
+  /* GPS */
+  document.getElementById('btn-loc').addEventListener('click', activateGPS);
+  document.getElementById('btn-relocate').addEventListener('click', resetGPS);
+
+  /* Recherche */
+  const searchInp   = document.getElementById('search-inp');
+  const searchClear = document.getElementById('search-clear');
+  searchInp.addEventListener('input', () => {
+    searchClear.classList.toggle('show', searchInp.value.length > 0);
+    if (gpsActivated) applyFilters(document.getElementById('det-wilaya').textContent.replace('Wilaya de ', '') || null);
+  });
+  searchClear.addEventListener('click', () => {
+    searchInp.value = '';
+    searchClear.classList.remove('show');
+    if (gpsActivated) applyFilters(document.getElementById('det-wilaya').textContent.replace('Wilaya de ', '') || null);
+  });
+
+  /* Filtres */
+  document.getElementById('btn-garde').addEventListener('click', function () {
+    filterGarde = !filterGarde;
+    this.classList.toggle('on-garde', filterGarde);
+    if (gpsActivated) applyFilters(document.getElementById('det-wilaya').textContent.replace('Wilaya de ', '') || null);
+  });
+  document.getElementById('btn-open').addEventListener('click', function () {
+    filterOpen = !filterOpen;
+    this.classList.toggle('on-open', filterOpen);
+    if (gpsActivated) applyFilters(document.getElementById('det-wilaya').textContent.replace('Wilaya de ', '') || null);
+  });
+});
+</script>
+</body>
+</html>

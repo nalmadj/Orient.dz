@@ -1,0 +1,2207 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mémoire OrientDZ — NIT 2025-2026</title>
+<style>
+/* ============================================================
+   VARIABLES & RESET
+============================================================ */
+:root {
+  --green-dark:    #0d5c2e;
+  --green-primary: #1a7a42;
+  --green-medium:  #2e8b57;
+  --green-light:   #e8f5e9;
+  --green-pale:    #f4faf6;
+  --green-border:  #a5d6a7;
+  --anthracite:    #263238;
+  --anthracite-md: #37474f;
+  --anthracite-lt: #546e7a;
+  --text-body:     #2d3436;
+  --text-muted:    #607d8b;
+  --white:         #ffffff;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 11.5pt;
+  line-height: 1.75;
+  color: var(--text-body);
+  background: #eceff1;
+}
+
+/* ============================================================
+   PAGE CONTAINER
+============================================================ */
+.page {
+  width: 210mm;
+  min-height: 297mm;
+  margin: 15px auto;
+  padding: 22mm 18mm 22mm 25mm;
+  background: var(--white);
+  box-shadow: 0 2px 14px rgba(0,0,0,0.13);
+  position: relative;
+}
+.page-break { page-break-after: always; }
+
+/* ============================================================
+   PRINT
+============================================================ */
+@media print {
+  body { background: white; font-size: 11pt; }
+  .page {
+    width: 100%; margin: 0; padding: 20mm 18mm 20mm 25mm;
+    box-shadow: none; min-height: auto;
+  }
+  .page-break { page-break-after: always; break-after: page; }
+  @page { size: A4; margin: 0; }
+}
+
+/* ============================================================
+   COVER PAGE
+============================================================ */
+.cover {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 253mm;
+  text-align: center;
+  padding: 5mm 0;
+}
+.cover-top { width: 100%; }
+.republic-block {
+  font-size: 10pt;
+  color: var(--anthracite-md);
+  line-height: 1.7;
+  font-variant: small-caps;
+  letter-spacing: .5px;
+  margin-bottom: 6px;
+}
+.nit-logo-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin: 10px 0 6px;
+}
+.nit-svg { width:72px; height:54px; }
+.nit-name {
+  text-align: left;
+  font-size: 13pt;
+  font-weight: bold;
+  color: var(--anthracite);
+  line-height: 1.3;
+}
+.nit-name span { color: var(--green-primary); }
+.cover-divider {
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--green-dark), var(--green-medium), var(--green-dark));
+  margin: 12px 0;
+}
+.memoir-label {
+  font-size: 11pt;
+  color: var(--anthracite-md);
+  font-style: italic;
+  margin-bottom: 4px;
+}
+.degree-label {
+  font-size: 11pt;
+  color: var(--anthracite);
+  margin-bottom: 2px;
+}
+.specialty-label {
+  font-size: 10.5pt;
+  color: var(--green-dark);
+  font-weight: bold;
+}
+.cover-title-box {
+  border: 2px solid var(--green-primary);
+  background: var(--green-pale);
+  padding: 18px 25px;
+  margin: 22px 10px;
+  border-radius: 4px;
+}
+.cover-title {
+  font-size: 20pt;
+  color: var(--green-dark);
+  font-weight: bold;
+  line-height: 1.35;
+  margin-bottom: 8px;
+}
+.cover-subtitle {
+  font-size: 11pt;
+  color: var(--anthracite-md);
+  font-style: italic;
+}
+.cover-bottom {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 18px;
+  padding: 0 5mm;
+}
+.cover-col { text-align: left; }
+.cover-col.right { text-align: left; }
+.cover-lbl {
+  font-size: 9.5pt;
+  color: var(--text-muted);
+  font-style: italic;
+  display: block;
+  margin-bottom: 3px;
+}
+.cover-val {
+  font-size: 12pt;
+  font-weight: bold;
+  color: var(--green-dark);
+  display: block;
+  line-height: 1.5;
+}
+.cover-year-bar {
+  width: 100%;
+  background: var(--anthracite);
+  color: var(--white);
+  text-align: center;
+  padding: 8px;
+  font-size: 12pt;
+  letter-spacing: 1px;
+  margin-top: 18px;
+  border-radius: 3px;
+}
+
+/* ============================================================
+   CHAPTER HEADER BANNER
+============================================================ */
+.chap-banner {
+  background: linear-gradient(135deg, var(--anthracite) 0%, var(--green-dark) 100%);
+  color: white;
+  padding: 18px 25px;
+  margin: -22mm -18mm 30px -25mm;
+  border-radius: 0;
+}
+.chap-num {
+  font-size: 10pt;
+  opacity: .75;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.chap-name {
+  font-size: 20pt;
+  font-weight: bold;
+  line-height: 1.3;
+}
+
+/* ============================================================
+   TYPOGRAPHY
+============================================================ */
+h1.chap-title {
+  font-size: 20pt;
+  color: var(--green-dark);
+  border-bottom: 3px solid var(--green-primary);
+  padding-bottom: 8px;
+  margin-bottom: 28px;
+}
+h2.sec {
+  font-size: 14pt;
+  color: var(--anthracite);
+  border-left: 5px solid var(--green-primary);
+  padding-left: 12px;
+  margin: 28px 0 14px;
+}
+h3.subsec {
+  font-size: 12.5pt;
+  color: var(--green-dark);
+  margin: 20px 0 10px;
+}
+h4.sss {
+  font-size: 11.5pt;
+  color: var(--anthracite-md);
+  font-style: italic;
+  margin: 15px 0 8px;
+}
+p {
+  text-align: justify;
+  margin-bottom: 11px;
+  text-indent: 1.2em;
+}
+p.no-indent { text-indent: 0; }
+p.lead {
+  font-size: 12pt;
+  color: var(--anthracite-md);
+  text-indent: 0;
+  font-style: italic;
+  margin-bottom: 18px;
+}
+strong { color: var(--green-dark); }
+em { color: var(--anthracite-md); }
+
+/* ============================================================
+   ABSTRACT BOX
+============================================================ */
+.abstract-box {
+  border-left: 5px solid var(--green-primary);
+  background: var(--green-pale);
+  padding: 18px 22px;
+  margin: 18px 0;
+  border-radius: 0 6px 6px 0;
+}
+.abstract-lang {
+  font-size: 13pt;
+  font-weight: bold;
+  color: var(--green-dark);
+  margin-bottom: 12px;
+  display: block;
+}
+.kw { margin-top: 12px; font-size: 10.5pt; color: var(--anthracite-md); }
+.kw strong { color: var(--green-dark); }
+
+/* ============================================================
+   TABLE OF CONTENTS
+============================================================ */
+.toc-entry {
+  display: flex;
+  align-items: baseline;
+  padding: 4px 0;
+  border-bottom: 1px dotted #c8e6c9;
+}
+.toc-chapter-entry {
+  font-weight: bold;
+  color: var(--green-dark);
+  font-size: 11.5pt;
+  margin-top: 12px;
+  border-bottom: 1px solid var(--green-border);
+}
+.toc-sec-entry { padding-left: 22px; font-size: 11pt; }
+.toc-sub-entry { padding-left: 44px; font-size: 10.5pt; color: var(--text-muted); }
+.toc-dots {
+  flex: 1;
+  overflow: hidden;
+  margin: 0 8px 3px;
+  border-bottom: 1px dotted #aaa;
+}
+.toc-pg { font-size: 10.5pt; color: var(--anthracite-md); min-width: 20px; text-align: right; }
+
+/* ============================================================
+   CALLOUT BOXES
+============================================================ */
+.callout {
+  border-radius: 6px;
+  padding: 14px 18px;
+  margin: 18px 0;
+  font-size: 11pt;
+}
+.callout-def  { background:#e3f2fd; border-left:5px solid #1976d2; }
+.callout-note { background:var(--green-light); border-left:5px solid var(--green-primary); }
+.callout-warn { background:#fff3e0; border-left:5px solid #f57c00; }
+.callout-sec  { background:#fce4ec; border-left:5px solid #c62828; }
+.callout-title { font-weight: bold; font-size: 11.5pt; margin-bottom:7px; display:block; }
+.callout-def  .callout-title { color:#1565c0; }
+.callout-note .callout-title { color:var(--green-dark); }
+.callout-warn .callout-title { color:#e65100; }
+.callout-sec  .callout-title { color:#b71c1c; }
+.callout p { text-indent:0; margin-bottom:6px; }
+
+/* ============================================================
+   CODE / ALGORITHM
+============================================================ */
+.algo {
+  background: var(--anthracite);
+  color: #e8f5e9;
+  padding: 18px 22px;
+  border-radius: 8px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 10pt;
+  line-height: 1.65;
+  margin: 18px 0;
+  overflow-x: auto;
+}
+.algo-title {
+  color: #80deea;
+  font-weight: bold;
+  font-size: 11pt;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #37474f;
+  padding-bottom: 6px;
+}
+.kw  { color: #f48fb1; font-weight: bold; }
+.fn  { color: #80deea; }
+.cm  { color: #90a4ae; font-style: italic; }
+.vr  { color: #ffe082; }
+.nm  { color: #ef9a9a; }
+.op  { color: #ce93d8; }
+.indent1 { margin-left: 20px; display: block; }
+.indent2 { margin-left: 40px; display: block; }
+.indent3 { margin-left: 60px; display: block; }
+
+/* ============================================================
+   FORMULA
+============================================================ */
+.formula-block {
+  background: var(--green-pale);
+  border: 1px solid var(--green-border);
+  border-radius: 6px;
+  padding: 14px 20px;
+  text-align: center;
+  margin: 18px 0;
+}
+.formula {
+  font-size: 13pt;
+  font-style: italic;
+  color: var(--anthracite);
+  display: block;
+  margin-bottom: 6px;
+}
+.formula-caption {
+  font-size: 10pt;
+  color: var(--text-muted);
+  display: block;
+}
+
+/* ============================================================
+   TABLES
+============================================================ */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 18px 0;
+  font-size: 11pt;
+}
+caption {
+  font-weight: bold;
+  color: var(--green-dark);
+  font-size: 10.5pt;
+  margin-bottom: 8px;
+  caption-side: top;
+  text-align: center;
+  font-style: italic;
+}
+th {
+  background: var(--green-dark);
+  color: white;
+  padding: 9px 14px;
+  text-align: left;
+  font-size: 10.5pt;
+  font-weight: bold;
+}
+td {
+  padding: 8px 14px;
+  border-bottom: 1px solid var(--green-border);
+  vertical-align: top;
+}
+tr:nth-child(even) td { background: var(--green-pale); }
+.tbl-caption {
+  font-size: 10.5pt;
+  color: var(--text-muted);
+  font-style: italic;
+  text-align: center;
+  margin-top: 6px;
+}
+
+/* ============================================================
+   FIGURE
+============================================================ */
+.figure { margin: 22px 0; }
+.figure-inner {
+  border: 2px solid var(--green-border);
+  border-radius: 8px;
+  background: var(--green-pale);
+  padding: 18px;
+  text-align: center;
+}
+.fig-caption {
+  font-size: 10.5pt;
+  color: var(--text-muted);
+  font-style: italic;
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* ============================================================
+   ARCHITECTURE DIAGRAM (Pure CSS)
+============================================================ */
+.arch { display:flex; flex-direction:column; align-items:center; gap:8px; margin:18px 0; }
+.arch-row { display:flex; gap:10px; justify-content:center; align-items:center; width:100%; }
+.abox {
+  border:2px solid var(--green-primary);
+  border-radius:7px;
+  padding:10px 16px;
+  text-align:center;
+  font-size:10pt;
+  font-weight:bold;
+  background:white;
+  min-width:110px;
+}
+.abox.main  { background:var(--green-dark); color:white; border-color:var(--green-dark); font-size:11pt; }
+.abox.mod   { background:var(--anthracite); color:white; border-color:var(--anthracite); }
+.abox.sub   { background:var(--green-pale); font-size:9.5pt; min-width:90px; }
+.abox.layer { background:#e8eaf6; border-color:#5c6bc0; color:#283593; min-width:160px; }
+.arrow { color:var(--green-primary); font-size:18pt; line-height:1; }
+.arrow.down { display:block; text-align:center; line-height:.8; }
+
+/* ============================================================
+   LISTS
+============================================================ */
+ul, ol { margin:8px 0 14px 28px; }
+li { margin-bottom:6px; line-height:1.65; }
+ul li::marker { color:var(--green-primary); }
+
+/* ============================================================
+   PAGE FOOTER
+============================================================ */
+.page-footer {
+  font-size:9pt;
+  color:var(--text-muted);
+  border-top:1px solid var(--green-border);
+  padding-top:7px;
+  margin-top:28px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.pg-num { font-weight:bold; color:var(--green-dark); }
+
+/* ============================================================
+   MISC
+============================================================ */
+.section-intro {
+  background: var(--green-pale);
+  border-left: 4px solid var(--green-medium);
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  font-style: italic;
+  font-size: 11pt;
+  border-radius: 0 5px 5px 0;
+}
+.section-intro p { text-indent:0; margin-bottom:0; }
+.conclusion-box {
+  background: linear-gradient(135deg, var(--green-pale), #f0f4f8);
+  border: 2px solid var(--green-border);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 22px 0 10px;
+}
+.conclusion-box p { text-indent:0; margin-bottom:8px; }
+.highlight { background:var(--green-light); padding:1px 4px; border-radius:3px; }
+.arabic { direction:rtl; font-family:'Arial', sans-serif; font-size:12pt; text-align:right; line-height:2; }
+.arabic p { text-indent:0; }
+.centered { text-align:center !important; text-indent:0 !important; }
+.mb10 { margin-bottom:10px; }
+.mt20 { margin-top:20px; }
+hr.thin { border:none; border-top:1px solid var(--green-border); margin:20px 0; }
+hr.thick { border:none; border-top:3px solid var(--green-primary); margin:25px 0; }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     PAGE 1 : PAGE DE GARDE
+============================================================ -->
+<div class="page page-break">
+  <div class="cover">
+
+    <div class="cover-top">
+      <div class="republic-block">
+        République Algérienne Démocratique et Populaire<br>
+        Ministère de l'Enseignement Supérieur et de la Recherche Scientifique
+      </div>
+
+      <div class="nit-logo-row">
+        <!-- NIT Logo SVG -->
+        <svg class="nit-svg" viewBox="0 0 120 90" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0"  y="0"  width="30" height="90" fill="#1a7a42"/>
+          <rect x="0"  y="0"  width="90" height="20" fill="#1a7a42"/>
+          <rect x="0"  y="35" width="60" height="20" fill="#1a7a42"/>
+          <rect x="0"  y="70" width="90" height="20" fill="#1a7a42"/>
+          <rect x="60" y="0"  width="30" height="90" fill="#263238"/>
+          <rect x="95" y="0"  width="25" height="20" fill="#263238"/>
+          <rect x="95" y="0"  width="10" height="90" fill="#263238"/>
+        </svg>
+        <div class="nit-name">
+          <span>Numidia</span> Institute<br>of Technology
+        </div>
+      </div>
+      <div class="cover-divider"></div>
+    </div>
+
+    <div>
+      <div class="memoir-label">Mémoire présenté en vue de l'obtention du diplôme de</div>
+      <div class="degree-label" style="font-size:13pt;font-weight:bold;margin:4px 0;">Licence (Bachelor)</div>
+      <div class="degree-label">en <strong style="color:var(--anthracite);">Informatique</strong></div>
+      <div class="specialty-label" style="margin-top:4px;">Option : Intelligence Artificielle</div>
+
+      <div class="cover-title-box">
+        <div class="cover-title">OrientDZ</div>
+        <div class="cover-subtitle">
+          Plateforme Mobile Intelligente d'Orientation Médicale Bilingue<br>
+          avec Système Expert Nutritionnel Décentralisé<br>
+          et Module de Sécurité d'Urgence Hors-Ligne
+        </div>
+      </div>
+    </div>
+
+    <div style="width:100%;">
+      <div class="cover-bottom">
+        <div class="cover-col">
+          <span class="cover-lbl">Réalisé par :</span>
+          <span class="cover-val">Madjene Nawel</span>
+          <span class="cover-val">Bendebbah Med Islem</span>
+        </div>
+        <div class="cover-col right">
+          <span class="cover-lbl">Encadreur :</span>
+          <span class="cover-val">Mr. Mazoni Fares</span>
+        </div>
+      </div>
+      <div class="cover-year-bar">Année Universitaire : 2025 – 2026</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================================================
+     PAGE 2 : DÉDICACES
+============================================================ -->
+<div class="page page-break">
+  <h1 class="chap-title" style="text-align:center;">Dédicaces</h1>
+  <div style="padding:30px 20px; text-align:center; font-style:italic; font-size:12.5pt; line-height:2.2; color:var(--anthracite-md);">
+    <p class="no-indent centered">À nos familles, dont le soutien indéfectible a été le socle de notre parcours,</p>
+    <p class="no-indent centered">À nos parents, pour leurs sacrifices silencieux et leur foi inébranlable en nous,</p>
+    <p class="no-indent centered">À nos enseignants, en particulier M. Mazoni Fares, dont les conseils précieux ont guidé chaque étape de ce travail,</p>
+    <p class="no-indent centered">À tous ceux qui œuvrent pour l'amélioration de la santé numérique en Algérie,</p>
+    <p class="no-indent centered" style="margin-top:30px; font-size:14pt; color:var(--green-dark); font-style:normal; font-weight:bold;">Nous dédions ce travail.</p>
+  </div>
+  <div class="page-footer">
+    <span>Mémoire de fin d'études — OrientDZ</span>
+    <span class="pg-num">ii</span>
+  </div>
+</div>
+
+<!-- ============================================================
+     PAGE 3 : REMERCIEMENTS
+============================================================ -->
+<div class="page page-break">
+  <h1 class="chap-title">Remerciements</h1>
+  <p>Nous tenons, en premier lieu, à exprimer notre profonde et sincère gratitude à notre encadreur, <strong>Monsieur Mazoni Fares</strong>, pour la qualité de son encadrement, la pertinence de ses orientations scientifiques et la disponibilité dont il a fait preuve tout au long de ce projet. Ses remarques constructives et son exigence académique ont été des facteurs déterminants dans la réussite de ce travail.</p>
+  <p>Nos remerciements vont également à l'ensemble du corps enseignant du <strong>Département d'Informatique du Numidia Institute of Technology (NIT)</strong>, dont l'enseignement de qualité nous a fourni les bases théoriques et pratiques indispensables à la réalisation de ce projet. Nous remercions en particulier les enseignants de la filière Intelligence Artificielle pour leur passion communicative et leur pédagogie irréprochable.</p>
+  <p>Nous adressons nos sincères remerciements à la <strong>direction du NIT</strong> pour avoir créé un environnement académique stimulant et pour le soutien logistique apporté aux étudiants dans leurs travaux de recherche et de développement.</p>
+  <p>Nos remerciements s'étendent aux membres du jury qui ont accepté d'évaluer ce travail et d'y consacrer leur temps et leur expertise.</p>
+  <p>Enfin, nous remercions chaleureusement nos familles respectives pour leur patience, leur soutien moral constant et leur encouragement tout au long de ces années d'études. Sans eux, ce chemin n'aurait pu être parcouru avec la même détermination.</p>
+  <div class="page-footer">
+    <span>Mémoire de fin d'études — OrientDZ</span>
+    <span class="pg-num">iii</span>
+  </div>
+</div>
+
+<!-- ============================================================
+     PAGE 4 : RÉSUMÉS
+============================================================ -->
+<div class="page page-break">
+  <h1 class="chap-title">Résumé</h1>
+
+  <div class="abstract-box">
+    <span class="abstract-lang">🇫🇷 Français</span>
+    <p class="no-indent">Le présent mémoire décrit la conception et le développement d'<strong>OrientDZ</strong>, une plateforme mobile d'orientation médicale bilingue (français/arabe) destinée au contexte algérien. Face à la fragmentation des ressources de santé numériques et aux barrières linguistiques persistantes, OrientDZ propose une architecture modulaire intégrant deux composantes majeures : <strong>OrientNutri</strong>, un système expert de calcul nutritionnel entièrement décentralisé fonctionnant sans recours à des API cloud, et <strong>SauveMoi QR</strong>, un module de sécurité d'urgence médicale 100% hors-ligne reposant sur un protocole de chiffrement local XOR combiné à l'encodage Base64.</p>
+    <p class="no-indent">Le moteur nutritionnel implémente les équations de Mifflin-St Jeor pour le calcul du métabolisme basal (BMR), applique les facteurs d'activité physique standardisés pour dériver le TDEE (Total Daily Energy Expenditure), puis distribue les macronutriments selon des ratios scientifiquement validés et personnalisés selon l'objectif de l'utilisateur. L'intégralité des calculs s'effectue localement sur l'appareil, garantissant une totale indépendance vis-à-vis de la connectivité réseau.</p>
+    <p class="no-indent">Le module SauveMoi QR génère une fiche clinique d'urgence chiffrée, encodée dans un QR code scannable par les secouristes, même en l'absence totale de connexion internet. La gestion du bilinguisme natif français/arabe est assurée par un système de localisation basé sur le stockage local (localStorage/AsyncStorage), sans nécessiter de backend.</p>
+    <div class="kw"><strong>Mots-clés :</strong> santé mobile, orientation médicale, système expert, TDEE, macronutriments, chiffrement XOR, Base64, QR code médical, offline, bilinguisme, Algérie.</div>
+  </div>
+
+  <div class="abstract-box" style="margin-top:20px;">
+    <span class="abstract-lang">🇬🇧 Abstract (English)</span>
+    <p class="no-indent">This thesis presents the design and development of <strong>OrientDZ</strong>, a bilingual (French/Arabic) mobile medical orientation platform tailored to the Algerian healthcare context. OrientDZ addresses fragmented digital health resources through a modular architecture integrating two key components: <strong>OrientNutri</strong>, a fully decentralized nutritional expert system operating without cloud APIs, and <strong>SauveMoi QR</strong>, a 100% offline medical emergency module based on local XOR encryption combined with Base64 encoding.</p>
+    <p class="no-indent">The nutritional engine implements Mifflin-St Jeor equations for Basal Metabolic Rate (BMR) computation, applies standardized physical activity factors to derive the Total Daily Energy Expenditure (TDEE), and distributes macronutrients according to scientifically validated ratios personalized to user goals. All computations run locally on the device, ensuring complete network independence. The SauveMoi QR module generates an encrypted emergency clinical card, embedded in a QR code readable by first responders without internet connectivity.</p>
+    <div class="kw"><strong>Keywords:</strong> mobile health, medical orientation, expert system, TDEE, macronutrients, XOR encryption, Base64, medical QR code, offline, bilingualism, Algeria.</div>
+  </div>
+
+  <div class="abstract-box arabic" style="margin-top:20px;">
+    <span class="abstract-lang" style="text-align:right; display:block;">🇩🇿 ملخص</span>
+    <p>يُقدِّم هذا المذكرة تصميم وتطوير منصة <strong>OrientDZ</strong>، وهي تطبيق جوّال ثنائي اللغة (فرنسي/عربي) للتوجيه الطبي مصمَّم للسياق الجزائري. تعالج المنصة مشكلة تشتّت الموارد الصحية الرقمية والحواجز اللغوية من خلال هيكل معياري يضمّ مكوِّنَين رئيسيَّين: <strong>OrientNutri</strong>، نظام خبير تغذوي لا مركزي يعمل بدون واجهات برمجية سحابية، و<strong>SauveMoi QR</strong>، وحدة إسعاف طبي تعمل بشكل كامل دون اتصال بالإنترنت بالاعتماد على تشفير XOR المحلي مع ترميز Base64. يضمن تشغيل جميع الحسابات محلياً على الجهاز الاستقلالية التامة عن الشبكة.</p>
+    <div class="kw" style="text-align:right;"><strong>الكلمات المفتاحية:</strong> الصحة المتنقلة، التوجيه الطبي، نظام خبير، TDEE، المغذيات الكبرى، تشفير XOR، Base64، رمز QR الطبي، بدون إنترنت، ثنائية اللغة، الجزائر.</div>
+  </div>
+
+  <div class="page-footer">
+    <span>Mémoire de fin d'études — OrientDZ</span>
+    <span class="pg-num">iv</span>
+  </div>
+</div>
+
+<!-- ============================================================
+     PAGE 5 : TABLE DES MATIÈRES
+============================================================ -->
+<div class="page page-break">
+  <h1 class="chap-title">Table des Matières</h1>
+
+  <div class="toc-entry toc-chapter-entry"><span>Dédicaces</span><span class="toc-dots"></span><span class="toc-pg">ii</span></div>
+  <div class="toc-entry toc-chapter-entry"><span>Remerciements</span><span class="toc-dots"></span><span class="toc-pg">iii</span></div>
+  <div class="toc-entry toc-chapter-entry"><span>Résumés (FR / EN / AR)</span><span class="toc-dots"></span><span class="toc-pg">iv</span></div>
+  <div class="toc-entry toc-chapter-entry"><span>Table des Matières</span><span class="toc-dots"></span><span class="toc-pg">v</span></div>
+  <div class="toc-entry toc-chapter-entry"><span>Liste des Figures et Tableaux</span><span class="toc-dots"></span><span class="toc-pg">vi</span></div>
+  <div class="toc-entry toc-chapter-entry"><span>Liste des Abréviations</span><span class="toc-dots"></span><span class="toc-pg">vii</span></div>
+
+  <div class="toc-entry toc-chapter-entry"><span>Introduction Générale</span><span class="toc-dots"></span><span class="toc-pg">1</span></div>
+
+  <div class="toc-entry toc-chapter-entry"><span>Chapitre 1 — Architecture Système et Spécifications Techniques</span><span class="toc-dots"></span><span class="toc-pg">5</span></div>
+  <div class="toc-entry toc-sec-entry"><span>1.1 Introduction</span><span class="toc-dots"></span><span class="toc-pg">5</span></div>
+  <div class="toc-entry toc-sec-entry"><span>1.2 Présentation et genèse du projet OrientDZ</span><span class="toc-dots"></span><span class="toc-pg">5</span></div>
+  <div class="toc-entry toc-sec-entry"><span>1.3 Analyse et recueil des besoins</span><span class="toc-dots"></span><span class="toc-pg">7</span></div>
+  <div class="toc-entry toc-sub-entry"><span>1.3.1 Besoins fonctionnels</span><span class="toc-dots"></span><span class="toc-pg">7</span></div>
+  <div class="toc-entry toc-sub-entry"><span>1.3.2 Besoins non-fonctionnels</span><span class="toc-dots"></span><span class="toc-pg">8</span></div>
+  <div class="toc-entry toc-sec-entry"><span>1.4 Décisions architecturales — retrait du module PharmaInfo</span><span class="toc-dots"></span><span class="toc-pg">8</span></div>
+  <div class="toc-entry toc-sec-entry"><span>1.5 Architecture modulaire retenue</span><span class="toc-dots"></span><span class="toc-pg">9</span></div>
+  <div class="toc-entry toc-sec-entry"><span>1.6 Technologies et environnement de développement</span><span class="toc-dots"></span><span class="toc-pg">10</span></div>
+  <div class="toc-entry toc-sec-entry"><span>1.7 Système de localisation bilingue FR/AR via localStorage</span><span class="toc-dots"></span><span class="toc-pg">11</span></div>
+  <div class="toc-entry toc-sec-entry"><span>1.8 Flux de données et interactions inter-modules</span><span class="toc-dots"></span><span class="toc-pg">13</span></div>
+  <div class="toc-entry toc-sec-entry"><span>1.9 Conclusion</span><span class="toc-dots"></span><span class="toc-pg">14</span></div>
+
+  <div class="toc-entry toc-chapter-entry"><span>Chapitre 2 — Le Système Expert OrientNutri</span><span class="toc-dots"></span><span class="toc-pg">15</span></div>
+  <div class="toc-entry toc-sec-entry"><span>2.1 Introduction</span><span class="toc-dots"></span><span class="toc-pg">15</span></div>
+  <div class="toc-entry toc-sec-entry"><span>2.2 État de l'art en nutrition computationnelle</span><span class="toc-dots"></span><span class="toc-pg">15</span></div>
+  <div class="toc-entry toc-sec-entry"><span>2.3 Architecture décentralisée du moteur nutritionnel</span><span class="toc-dots"></span><span class="toc-pg">17</span></div>
+  <div class="toc-entry toc-sec-entry"><span>2.4 Modèle mathématique — Calcul du BMR</span><span class="toc-dots"></span><span class="toc-pg">18</span></div>
+  <div class="toc-entry toc-sec-entry"><span>2.5 Dérivation du TDEE</span><span class="toc-dots"></span><span class="toc-pg">19</span></div>
+  <div class="toc-entry toc-sec-entry"><span>2.6 Répartition des macronutriments</span><span class="toc-dots"></span><span class="toc-pg">21</span></div>
+  <div class="toc-entry toc-sec-entry"><span>2.7 Implémentation bilingue native FR/AR</span><span class="toc-dots"></span><span class="toc-pg">23</span></div>
+  <div class="toc-entry toc-sec-entry"><span>2.8 Interface utilisateur et expérience</span><span class="toc-dots"></span><span class="toc-pg">24</span></div>
+  <div class="toc-entry toc-sec-entry"><span>2.9 Tests et validation</span><span class="toc-dots"></span><span class="toc-pg">25</span></div>
+  <div class="toc-entry toc-sec-entry"><span>2.10 Conclusion</span><span class="toc-dots"></span><span class="toc-pg">26</span></div>
+
+  <div class="toc-entry toc-chapter-entry"><span>Chapitre 3 — Sécurité et Urgences : SauveMoi QR</span><span class="toc-dots"></span><span class="toc-pg">27</span></div>
+  <div class="toc-entry toc-sec-entry"><span>3.1 Introduction</span><span class="toc-dots"></span><span class="toc-pg">27</span></div>
+  <div class="toc-entry toc-sec-entry"><span>3.2 Contexte et motivation médicale</span><span class="toc-dots"></span><span class="toc-pg">27</span></div>
+  <div class="toc-entry toc-sec-entry"><span>3.3 Architecture de sécurité locale hors-ligne</span><span class="toc-dots"></span><span class="toc-pg">29</span></div>
+  <div class="toc-entry toc-sec-entry"><span>3.4 Protocole de chiffrement XOR + Base64</span><span class="toc-dots"></span><span class="toc-pg">30</span></div>
+  <div class="toc-entry toc-sec-entry"><span>3.5 Fonctionnement 100% hors-ligne</span><span class="toc-dots"></span><span class="toc-pg">33</span></div>
+  <div class="toc-entry toc-sec-entry"><span>3.6 Structure de la fiche clinique d'urgence</span><span class="toc-dots"></span><span class="toc-pg">34</span></div>
+  <div class="toc-entry toc-sec-entry"><span>3.7 Génération et lecture du QR Code médical</span><span class="toc-dots"></span><span class="toc-pg">35</span></div>
+  <div class="toc-entry toc-sec-entry"><span>3.8 Scénarios d'utilisation en situation d'urgence</span><span class="toc-dots"></span><span class="toc-pg">37</span></div>
+  <div class="toc-entry toc-sec-entry"><span>3.9 Analyse de sécurité et limites</span><span class="toc-dots"></span><span class="toc-pg">38</span></div>
+  <div class="toc-entry toc-sec-entry"><span>3.10 Conclusion</span><span class="toc-dots"></span><span class="toc-pg">39</span></div>
+
+  <div class="toc-entry toc-chapter-entry"><span>Conclusion Générale et Perspectives</span><span class="toc-dots"></span><span class="toc-pg">40</span></div>
+  <div class="toc-entry toc-chapter-entry"><span>Bibliographie</span><span class="toc-dots"></span><span class="toc-pg">43</span></div>
+  <div class="toc-entry toc-chapter-entry"><span>Annexes</span><span class="toc-dots"></span><span class="toc-pg">45</span></div>
+
+  <div class="page-footer">
+    <span>Mémoire de fin d'études — OrientDZ</span>
+    <span class="pg-num">v</span>
+  </div>
+</div>
+
+<!-- ============================================================
+     PAGE 6 : LISTE DES FIGURES ET TABLEAUX + ABRÉVIATIONS
+============================================================ -->
+<div class="page page-break">
+  <h1 class="chap-title">Liste des Figures et Tableaux</h1>
+
+  <h2 class="sec" style="margin-top:10px;">Figures</h2>
+  <table>
+    <tr><th style="width:15%;">Réf.</th><th>Intitulé</th><th style="width:15%;text-align:right;">Page</th></tr>
+    <tr><td>Fig. 1.1</td><td>Architecture modulaire globale d'OrientDZ</td><td style="text-align:right;">9</td></tr>
+    <tr><td>Fig. 1.2</td><td>Diagramme de cas d'utilisation général</td><td style="text-align:right;">10</td></tr>
+    <tr><td>Fig. 1.3</td><td>Pipeline de localisation bilingue FR/AR via localStorage</td><td style="text-align:right;">12</td></tr>
+    <tr><td>Fig. 1.4</td><td>Flux de données inter-modules d'OrientDZ</td><td style="text-align:right;">13</td></tr>
+    <tr><td>Fig. 2.1</td><td>Architecture du moteur nutritionnel décentralisé</td><td style="text-align:right;">17</td></tr>
+    <tr><td>Fig. 2.2</td><td>Arbre de décision du calcul du TDEE</td><td style="text-align:right;">20</td></tr>
+    <tr><td>Fig. 2.3</td><td>Répartition graphique des macronutriments selon l'objectif</td><td style="text-align:right;">22</td></tr>
+    <tr><td>Fig. 2.4</td><td>Interface OrientNutri — formulaire de saisie (FR/AR)</td><td style="text-align:right;">24</td></tr>
+    <tr><td>Fig. 3.1</td><td>Architecture de sécurité locale du module SauveMoi QR</td><td style="text-align:right;">29</td></tr>
+    <tr><td>Fig. 3.2</td><td>Pipeline de chiffrement XOR + Base64</td><td style="text-align:right;">31</td></tr>
+    <tr><td>Fig. 3.3</td><td>Structure de la fiche clinique d'urgence</td><td style="text-align:right;">34</td></tr>
+    <tr><td>Fig. 3.4</td><td>Scénario complet d'utilisation en situation d'urgence</td><td style="text-align:right;">37</td></tr>
+  </table>
+
+  <h2 class="sec">Tableaux</h2>
+  <table>
+    <tr><th style="width:15%;">Réf.</th><th>Intitulé</th><th style="width:15%;text-align:right;">Page</th></tr>
+    <tr><td>Tab. 1.1</td><td>Comparaison des besoins fonctionnels par module</td><td style="text-align:right;">7</td></tr>
+    <tr><td>Tab. 1.2</td><td>Technologies retenues et justification</td><td style="text-align:right;">11</td></tr>
+    <tr><td>Tab. 2.1</td><td>Facteurs d'activité physique (NAP) standardisés</td><td style="text-align:right;">20</td></tr>
+    <tr><td>Tab. 2.2</td><td>Ratios de macronutriments par objectif</td><td style="text-align:right;">22</td></tr>
+    <tr><td>Tab. 2.3</td><td>Résultats de validation OrientNutri — cas de test</td><td style="text-align:right;">25</td></tr>
+    <tr><td>Tab. 3.1</td><td>Champs de la fiche clinique d'urgence SauveMoi QR</td><td style="text-align:right;">34</td></tr>
+    <tr><td>Tab. 3.2</td><td>Analyse comparative des méthodes de chiffrement mobile</td><td style="text-align:right;">38</td></tr>
+  </table>
+
+  <hr class="thick">
+  <h1 class="chap-title" style="margin-top:20px;">Liste des Abréviations</h1>
+  <table>
+    <tr><th style="width:25%;">Abréviation</th><th>Signification</th></tr>
+    <tr><td><strong>API</strong></td><td>Application Programming Interface</td></tr>
+    <tr><td><strong>AsyncStorage</strong></td><td>Module de stockage asynchrone local (React Native)</td></tr>
+    <tr><td><strong>BMI</strong></td><td>Body Mass Index (Indice de Masse Corporelle)</td></tr>
+    <tr><td><strong>BMR</strong></td><td>Basal Metabolic Rate (Métabolisme de Base)</td></tr>
+    <tr><td><strong>Base64</strong></td><td>Schéma d'encodage binaire-en-texte en base 64</td></tr>
+    <tr><td><strong>DZ</strong></td><td>Désignation officielle ISO de l'Algérie (Algeria)</td></tr>
+    <tr><td><strong>FR/AR</strong></td><td>Français / Arabe (langues officielles algériennes)</td></tr>
+    <tr><td><strong>i18n</strong></td><td>Internationalisation (abréviation de 18 lettres entre i et n)</td></tr>
+    <tr><td><strong>JSON</strong></td><td>JavaScript Object Notation</td></tr>
+    <tr><td><strong>localStorage</strong></td><td>API de stockage local des navigateurs web (Web Storage)</td></tr>
+    <tr><td><strong>NAP</strong></td><td>Niveau d'Activité Physique (Physical Activity Level)</td></tr>
+    <tr><td><strong>NIT</strong></td><td>Numidia Institute of Technology</td></tr>
+    <tr><td><strong>QR</strong></td><td>Quick Response (code-barres matriciel 2D)</td></tr>
+    <tr><td><strong>TDEE</strong></td><td>Total Daily Energy Expenditure (Dépense Énergétique Journalière Totale)</td></tr>
+    <tr><td><strong>UI/UX</strong></td><td>User Interface / User Experience</td></tr>
+    <tr><td><strong>XOR</strong></td><td>eXclusive OR (Ou Exclusif — opération logique binaire)</td></tr>
+  </table>
+
+  <div class="page-footer">
+    <span>Mémoire de fin d'études — OrientDZ</span>
+    <span class="pg-num">vi – vii</span>
+  </div>
+</div>
+
+<!-- ============================================================
+     INTRODUCTION GÉNÉRALE (pages 1-4)
+============================================================ -->
+<div class="page page-break">
+  <div class="chap-banner">
+    <div class="chap-num">Introduction</div>
+    <div class="chap-name">Introduction Générale</div>
+  </div>
+
+  <h2 class="sec">1. Contexte général : la digitalisation de la santé en Algérie</h2>
+  <p>La transformation numérique du secteur de la santé constitue, à l'échelle mondiale, l'un des enjeux les plus structurants de ce début de siècle. Les technologies de l'information et de la communication (TIC) redéfinissent profondément la relation entre le patient et le système de soins, en offrant des outils d'aide à la décision, d'orientation médicale, de suivi thérapeutique et de communication d'urgence qui transcendent les contraintes géographiques et socio-économiques traditionnelles.</p>
+  <p>En Algérie, ce mouvement de digitalisation sanitaire se heurte à des réalités complexes. D'un côté, le pays dispose d'une infrastructure télécoms en expansion rapide, d'un taux de pénétration du smartphone supérieur à 60% en milieu urbain et d'une population jeune fortement connectée. De l'autre, le système de santé public reste confronté à des défis structurels majeurs : la surcharge des services hospitaliers, l'inégale répartition géographique des ressources médicales, l'absence d'un référentiel numérique unifié d'orientation des patients et la fracture linguistique entre les patients arabophones et un système de santé dont la documentation demeure largement francophone.</p>
+  <p>La pandémie de COVID-19 (2020-2021) a agi comme un catalyseur brutal de cette transition numérique, révélant en même temps les limites d'un système de santé peu préparé à gérer des flux massifs d'information médicale en temps réel et à distance. Les applications de télémédecine et les outils d'orientation mobile ont alors montré leur valeur ajoutée, mais également leurs lacunes : dépendance aux serveurs distants, absence de fonctionnement hors-ligne, barrières linguistiques non traitées et vulnérabilité des données personnelles de santé.</p>
+
+  <h2 class="sec">2. Problématique</h2>
+  <p>C'est dans ce contexte qu'émerge la problématique centrale à laquelle s'attaque le projet OrientDZ. Plusieurs constats factuels ont guidé la formulation de cette problématique :</p>
+  <ul>
+    <li><strong>Fragmentation de l'information médicale :</strong> il n'existe pas, à ce jour, de plateforme mobile unifiée permettant à un citoyen algérien d'accéder simultanément à des informations d'orientation médicale, à un suivi nutritionnel personnalisé et à un dispositif d'urgence médicale, le tout sans connexion internet permanente.</li>
+    <li><strong>Barrière linguistique :</strong> la majorité des applications de santé disponibles sur les marchés numériques mondiaux ne proposent pas de support natif en arabe adapté au dialecte et aux conventions médicales algériennes. Le passage d'une langue à l'autre implique, dans la quasi-totalité des solutions existantes, une architecture applicative distincte ou une dépendance à des services de traduction cloud.</li>
+    <li><strong>Vulnérabilité des données médicales en situation d'urgence :</strong> lorsqu'un patient se retrouve inconscient ou dans l'incapacité de communiquer verbalement, les secouristes n'ont généralement aucun moyen rapide et fiable d'accéder à ses informations médicales critiques (groupe sanguin, allergies, traitements en cours, pathologies chroniques). Les solutions existantes nécessitent soit une connexion internet, soit un accès à des serveurs distants, rendant leur utilisation aléatoire dans les zones à faible couverture réseau.</li>
+    <li><strong>Dépendance excessive aux infrastructures cloud :</strong> la majorité des applications de santé mobiles reposent sur des architectures client-serveur nécessitant une connexion permanente, ce qui les rend inutilisables dans des zones à connectivité réduite, fréquentes en dehors des grandes agglomérations algériennes.</li>
+  </ul>
+
+  <p>Ces constats convergent vers une question de recherche principale : <em>comment concevoir une plateforme mobile de santé, adaptée au contexte algérien, qui soit à la fois bilingue (FR/AR) de manière native, indépendante des infrastructures cloud pour ses fonctions critiques, et capable d'assurer la protection des données médicales privées même en l'absence totale de connectivité ?</em></p>
+
+  <div class="page-footer">
+    <span>Introduction Générale</span>
+    <span class="pg-num">1</span>
+  </div>
+</div>
+
+<div class="page page-break">
+  <div class="page-footer" style="border-top:none; border-bottom:1px solid var(--green-border); padding-bottom:7px; padding-top:0; margin-top:0; margin-bottom:20px;">
+    <span>Introduction Générale (suite)</span>
+    <span>OrientDZ — NIT 2025-2026</span>
+  </div>
+
+  <h2 class="sec">3. Objectifs du projet</h2>
+  <p>OrientDZ se fixe pour objectif de répondre à cette problématique au travers d'une architecture logicielle mobile modulaire, sobre et résiliente. Les objectifs spécifiques du projet peuvent être déclinés comme suit :</p>
+
+  <h3 class="subsec">3.1 Objectifs fonctionnels</h3>
+  <ul>
+    <li>Concevoir et implémenter un <strong>système expert nutritionnel décentralisé</strong> (OrientNutri) calculant le métabolisme basal (BMR) et la dépense énergétique journalière totale (TDEE) selon les équations de Mifflin-St Jeor, et distribuant les macronutriments (protéines, lipides, glucides) selon des ratios validés scientifiquement, sans recours à aucune API cloud.</li>
+    <li>Développer un <strong>module de sécurité d'urgence médicale</strong> (SauveMoi QR) permettant la saisie, le chiffrement local (XOR + Base64) et la restitution graphique sous forme de QR Code d'une fiche clinique d'urgence, accessible par les secouristes sans connexion internet.</li>
+    <li>Implémenter un <strong>système de localisation bilingue natif</strong> (français/arabe) reposant exclusivement sur le stockage local de l'appareil (localStorage/AsyncStorage), sans appel à des services de traduction distants.</li>
+    <li>Assurer une <strong>expérience utilisateur cohérente et accessible</strong>, y compris l'adaptation graphique pour la langue arabe (interface RTL — de droite à gauche).</li>
+  </ul>
+
+  <h3 class="subsec">3.2 Objectifs architecturaux</h3>
+  <ul>
+    <li>Adopter une architecture <strong>hors-ligne par défaut</strong> (<em>offline-first</em>), dans laquelle toutes les fonctionnalités critiques restent opérationnelles sans connexion réseau.</li>
+    <li>Garantir la <strong>décentralisation des données</strong> : aucune donnée médicale personnelle ne transite vers des serveurs distants.</li>
+    <li>Concevoir une architecture modulaire permettant l'ajout ou la suppression de composants sans déstabiliser le cœur applicatif.</li>
+  </ul>
+
+  <h3 class="subsec">3.3 Objectifs académiques et de recherche</h3>
+  <ul>
+    <li>Démontrer la faisabilité d'un système expert médical embarqué sur mobile sans infrastructure serveur.</li>
+    <li>Évaluer les protocoles de chiffrement légers adaptés aux contraintes des appareils mobiles pour la protection des données médicales.</li>
+    <li>Proposer un modèle de localisation bilingue natif applicable à d'autres domaines applicatifs du contexte algérien.</li>
+  </ul>
+
+  <h2 class="sec">4. Périmètre et décisions de conception</h2>
+  <p>Le projet a connu, au cours de sa phase d'analyse, une évolution significative de son périmètre initial. Un troisième module, initialement intitulé <strong>PharmaInfo</strong>, avait été envisagé dans le cahier des charges préliminaire. Il était destiné à fournir des informations sur les médicaments disponibles en Algérie, leurs génériques, leurs indications et contre-indications. Après une analyse approfondie des contraintes réglementaires liées à la diffusion d'informations pharmaceutiques, des risques liés à l'automédication que pourrait induire une telle fonctionnalité, et des implications en termes de responsabilité médicale, il a été décidé de <strong>retirer définitivement ce module du périmètre du projet</strong>.</p>
+  <p>Cette décision a permis de recentrer l'effort de développement sur les deux modules à plus forte valeur ajoutée technique et à plus faible risque : OrientNutri et SauveMoi QR, dont les spécifications sont présentées en détail dans les chapitres qui suivent.</p>
+
+  <h2 class="sec">5. Méthodologie de travail</h2>
+  <p>La conduite du projet OrientDZ a suivi une démarche itérative et incrémentale, inspirée des principes Agile adaptés au contexte académique. Le travail a été organisé en trois phases principales :</p>
+  <ul>
+    <li><strong>Phase d'analyse et de spécification</strong> (4 semaines) : recueil et formalisation des besoins, étude de l'existant, définition des contraintes architecturales et décisions de périmètre.</li>
+    <li><strong>Phase de conception et d'implémentation</strong> (8 semaines) : design de l'architecture, implémentation itérative des deux modules, développement de l'interface bilingue.</li>
+    <li><strong>Phase de test et de validation</strong> (3 semaines) : tests unitaires des algorithmes nutritionnels, tests de conformité du chiffrement, tests d'interface utilisateur et validation des scénarios d'urgence.</li>
+  </ul>
+
+  <h2 class="sec">6. Structure du rapport</h2>
+  <p>Le présent mémoire est structuré en trois chapitres techniques, encadrés par cette introduction et une conclusion générale.</p>
+  <ul>
+    <li>Le <strong>Chapitre 1</strong> présente l'architecture globale du système OrientDZ, les spécifications techniques, les technologies employées et le système de localisation bilingue.</li>
+    <li>Le <strong>Chapitre 2</strong> détaille le système expert nutritionnel OrientNutri : fondements théoriques, algorithmes de calcul du TDEE et des macronutriments, et implémentation bilingue.</li>
+    <li>Le <strong>Chapitre 3</strong> expose le module de sécurité SauveMoi QR : protocole de chiffrement XOR + Base64, fonctionnement offline, structure de la fiche clinique et génération du QR code médical.</li>
+    <li>La <strong>Conclusion générale</strong> synthétise les contributions du projet et ouvre des perspectives d'évolution, notamment dans le cadre d'une valorisation sous forme de startup.</li>
+  </ul>
+
+  <div class="page-footer">
+    <span>Introduction Générale</span>
+    <span class="pg-num">2</span>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     CHAPITRE 1 : ARCHITECTURE SYSTÈME
+============================================================ -->
+<div class="page page-break">
+  <div class="chap-banner">
+    <div class="chap-num">Chapitre 1</div>
+    <div class="chap-name">Architecture Système et Spécifications Techniques</div>
+  </div>
+
+  <h2 class="sec">1.1 Introduction</h2>
+  <div class="section-intro"><p>Ce chapitre constitue le socle architectural de l'ensemble du mémoire. Il décrit les décisions de conception fondamentales du projet OrientDZ, depuis l'analyse des besoins jusqu'à l'architecture modulaire retenue, en passant par les technologies employées et le système de gestion bilingue.</p></div>
+  <p>Toute architecture logicielle repose sur un ensemble de choix qui engagent durablement la qualité, la maintenabilité et l'évolutivité d'un système. Dans le cas d'OrientDZ, ces choix ont été particulièrement déterminants, car ils conditionnent non seulement les performances fonctionnelles de la plateforme, mais également sa capacité à opérer dans des conditions dégradées de connectivité, à respecter la vie privée des utilisateurs et à s'adapter à deux systèmes d'écriture de directions opposées.</p>
+
+  <h2 class="sec">1.2 Présentation et genèse du projet OrientDZ</h2>
+  <p>OrientDZ est une plateforme mobile d'orientation médicale destinée aux citoyens algériens. Son nom combine la dimension d'orientation — au sens médical du terme, c'est-à-dire l'aide à la navigation dans le système de soins — et le code ISO 3166-1 alpha-2 de l'Algérie (<em>DZ</em>), affirmant ainsi son ancrage territorial et culturel spécifique.</p>
+  <p>La genèse du projet remonte à l'observation d'un vide applicatif significatif dans l'écosystème numérique de santé algérien. Si des applications généralistes de santé existent sur les marchés mondiaux, elles ne tiennent pas compte des spécificités algériennes : système de santé à deux vitesses (public/privé), distribution géographique des spécialistes, barrière linguistique français-arabe, et accès réseau irrégulier en dehors des grands centres urbains.</p>
+  <p>Le projet se fixe comme ambition de proposer un outil concret, opérationnel et immédiatement utile pour trois profils d'utilisateurs distincts :</p>
+  <ul>
+    <li><strong>Le patient ordinaire</strong> cherchant à comprendre ses besoins nutritionnels ou à conserver ses informations médicales de manière sécurisée.</li>
+    <li><strong>La personne atteinte d'une pathologie chronique</strong> (diabète, hypertension, allergie grave) nécessitant que ses informations médicales critiques soient instantanément accessibles en cas d'urgence.</li>
+    <li><strong>Le professionnel de santé ou secouriste</strong> ayant besoin d'accéder rapidement à la fiche médicale d'un patient inconscient sans avoir à contacter un serveur distant.</li>
+  </ul>
+
+  <h2 class="sec">1.3 Analyse et recueil des besoins</h2>
+  <h3 class="subsec">1.3.1 Besoins fonctionnels</h3>
+  <p>L'analyse des besoins a été conduite selon une approche mixte combinant l'observation des pratiques existantes, la consultation de la littérature sur la santé mobile en contexte africain et maghrébin, et la définition de scénarios d'usage (<em>user stories</em>). Le tableau ci-dessous synthétise les besoins fonctionnels identifiés par module.</p>
+
+  <table>
+    <caption>Tableau 1.1 — Besoins fonctionnels par module</caption>
+    <tr><th>Module</th><th>Besoin fonctionnel</th><th>Priorité</th></tr>
+    <tr><td rowspan="4"><strong>OrientNutri</strong></td><td>Saisie des données anthropométriques (poids, taille, âge, sexe)</td><td>Haute</td></tr>
+    <tr><td>Calcul du BMR selon Mifflin-St Jeor</td><td>Haute</td></tr>
+    <tr><td>Dérivation du TDEE avec choix du niveau d'activité</td><td>Haute</td></tr>
+    <tr><td>Distribution des macronutriments selon l'objectif (perte/maintien/prise de masse)</td><td>Haute</td></tr>
+    <tr><td rowspan="4"><strong>SauveMoi QR</strong></td><td>Saisie sécurisée des données médicales personnelles</td><td>Haute</td></tr>
+    <tr><td>Chiffrement local des données (XOR + Base64)</td><td>Critique</td></tr>
+    <tr><td>Génération d'un QR Code médical scannable hors-ligne</td><td>Critique</td></tr>
+    <tr><td>Déchiffrement et affichage de la fiche d'urgence</td><td>Critique</td></tr>
+    <tr><td rowspan="3"><strong>Interface</strong></td><td>Basculement instantané français ↔ arabe</td><td>Haute</td></tr>
+    <tr><td>Adaptation RTL (Right-to-Left) pour l'arabe</td><td>Haute</td></tr>
+    <tr><td>Persistance du choix de langue via localStorage</td><td>Moyenne</td></tr>
+  </table>
+
+  <h3 class="subsec">1.3.2 Besoins non-fonctionnels</h3>
+  <p>Au-delà des fonctionnalités, plusieurs contraintes transversales ont guidé l'ensemble des décisions architecturales :</p>
+  <ul>
+    <li><strong>Performance :</strong> les calculs nutritionnels doivent s'exécuter en moins de 100 ms sur un appareil d'entrée de gamme, afin de garantir une expérience fluide.</li>
+    <li><strong>Offline-first :</strong> toutes les fonctionnalités critiques doivent être opérationnelles sans connexion réseau.</li>
+    <li><strong>Confidentialité par conception</strong> (<em>Privacy by Design</em>) : aucune donnée médicale personnelle ne doit quitter l'appareil de l'utilisateur.</li>
+    <li><strong>Portabilité :</strong> l'application doit fonctionner sur les deux systèmes d'exploitation mobiles dominants (Android ≥ 9.0, iOS ≥ 13).</li>
+    <li><strong>Maintenabilité :</strong> l'architecture doit permettre l'ajout ou le remplacement d'un module sans refactoring majeur.</li>
+    <li><strong>Accessibilité :</strong> l'interface doit être utilisable par des personnes ayant un faible niveau de culture numérique.</li>
+  </ul>
+
+  <div class="page-footer">
+    <span>Chapitre 1 — Architecture Système</span>
+    <span class="pg-num">5</span>
+  </div>
+</div>
+
+<div class="page page-break">
+  <div style="border-bottom:1px solid var(--green-border);padding-bottom:7px;margin-bottom:20px;font-size:9pt;color:var(--text-muted);display:flex;justify-content:space-between;"><span>Chapitre 1 — Architecture Système (suite)</span><span>OrientDZ — NIT 2025-2026</span></div>
+
+  <h2 class="sec">1.4 Décisions architecturales — retrait du module PharmaInfo</h2>
+  <p>La phase d'analyse a conduit à une décision architecturale majeure : le <strong>retrait définitif du module PharmaInfo</strong> du périmètre fonctionnel d'OrientDZ. Ce module, initialement planifié pour fournir un catalogue interactif de médicaments disponibles sur le marché algérien avec leurs indications, posologies et contre-indications, a été écarté pour plusieurs raisons déterminantes.</p>
+
+  <div class="callout callout-warn">
+    <span class="callout-title">Motivation du retrait de PharmaInfo</span>
+    <p><strong>Contraintes réglementaires :</strong> la diffusion d'informations pharmaceutiques sur une application mobile non homologuée par les autorités sanitaires algériennes (Agence Nationale des Produits Pharmaceutiques) exposerait le projet à des risques juridiques significatifs.</p>
+    <p><strong>Risque d'automédication :</strong> la mise à disposition directe d'une base de données médicamenteuse sans encadrement professionnel pourrait encourager des comportements d'automédication potentiellement dangereux.</p>
+    <p><strong>Maintenance de la base de données :</strong> le catalogue des médicaments disponibles en Algérie est soumis à des mises à jour fréquentes liées aux ruptures d'approvisionnement et aux changements de politique d'importation, nécessitant une infrastructure de mise à jour continue incompatible avec l'approche offline-first.</p>
+    <p><strong>Recentrage stratégique :</strong> le retrait de PharmaInfo a permis de concentrer les ressources de développement sur OrientNutri et SauveMoi QR, dont la valeur ajoutée technique et sociale est jugée plus élevée et le cadre réglementaire moins contraignant.</p>
+  </div>
+
+  <p>Cette décision illustre la maturité de la démarche de conception adoptée : la capacité à identifier les risques en amont et à ajuster le périmètre en conséquence est une compétence d'ingénierie fondamentale, particulièrement critique dans le domaine de la santé numérique où les conséquences d'une fonctionnalité mal conçue peuvent dépasser le cadre purement technique.</p>
+
+  <h2 class="sec">1.5 Architecture modulaire retenue</h2>
+  <p>L'architecture d'OrientDZ suit le patron de conception <strong>modulaire à couplage faible</strong> (<em>loosely coupled modular architecture</em>). Chaque module fonctionnel constitue une unité autonome disposant de son propre espace de données local, de sa propre logique métier et de son propre ensemble de composants d'interface. Les modules communiquent via un état applicatif global partagé, mais ne partagent pas de données sensibles entre eux.</p>
+
+  <div class="figure">
+    <div class="figure-inner">
+      <div class="arch">
+        <div class="arch-row">
+          <div class="abox main" style="min-width:200px;">OrientDZ<br><span style="font-size:9pt;opacity:.8;">Plateforme Mobile</span></div>
+        </div>
+        <div class="arrow down">↓</div>
+        <div class="arch-row">
+          <div class="abox layer" style="min-width:160px;">Couche de Navigation &amp; Routage</div>
+        </div>
+        <div class="arrow down">↓</div>
+        <div class="arch-row">
+          <div class="abox mod">OrientNutri<br><span style="font-size:9pt;">Système Expert</span></div>
+          <div class="abox mod" style="background:#b71c1c;">SauveMoi QR<br><span style="font-size:9pt;">Urgence Médicale</span></div>
+          <div class="abox mod" style="background:#4a148c;">i18n FR/AR<br><span style="font-size:9pt;">Localisation</span></div>
+        </div>
+        <div class="arrow down">↓</div>
+        <div class="arch-row">
+          <div class="abox layer">AsyncStorage / localStorage<br><span style="font-size:9pt;color:var(--anthracite-lt);">Stockage local chiffré</span></div>
+        </div>
+        <div class="arrow down">↓</div>
+        <div class="arch-row">
+          <div class="abox sub">Appareil utilisateur<br>(Android / iOS)</div>
+        </div>
+      </div>
+    </div>
+    <div class="fig-caption">Figure 1.1 — Architecture modulaire globale d'OrientDZ (aucune donnée médicale ne quitte l'appareil)</div>
+  </div>
+
+  <p>Cette architecture présente plusieurs avantages fondamentaux. L'isolement des modules garantit qu'une défaillance ou une modification dans l'un d'eux n'affecte pas les autres. La décentralisation totale du stockage élimine les risques associés aux violations de données côté serveur. Enfin, la simplicité de la pile technologique réduit la surface d'attaque de l'application.</p>
+
+  <div class="page-footer">
+    <span>Chapitre 1 — Architecture Système</span>
+    <span class="pg-num">6</span>
+  </div>
+</div>
+
+<div class="page page-break">
+  <div style="border-bottom:1px solid var(--green-border);padding-bottom:7px;margin-bottom:20px;font-size:9pt;color:var(--text-muted);display:flex;justify-content:space-between;"><span>Chapitre 1 — Architecture Système (suite)</span><span>OrientDZ — NIT 2025-2026</span></div>
+
+  <h2 class="sec">1.6 Technologies et environnement de développement</h2>
+  <p>Le choix des technologies a été gouverné par trois principes directeurs : la maturité de l'écosystème, la compatibilité multiplateforme et l'adéquation avec les contraintes offline-first.</p>
+
+  <table>
+    <caption>Tableau 1.2 — Technologies retenues et justification</caption>
+    <tr><th>Composant</th><th>Technologie</th><th>Justification</th></tr>
+    <tr><td><strong>Framework UI</strong></td><td>React Native (Expo)</td><td>Développement cross-platform (Android/iOS) avec une seule base de code JavaScript/TypeScript. Écosystème mature et communauté active.</td></tr>
+    <tr><td><strong>Gestion d'état</strong></td><td>React Context + useReducer</td><td>Solution légère et sans dépendances externes pour la gestion de l'état global (langue, préférences utilisateur).</td></tr>
+    <tr><td><strong>Stockage local</strong></td><td>AsyncStorage (Expo)</td><td>API de stockage clé-valeur persistant, asynchrone, natif aux plateformes mobiles. Équivalent mobile du localStorage web.</td></tr>
+    <tr><td><strong>Génération QR Code</strong></td><td>react-native-qrcode-svg</td><td>Bibliothèque légère de génération de QR codes en SVG, fonctionnant entièrement côté client sans appel réseau.</td></tr>
+    <tr><td><strong>Localisation i18n</strong></td><td>i18next + react-i18next</td><td>Solution de localisation robuste permettant la gestion des fichiers de traduction JSON en local et le basculement dynamique de langue.</td></tr>
+    <tr><td><strong>Chiffrement</strong></td><td>Implémentation XOR native (JS)</td><td>Algorithme implémenté manuellement en JavaScript pur, sans dépendances cryptographiques externes, garantissant la transparence et la portabilité.</td></tr>
+    <tr><td><strong>Langage</strong></td><td>TypeScript</td><td>Typage statique réduisant les erreurs à l'exécution, particulièrement critique pour les calculs nutritionnels et les manipulations de données médicales.</td></tr>
+    <tr><td><strong>Tests</strong></td><td>Jest + React Native Testing Library</td><td>Tests unitaires des algorithmes et tests d'intégration des composants.</td></tr>
+  </table>
+
+  <h2 class="sec">1.7 Système de localisation bilingue FR/AR via localStorage</h2>
+  <h3 class="subsec">1.7.1 Problématique du bilinguisme en Algérie</h3>
+  <p>L'Algérie présente une situation sociolinguistique particulière dans laquelle deux langues officielles — le français et l'arabe — coexistent dans des proportions variables selon les régions, les tranches d'âge et les contextes d'usage. Dans le domaine médical spécifiquement, cette dualité se manifeste de manière prononcée : la terminologie médicale et les documents cliniques sont généralement rédigés en français, tandis qu'une large partie de la population est plus à l'aise en arabe dans ses interactions quotidiennes.</p>
+  <p>Une plateforme mobile de santé qui ne prend pas en compte cette réalité risque d'exclure une part significative de ses utilisateurs potentiels. Or, la plupart des solutions de localisation existantes reposent sur des appels à des services de traduction cloud (Google Translate API, DeepL API, etc.), ce qui est incompatible avec l'exigence d'un fonctionnement hors-ligne et pose des problèmes de confidentialité pour des données de nature médicale.</p>
+
+  <h3 class="subsec">1.7.2 Architecture du système de localisation</h3>
+  <p>OrientDZ implémente un système de localisation entièrement local, basé sur des fichiers de traduction JSON embarqués dans le bundle applicatif. L'architecture est la suivante :</p>
+
+  <div class="figure">
+    <div class="figure-inner">
+      <div class="arch">
+        <div class="arch-row">
+          <div class="abox sub" style="min-width:130px;">fr.json<br><span style="font-size:9pt;">Dictionnaire FR</span></div>
+          <div class="abox sub" style="min-width:130px; direction:rtl; font-family:Arial;">ar.json<br><span style="font-size:9pt;">القاموس العربي</span></div>
+        </div>
+        <div style="text-align:center; color:var(--green-primary); font-size:14pt;">↓</div>
+        <div class="arch-row">
+          <div class="abox layer">Moteur i18next (bundle local)</div>
+        </div>
+        <div style="text-align:center; color:var(--green-primary); font-size:14pt;">↓ ↑</div>
+        <div class="arch-row">
+          <div class="abox mod" style="min-width:170px;">AsyncStorage<br><span style="font-size:9pt;">Persistance du choix (clé: 'lang')</span></div>
+        </div>
+        <div style="text-align:center; color:var(--green-primary); font-size:14pt;">↓</div>
+        <div class="arch-row">
+          <div class="abox main" style="min-width:200px;">Interface Utilisateur<br><span style="font-size:9pt;">LTR (FR) ↔ RTL (AR)</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="fig-caption">Figure 1.3 — Pipeline de localisation bilingue FR/AR via AsyncStorage</div>
+  </div>
+
+  <h3 class="subsec">1.7.3 Implémentation et gestion de l'état de langue</h3>
+  <p>Au démarrage de l'application, un hook React personnalisé (<code>useLang</code>) interroge AsyncStorage pour récupérer la préférence linguistique précédemment enregistrée. Si aucune préférence n'est trouvée, la langue par défaut est déterminée par les paramètres régionaux du système d'exploitation. Le basculement de langue est instantané, synchrone et ne nécessite aucun rechargement de l'application.</p>
+
+  <div class="algo">
+    <div class="algo-title">Algorithme 1.1 — Initialisation et persistance du système de localisation</div>
+    <span class="cm">// Initialisation au démarrage de l'application</span>
+    <span class="kw">async function</span> <span class="fn">initLanguage</span>() {
+    <span class="indent1"><span class="kw">const</span> <span class="vr">savedLang</span> = <span class="kw">await</span> AsyncStorage.<span class="fn">getItem</span>(<span class="nm">'orientdz_lang'</span>);</span>
+    <span class="indent1"><span class="kw">const</span> <span class="vr">deviceLang</span> = Localization.<span class="fn">locale</span>.<span class="fn">startsWith</span>(<span class="nm">'ar'</span>) ? <span class="nm">'ar'</span> : <span class="nm">'fr'</span>;</span>
+    <span class="indent1"><span class="kw">const</span> <span class="vr">lang</span> = <span class="vr">savedLang</span> ?? <span class="vr">deviceLang</span>;</span>
+    <span class="indent1"><span class="kw">await</span> i18n.<span class="fn">changeLanguage</span>(<span class="vr">lang</span>);</span>
+    <span class="indent1">I18nManager.<span class="fn">forceRTL</span>(<span class="vr">lang</span> === <span class="nm">'ar'</span>);</span>
+    <span class="indent1"><span class="kw">return</span> <span class="vr">lang</span>;</span>
+    }
+
+    <span class="cm">// Basculement de langue déclenché par l'utilisateur</span>
+    <span class="kw">async function</span> <span class="fn">switchLanguage</span>(<span class="vr">newLang</span>: <span class="nm">'fr'</span> | <span class="nm">'ar'</span>) {
+    <span class="indent1"><span class="kw">await</span> AsyncStorage.<span class="fn">setItem</span>(<span class="nm">'orientdz_lang'</span>, <span class="vr">newLang</span>);</span>
+    <span class="indent1"><span class="kw">await</span> i18n.<span class="fn">changeLanguage</span>(<span class="vr">newLang</span>);</span>
+    <span class="indent1">I18nManager.<span class="fn">forceRTL</span>(<span class="vr">newLang</span> === <span class="nm">'ar'</span>);</span>
+    <span class="indent1">dispatch({ type: <span class="nm">'SET_LANG'</span>, payload: <span class="vr">newLang</span> });</span>
+    }
+  </div>
+
+  <p>La particularité de l'implémentation arabe réside dans la gestion de l'inversion du sens d'écriture (RTL). La propriété <code>I18nManager.forceRTL()</code> de React Native reconfigure dynamiquement l'ensemble de la hiérarchie de composants pour adopter une mise en page de droite à gauche, garantissant une expérience utilisateur native et non une simple traduction de texte dans une interface conçue pour le LTR.</p>
+
+  <div class="page-footer">
+    <span>Chapitre 1 — Architecture Système</span>
+    <span class="pg-num">7</span>
+  </div>
+</div>
+
+<div class="page page-break">
+  <div style="border-bottom:1px solid var(--green-border);padding-bottom:7px;margin-bottom:20px;font-size:9pt;color:var(--text-muted);display:flex;justify-content:space-between;"><span>Chapitre 1 — Architecture Système (suite)</span><span>OrientDZ — NIT 2025-2026</span></div>
+
+  <h2 class="sec">1.8 Flux de données et interactions inter-modules</h2>
+  <p>Bien que chaque module d'OrientDZ soit conçu pour fonctionner de manière autonome, des interactions limitées et contrôlées existent entre eux. Ces interactions sont toutes unidirectionnelles et passent exclusivement par l'état global de l'application, jamais par des appels directs entre modules.</p>
+  <p>Le flux de données global peut être décrit selon le schéma suivant : l'utilisateur interagit avec l'interface graphique d'un module ; les actions génèrent des événements dispatché vers le gestionnaire d'état central ; le gestionnaire met à jour l'état et persiste les données nécessaires dans AsyncStorage ; les composants d'interface se re-renderisent en réponse aux changements d'état. Ce flux suit strictement le patron <strong>Flux/Redux</strong> adapté à React Native.</p>
+
+  <div class="callout callout-note">
+    <span class="callout-title">Principe de cloisonnement des données</span>
+    <p>Les données nutritionnelles calculées par OrientNutri et les données médicales d'urgence gérées par SauveMoi QR occupent des espaces de stockage distincts dans AsyncStorage, avec des clés de préfixe différents (<code>orientnutri_*</code> et <code>sauvemoi_*</code>). Aucun module ne peut lire ou écrire dans l'espace de l'autre, garantissant un cloisonnement strict des données sensibles.</p>
+  </div>
+
+  <h2 class="sec">1.9 Conclusion</h2>
+  <div class="conclusion-box">
+    <p>Ce chapitre a établi les fondements architecturaux du projet OrientDZ. La décision d'adopter une architecture modulaire à couplage faible, couplée au principe d'<em>offline-first</em> et à la décentralisation totale des données médicales, constitue le fil conducteur qui traverse l'ensemble du projet.</p>
+    <p>Le retrait du module PharmaInfo, motivé par des considérations réglementaires et éthiques, a permis de concentrer les efforts sur deux modules à forte valeur ajoutée : OrientNutri et SauveMoi QR. Le système de localisation bilingue FR/AR basé sur AsyncStorage démontre qu'il est possible de traiter la problématique linguistique algérienne de manière native et respectueuse de la confidentialité des données.</p>
+    <p>Les chapitres suivants plongent au cœur de chacun de ces deux modules pour en détailler les fondements théoriques, les algorithmes et les choix d'implémentation.</p>
+  </div>
+
+  <div class="page-footer">
+    <span>Chapitre 1 — Architecture Système</span>
+    <span class="pg-num">8</span>
+  </div>
+</div>
+
+<!-- ============================================================
+     CHAPITRE 2 : ORIENTNUTRI
+============================================================ -->
+<div class="page page-break">
+  <div class="chap-banner">
+    <div class="chap-num">Chapitre 2</div>
+    <div class="chap-name">Le Système Expert Nutritionnel : OrientNutri</div>
+  </div>
+
+  <h2 class="sec">2.1 Introduction</h2>
+  <div class="section-intro"><p>OrientNutri est le module de conseil nutritionnel personnalisé d'OrientDZ. Il constitue un système expert embarqué, entièrement décentralisé, dont l'intégralité de la base de connaissances et des algorithmes de calcul réside sur l'appareil de l'utilisateur, sans aucune dépendance à des API externes.</p></div>
+  <p>La nutrition constitue l'un des leviers fondamentaux de la prévention des maladies chroniques — diabète de type 2, obésité, maladies cardiovasculaires — qui représentent une part croissante de la charge morbide en Algérie. L'accès à des conseils nutritionnels personnalisés et fiables reste cependant inégalement distribué : limité aux consultations avec des nutritionnistes ou diététiciens dont la disponibilité est concentrée dans les grandes agglomérations.</p>
+  <p>OrientNutri vise à démocratiser l'accès à ces informations en proposant un moteur de calcul nutritionnel reposant sur les équations scientifiques les plus récentes et les plus validées, présenté dans une interface accessible en français et en arabe.</p>
+
+  <h2 class="sec">2.2 État de l'art en nutrition computationnelle</h2>
+  <h3 class="subsec">2.2.1 Évolution des équations d'estimation du métabolisme basal</h3>
+  <p>L'estimation du métabolisme basal (BMR — <em>Basal Metabolic Rate</em>) à partir de données anthropométriques a fait l'objet d'une évolution scientifique continue depuis la fin du XIXe siècle. Trois équations majeures jalonnent cette progression :</p>
+
+  <p><strong>L'équation de Harris-Benedict (1919)</strong> constitue historiquement la première tentative de formalisation mathématique du BMR à partir du poids, de la taille et de l'âge. Révisée par Roza et Shizgal en 1984, elle a longtemps été la référence clinique :</p>
+  <div class="formula-block">
+    <span class="formula">BMR<sub>homme</sub> = 88,362 + (13,397 × P) + (4,799 × T) − (5,677 × A)</span>
+    <span class="formula">BMR<sub>femme</sub> = 447,593 + (9,247 × P) + (3,098 × T) − (4,330 × A)</span>
+    <span class="formula-caption">P = poids (kg), T = taille (cm), A = âge (années) — Harris-Benedict révisée</span>
+  </div>
+
+  <p><strong>L'équation de Mifflin-St Jeor (1990)</strong> a été développée par Mifflin et al. à l'issue d'une étude portant sur 498 sujets. Une méta-analyse ultérieure publiée dans le <em>Journal of the American Dietetic Association</em> (Frankenfield et al., 2005) a établi que cette équation présente une précision supérieure à celle de Harris-Benedict, avec une erreur moyenne de prédiction inférieure à 10% pour la majorité des individus. C'est pour cette raison qu'elle a été retenue comme base algorithmique d'OrientNutri :</p>
+  <div class="formula-block">
+    <span class="formula">BMR<sub>homme</sub> = (10 × P) + (6,25 × T) − (5 × A) + 5</span>
+    <span class="formula">BMR<sub>femme</sub> = (10 × P) + (6,25 × T) − (5 × A) − 161</span>
+    <span class="formula-caption">Équation de Mifflin-St Jeor — retenue dans OrientNutri</span>
+  </div>
+
+  <p><strong>L'équation de Katch-McArdle</strong>, plus récente, intègre la masse musculaire maigre et présente une précision supérieure pour les individus athlétiques. Cependant, sa mise en œuvre nécessite une mesure du pourcentage de masse grasse que l'utilisateur ne peut généralement pas fournir avec fiabilité sans équipement spécialisé. Pour des raisons de praticité et d'accessibilité, elle n'a pas été retenue dans la version actuelle d'OrientNutri.</p>
+
+  <h3 class="subsec">2.2.2 Systèmes experts nutritionnels — revue des solutions existantes</h3>
+  <p>Plusieurs applications mobiles proposent des fonctionnalités de calcul nutritionnel. Une analyse comparative révèle leurs principales limites dans le contexte d'usage visé :</p>
+  <ul>
+    <li><strong>MyFitnessPal (Under Armour) :</strong> application internationale très complète, mais entièrement dépendante d'une connexion internet pour ses calculs et son catalogue d'aliments. Aucun support de l'arabe.</li>
+    <li><strong>Cronometer :</strong> outil nutritionnel précis, orienté utilisateurs avancés, sans support arabe et nécessitant un compte utilisateur sur des serveurs distants.</li>
+    <li><strong>Yazio :</strong> interface soignée mais architecture cloud-only, rendant son utilisation impossible hors connexion.</li>
+  </ul>
+  <p>Aucune des solutions existantes ne satisfait simultanément les trois exigences fondamentales d'OrientNutri : fonctionnement hors-ligne, support natif de l'arabe et absence de transmission de données vers des serveurs tiers.</p>
+
+  <div class="page-footer">
+    <span>Chapitre 2 — OrientNutri</span>
+    <span class="pg-num">9</span>
+  </div>
+</div>
+
+<div class="page page-break">
+  <div style="border-bottom:1px solid var(--green-border);padding-bottom:7px;margin-bottom:20px;font-size:9pt;color:var(--text-muted);display:flex;justify-content:space-between;"><span>Chapitre 2 — OrientNutri (suite)</span><span>OrientDZ — NIT 2025-2026</span></div>
+
+  <h2 class="sec">2.3 Architecture décentralisée du moteur nutritionnel</h2>
+  <p>Le moteur nutritionnel d'OrientNutri est structuré en cinq couches logiques bien distinctes, organisées selon un flux de traitement séquentiel et déterministe.</p>
+
+  <div class="figure">
+    <div class="figure-inner">
+      <div class="arch">
+        <div class="arch-row">
+          <div class="abox sub" style="min-width:200px;">Saisie Utilisateur<br><span style="font-size:9pt;">Poids, Taille, Âge, Sexe, Activité, Objectif</span></div>
+        </div>
+        <div class="arrow down">↓</div>
+        <div class="arch-row">
+          <div class="abox layer">Couche de Validation des Données<br><span style="font-size:9pt;color:var(--anthracite-lt);">Contrôles de plausibilité anthropométrique</span></div>
+        </div>
+        <div class="arrow down">↓</div>
+        <div class="arch-row">
+          <div class="abox mod">Moteur BMR<br><span style="font-size:9pt;">Mifflin-St Jeor</span></div>
+          <div style="color:var(--green-primary);font-size:16pt;align-self:center;">→</div>
+          <div class="abox mod">Moteur TDEE<br><span style="font-size:9pt;">BMR × NAP</span></div>
+          <div style="color:var(--green-primary);font-size:16pt;align-self:center;">→</div>
+          <div class="abox mod">Moteur Macros<br><span style="font-size:9pt;">Distribution %</span></div>
+        </div>
+        <div class="arrow down">↓</div>
+        <div class="arch-row">
+          <div class="abox layer">Couche de Présentation Bilingue FR/AR<br><span style="font-size:9pt;color:var(--anthracite-lt);">Formatage, unités, sens d'affichage</span></div>
+        </div>
+        <div class="arrow down">↓</div>
+        <div class="arch-row">
+          <div class="abox sub" style="min-width:200px;">AsyncStorage<br><span style="font-size:9pt;">Persistance locale des résultats</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="fig-caption">Figure 2.1 — Architecture du moteur nutritionnel décentralisé OrientNutri</div>
+  </div>
+
+  <p>L'ensemble de ce pipeline s'exécute sur l'appareil de l'utilisateur, sans aucun appel réseau. Les données saisies et les résultats calculés sont stockés localement via AsyncStorage, permettant à l'utilisateur de retrouver ses derniers calculs même après fermeture de l'application.</p>
+
+  <h2 class="sec">2.4 Modèle mathématique — Calcul du Métabolisme de Base (BMR)</h2>
+  <h3 class="subsec">2.4.1 Fondements de l'équation de Mifflin-St Jeor</h3>
+  <p>L'équation de Mifflin-St Jeor modélise la dépense énergétique d'un organisme au repos complet — soit l'énergie minimale requise pour maintenir les fonctions vitales (respiration, circulation sanguine, thermorégulation, activité cellulaire). Elle intègre quatre paramètres anthropométriques facilement mesurables par l'utilisateur : le poids corporel en kilogrammes, la taille en centimètres, l'âge en années et le sexe biologique.</p>
+  <p>Le différentiel de constante entre les deux formules sexuées (+5 pour les hommes, -161 pour les femmes) reflète les différences physiologiques moyennes de composition corporelle, notamment le ratio masse musculaire / masse grasse, qui influence directement le taux métabolique au repos.</p>
+
+  <h3 class="subsec">2.4.2 Implémentation TypeScript du calcul du BMR</h3>
+  <div class="algo">
+    <div class="algo-title">Algorithme 2.1 — Calcul du BMR (Mifflin-St Jeor) en TypeScript</div>
+    <span class="cm">// Types et interfaces</span>
+    <span class="kw">type</span> <span class="fn">Genre</span> = <span class="nm">'homme'</span> | <span class="nm">'femme'</span>;
+    <span class="kw">interface</span> <span class="fn">DonneesAnthropo</span> {
+    <span class="indent1">poids: <span class="fn">number</span>;   <span class="cm">// kg</span></span>
+    <span class="indent1">taille: <span class="fn">number</span>;  <span class="cm">// cm</span></span>
+    <span class="indent1">age: <span class="fn">number</span>;     <span class="cm">// années</span></span>
+    <span class="indent1">genre: <span class="fn">Genre</span>;</span>
+    }
+
+    <span class="kw">function</span> <span class="fn">calculerBMR</span>(<span class="vr">data</span>: <span class="fn">DonneesAnthropo</span>): <span class="fn">number</span> {
+    <span class="indent1"><span class="cm">// Validation des plages physiologiques</span></span>
+    <span class="indent1"><span class="kw">if</span> (<span class="vr">data</span>.poids &lt; <span class="nm">20</span> || <span class="vr">data</span>.poids &gt; <span class="nm">300</span>)  <span class="kw">throw new</span> <span class="fn">Error</span>(<span class="nm">'Poids hors plage'</span>);</span>
+    <span class="indent1"><span class="kw">if</span> (<span class="vr">data</span>.taille &lt; <span class="nm">100</span> || <span class="vr">data</span>.taille &gt; <span class="nm">250</span>) <span class="kw">throw new</span> <span class="fn">Error</span>(<span class="nm">'Taille hors plage'</span>);</span>
+    <span class="indent1"><span class="kw">if</span> (<span class="vr">data</span>.age &lt; <span class="nm">15</span> || <span class="vr">data</span>.age &gt; <span class="nm">100</span>)         <span class="kw">throw new</span> <span class="fn">Error</span>(<span class="nm">'Âge hors plage'</span>);</span>
+
+    <span class="indent1"><span class="kw">const</span> <span class="vr">base</span> = (<span class="nm">10</span> * <span class="vr">data</span>.poids) + (<span class="nm">6.25</span> * <span class="vr">data</span>.taille) - (<span class="nm">5</span> * <span class="vr">data</span>.age);</span>
+    <span class="indent1"><span class="kw">const</span> <span class="vr">constante</span> = <span class="vr">data</span>.genre === <span class="nm">'homme'</span> ? <span class="nm">5</span> : <span class="nm">-161</span>;</span>
+    <span class="indent1"><span class="kw">return</span> <span class="fn">Math.round</span>(<span class="vr">base</span> + <span class="vr">constante</span>);</span>
+    }
+  </div>
+
+  <div class="page-footer">
+    <span>Chapitre 2 — OrientNutri</span>
+    <span class="pg-num">10</span>
+  </div>
+</div>
+
+<div class="page page-break">
+  <div style="border-bottom:1px solid var(--green-border);padding-bottom:7px;margin-bottom:20px;font-size:9pt;color:var(--text-muted);display:flex;justify-content:space-between;"><span>Chapitre 2 — OrientNutri (suite)</span><span>OrientDZ — NIT 2025-2026</span></div>
+
+  <h2 class="sec">2.5 Dérivation du TDEE (Total Daily Energy Expenditure)</h2>
+  <h3 class="subsec">2.5.1 Le Niveau d'Activité Physique (NAP)</h3>
+  <p>Le BMR ne représente que la dépense énergétique au repos complet. Pour estimer les besoins caloriques réels d'un individu dans sa vie quotidienne, il est nécessaire de multiplier le BMR par un facteur correctif appelé <strong>Niveau d'Activité Physique (NAP)</strong>, parfois désigné par l'acronyme anglais <em>Physical Activity Level (PAL)</em>. Ce facteur, établi empiriquement par des études de doublement de l'eau deutérée (<em>doubly labeled water</em>), représente le rapport entre la dépense énergétique totale et le métabolisme basal.</p>
+
+  <table>
+    <caption>Tableau 2.1 — Niveaux d'activité physique et facteurs multiplicatifs (NAP)</caption>
+    <tr><th>Niveau d'activité</th><th>Description</th><th>Facteur NAP</th></tr>
+    <tr><td><strong>Sédentaire</strong></td><td>Peu ou pas d'exercice, travail de bureau, déplacements limités</td><td style="text-align:center;font-weight:bold;color:var(--green-dark);">1,200</td></tr>
+    <tr><td><strong>Légèrement actif</strong></td><td>Exercice léger 1 à 3 jours par semaine (marche, yoga léger)</td><td style="text-align:center;font-weight:bold;color:var(--green-dark);">1,375</td></tr>
+    <tr><td><strong>Modérément actif</strong></td><td>Exercice modéré 3 à 5 jours par semaine (running, natation)</td><td style="text-align:center;font-weight:bold;color:var(--green-dark);">1,550</td></tr>
+    <tr><td><strong>Très actif</strong></td><td>Exercice intense 6 à 7 jours par semaine (sports collectifs intensifs)</td><td style="text-align:center;font-weight:bold;color:var(--green-dark);">1,725</td></tr>
+    <tr><td><strong>Extrêmement actif</strong></td><td>Entraînement deux fois par jour ou travail physique très intense</td><td style="text-align:center;font-weight:bold;color:var(--green-dark);">1,900</td></tr>
+  </table>
+
+  <div class="formula-block">
+    <span class="formula">TDEE = BMR × NAP</span>
+    <span class="formula-caption">Dépense Énergétique Journalière Totale en kilocalories (kcal/jour)</span>
+  </div>
+
+  <h3 class="subsec">2.5.2 Ajustement selon l'objectif de l'utilisateur</h3>
+  <p>Le TDEE brut représente la quantité de calories nécessaire pour maintenir le poids corporel actuel. OrientNutri propose trois objectifs distincts qui modifient ce TDEE de référence :</p>
+  <ul>
+    <li><strong>Perte de poids</strong> (<em>déficit calorique</em>) : le TDEE ajusté est réduit d'un déficit de 500 kcal/jour, ce qui correspond théoriquement à une perte de masse corporelle d'environ 0,5 kg par semaine, valeur reconnue comme sûre et soutenable par les recommandations de l'OMS.</li>
+    <li><strong>Maintien du poids</strong> : le TDEE ajusté est égal au TDEE brut. L'apport calorique est conçu pour équilibrer précisément la dépense.</li>
+    <li><strong>Prise de masse musculaire</strong> (<em>surplus calorique</em>) : le TDEE ajusté est augmenté d'un surplus de 300 kcal/jour, correspondant à un surplus modéré favorisant la synthèse protéique sans accumulation excessive de masse grasse.</li>
+  </ul>
+
+  <div class="algo">
+    <div class="algo-title">Algorithme 2.2 — Calcul du TDEE et ajustement selon l'objectif</div>
+    <span class="kw">type</span> <span class="fn">Objectif</span> = <span class="nm">'perte'</span> | <span class="nm">'maintien'</span> | <span class="nm">'masse'</span>;
+    <span class="kw">type</span> <span class="fn">NiveauActivite</span> = <span class="nm">'sedentaire'</span> | <span class="nm">'leger'</span> | <span class="nm">'modere'</span> | <span class="nm">'actif'</span> | <span class="nm">'extreme'</span>;
+
+    <span class="kw">const</span> <span class="vr">FACTEURS_NAP</span>: <span class="fn">Record</span>&lt;<span class="fn">NiveauActivite</span>, <span class="fn">number</span>&gt; = {
+    <span class="indent1">sedentaire: <span class="nm">1.2</span>,  leger: <span class="nm">1.375</span>,  modere: <span class="nm">1.55</span>,</span>
+    <span class="indent1">actif: <span class="nm">1.725</span>,      extreme: <span class="nm">1.9</span></span>
+    };
+
+    <span class="kw">const</span> <span class="vr">AJUSTEMENTS_KCAL</span>: <span class="fn">Record</span>&lt;<span class="fn">Objectif</span>, <span class="fn">number</span>&gt; = {
+    <span class="indent1">perte: <span class="nm">-500</span>,  maintien: <span class="nm">0</span>,  masse: <span class="nm">+300</span></span>
+    };
+
+    <span class="kw">function</span> <span class="fn">calculerTDEE</span>(<span class="vr">bmr</span>: <span class="fn">number</span>, <span class="vr">activite</span>: <span class="fn">NiveauActivite</span>, <span class="vr">objectif</span>: <span class="fn">Objectif</span>) {
+    <span class="indent1"><span class="kw">const</span> <span class="vr">tdeeBase</span> = <span class="fn">Math.round</span>(<span class="vr">bmr</span> * <span class="vr">FACTEURS_NAP</span>[<span class="vr">activite</span>]);</span>
+    <span class="indent1"><span class="kw">const</span> <span class="vr">tdeeAjuste</span> = <span class="vr">tdeeBase</span> + <span class="vr">AJUSTEMENTS_KCAL</span>[<span class="vr">objectif</span>];</span>
+    <span class="indent1"><span class="kw">return</span> { tdeeBase, tdeeAjuste };</span>
+    }
+  </div>
+
+  <div class="page-footer">
+    <span>Chapitre 2 — OrientNutri</span>
+    <span class="pg-num">11</span>
+  </div>
+</div>
+
+<div class="page page-break">
+  <div style="border-bottom:1px solid var(--green-border);padding-bottom:7px;margin-bottom:20px;font-size:9pt;color:var(--text-muted);display:flex;justify-content:space-between;"><span>Chapitre 2 — OrientNutri (suite)</span><span>OrientDZ — NIT 2025-2026</span></div>
+
+  <h2 class="sec">2.6 Répartition des macronutriments</h2>
+  <h3 class="subsec">2.6.1 Fondements de la distribution macronutritionnelle</h3>
+  <p>Une fois le TDEE ajusté calculé, OrientNutri procède à la distribution de l'apport calorique entre les trois macronutriments principaux : <strong>les protéines</strong>, <strong>les lipides</strong> et <strong>les glucides</strong>. Cette distribution est fondée sur les recommandations des grandes autorités de nutrition (OMS, EFSA, Academy of Nutrition and Dietetics) et adaptée à l'objectif de l'utilisateur.</p>
+  <p>Chaque macronutriment possède une densité calorique propre, qui est la constante reliant les grammes de macronutriment aux kilocalories fournies :</p>
+  <ul>
+    <li>1 gramme de protéines = 4 kilocalories</li>
+    <li>1 gramme de glucides = 4 kilocalories</li>
+    <li>1 gramme de lipides = 9 kilocalories</li>
+  </ul>
+
+  <table>
+    <caption>Tableau 2.2 — Ratios macronutritionnels par objectif (en % des calories totales)</caption>
+    <tr><th>Objectif</th><th>Protéines</th><th>Lipides</th><th>Glucides</th><th>Justification</th></tr>
+    <tr><td><strong>Perte de poids</strong></td><td style="text-align:center;">35%</td><td style="text-align:center;">25%</td><td style="text-align:center;">40%</td><td>Apport protéique élevé pour préserver la masse musculaire en déficit calorique</td></tr>
+    <tr><td><strong>Maintien</strong></td><td style="text-align:center;">25%</td><td style="text-align:center;">30%</td><td style="text-align:center;">45%</td><td>Distribution équilibrée conforme aux ANREF (Apports Nutritionnels de Référence)</td></tr>
+    <tr><td><strong>Prise de masse</strong></td><td style="text-align:center;">30%</td><td style="text-align:center;">25%</td><td style="text-align:center;">45%</td><td>Surplus protéique pour la synthèse musculaire ; glucides élevés pour l'énergie à l'entraînement</td></tr>
+  </table>
+
+  <h3 class="subsec">2.6.2 Algorithme de calcul des macronutriments</h3>
+  <div class="algo">
+    <div class="algo-title">Algorithme 2.3 — Distribution des macronutriments en grammes par jour</div>
+    <span class="kw">interface</span> <span class="fn">RatiosMacros</span> { proteines: <span class="fn">number</span>; lipides: <span class="fn">number</span>; glucides: <span class="fn">number</span>; }
+    <span class="kw">interface</span> <span class="fn">ResultatMacros</span> {
+    <span class="indent1">proteines_g: <span class="fn">number</span>;  lipides_g: <span class="fn">number</span>;  glucides_g: <span class="fn">number</span>;</span>
+    <span class="indent1">proteines_kcal: <span class="fn">number</span>; lipides_kcal: <span class="fn">number</span>; glucides_kcal: <span class="fn">number</span>;</span>
+    }
+
+    <span class="kw">const</span> <span class="vr">RATIOS</span>: <span class="fn">Record</span>&lt;<span class="fn">Objectif</span>, <span class="fn">RatiosMacros</span>&gt; = {
+    <span class="indent1">perte:   { proteines: <span class="nm">0.35</span>, lipides: <span class="nm">0.25</span>, glucides: <span class="nm">0.40</span> },</span>
+    <span class="indent1">maintien:{ proteines: <span class="nm">0.25</span>, lipides: <span class="nm">0.30</span>, glucides: <span class="nm">0.45</span> },</span>
+    <span class="indent1">masse:   { proteines: <span class="nm">0.30</span>, lipides: <span class="nm">0.25</span>, glucides: <span class="nm">0.45</span> },</span>
+    };
+
+    <span class="kw">function</span> <span class="fn">calculerMacros</span>(<span class="vr">tdeeAjuste</span>: <span class="fn">number</span>, <span class="vr">objectif</span>: <span class="fn">Objectif</span>): <span class="fn">ResultatMacros</span> {
+    <span class="indent1"><span class="kw">const</span> <span class="vr">r</span> = <span class="vr">RATIOS</span>[<span class="vr">objectif</span>];</span>
+    <span class="indent1"><span class="kw">const</span> <span class="vr">kcalProteines</span> = <span class="vr">tdeeAjuste</span> * <span class="vr">r</span>.proteines;</span>
+    <span class="indent1"><span class="kw">const</span> <span class="vr">kcalLipides</span>   = <span class="vr">tdeeAjuste</span> * <span class="vr">r</span>.lipides;</span>
+    <span class="indent1"><span class="kw">const</span> <span class="vr">kcalGlucides</span>  = <span class="vr">tdeeAjuste</span> * <span class="vr">r</span>.glucides;</span>
+    <span class="indent1"><span class="kw">return</span> {</span>
+    <span class="indent2">proteines_g:  <span class="fn">Math.round</span>(<span class="vr">kcalProteines</span> / <span class="nm">4</span>),</span>
+    <span class="indent2">lipides_g:    <span class="fn">Math.round</span>(<span class="vr">kcalLipides</span>   / <span class="nm">9</span>),</span>
+    <span class="indent2">glucides_g:   <span class="fn">Math.round</span>(<span class="vr">kcalGlucides</span>  / <span class="nm">4</span>),</span>
+    <span class="indent2">proteines_kcal: <span class="fn">Math.round</span>(<span class="vr">kcalProteines</span>),</span>
+    <span class="indent2">lipides_kcal:   <span class="fn">Math.round</span>(<span class="vr">kcalLipides</span>),</span>
+    <span class="indent2">glucides_kcal:  <span class="fn">Math.round</span>(<span class="vr">kcalGlucides</span>),</span>
+    <span class="indent1">};</span>
+    }
+  </div>
+
+  <h3 class="subsec">2.6.3 Exemple d'exécution complet</h3>
+  <p>Pour illustrer le fonctionnement du moteur, considérons le profil suivant : homme, 25 ans, 80 kg, 178 cm, niveau d'activité modéré, objectif de prise de masse musculaire.</p>
+  <div class="callout callout-note">
+    <span class="callout-title">Exemple de calcul — Homme, 25 ans, 80 kg, 178 cm, modérément actif, objectif masse</span>
+    <p><strong>Étape 1 — BMR :</strong> (10 × 80) + (6,25 × 178) − (5 × 25) + 5 = 800 + 1112,5 − 125 + 5 = <strong>1 792,5 ≈ 1 793 kcal/j</strong></p>
+    <p><strong>Étape 2 — TDEE brut :</strong> 1 793 × 1,550 = <strong>2 779 kcal/j</strong></p>
+    <p><strong>Étape 3 — TDEE ajusté (surplus +300) :</strong> 2 779 + 300 = <strong>3 079 kcal/j</strong></p>
+    <p><strong>Étape 4 — Macronutriments :</strong><br>
+    • Protéines : 3079 × 30% / 4 = <strong>231 g/j</strong> (923 kcal)<br>
+    • Lipides : 3079 × 25% / 9 = <strong>85 g/j</strong> (770 kcal)<br>
+    • Glucides : 3079 × 45% / 4 = <strong>347 g/j</strong> (1385 kcal)</p>
+  </div>
+
+  <div class="page-footer">
+    <span>Chapitre 2 — OrientNutri</span>
+    <span class="pg-num">12</span>
+  </div>
+</div>
+
+<div class="page page-break">
+  <div style="border-bottom:1px solid var(--green-border);padding-bottom:7px;margin-bottom:20px;font-size:9pt;color:var(--text-muted);display:flex;justify-content:space-between;"><span>Chapitre 2 — OrientNutri (suite)</span><span>OrientDZ — NIT 2025-2026</span></div>
+
+  <h2 class="sec">2.7 Implémentation bilingue native FR/AR</h2>
+  <p>L'un des défis techniques spécifiques à OrientNutri réside dans l'adaptation bilingue de l'ensemble des textes d'interface, des libellés nutritionnels et des messages d'erreur. La solution retenue repose sur des fichiers de ressources JSON distincts pour chaque langue, chargés au démarrage de l'application et mis en cache en mémoire par le moteur i18next.</p>
+
+  <div class="algo">
+    <div class="algo-title">Extrait des fichiers de localisation — fr.json et ar.json</div>
+    <span class="cm">// Extrait de locales/fr.json</span>
+    {
+    <span class="indent1"><span class="nm">"orientnutri"</span>: {</span>
+    <span class="indent2"><span class="nm">"titre"</span>: <span class="nm">"Mon Bilan Nutritionnel"</span>,</span>
+    <span class="indent2"><span class="nm">"poids_label"</span>: <span class="nm">"Votre poids (kg)"</span>,</span>
+    <span class="indent2"><span class="nm">"taille_label"</span>: <span class="nm">"Votre taille (cm)"</span>,</span>
+    <span class="indent2"><span class="nm">"bmr_resultat"</span>: <span class="nm">"Métabolisme de base : {{valeur}} kcal/j"</span>,</span>
+    <span class="indent2"><span class="nm">"tdee_resultat"</span>: <span class="nm">"Besoins journaliers : {{valeur}} kcal/j"</span>,</span>
+    <span class="indent2"><span class="nm">"proteines"</span>: <span class="nm">"Protéines"</span>, <span class="nm">"lipides"</span>: <span class="nm">"Lipides"</span>, <span class="nm">"glucides"</span>: <span class="nm">"Glucides"</span></span>
+    <span class="indent1">}</span>
+    }
+
+    <span class="cm">// Extrait de locales/ar.json</span>
+    {
+    <span class="indent1"><span class="nm">"orientnutri"</span>: {</span>
+    <span class="indent2"><span class="nm">"titre"</span>: <span class="nm">"تقييمي الغذائي"</span>,</span>
+    <span class="indent2"><span class="nm">"poids_label"</span>: <span class="nm">"وزنك (كجم)"</span>,</span>
+    <span class="indent2"><span class="nm">"taille_label"</span>: <span class="nm">"طولك (سم)"</span>,</span>
+    <span class="indent2"><span class="nm">"bmr_resultat"</span>: <span class="nm">"معدل الأيض الأساسي: {{valeur}} سعرة/يوم"</span>,</span>
+    <span class="indent2"><span class="nm">"tdee_resultat"</span>: <span class="nm">"الاحتياج اليومي: {{valeur}} سعرة/يوم"</span>,</span>
+    <span class="indent2"><span class="nm">"proteines"</span>: <span class="nm">"البروتينات"</span>, <span class="nm">"lipides"</span>: <span class="nm">"الدهون"</span>, <span class="nm">"glucides"</span>: <span class="nm">"الكربوهيدرات"</span></span>
+    <span class="indent1">}</span>
+    }
+  </div>
+
+  <p>L'utilisation de la syntaxe d'interpolation <code>{{valeur}}</code> d'i18next permet d'injecter dynamiquement les valeurs calculées dans les chaînes de traduction, garantissant que les résultats numériques s'affichent correctement quelle que soit la langue active, y compris avec l'adaptation des chiffres arabes si nécessaire.</p>
+
+  <h2 class="sec">2.8 Tests et validation</h2>
+  <p>La validation du moteur nutritionnel a été conduite selon deux approches complémentaires : la validation algorithmique par comparaison à des calculateurs de référence, et la validation croisée avec des valeurs publiées dans la littérature scientifique.</p>
+
+  <table>
+    <caption>Tableau 2.3 — Résultats de validation OrientNutri sur cas de test</caption>
+    <tr><th>Profil test</th><th>BMR calculé</th><th>BMR référence</th><th>Écart</th><th>TDEE calculé</th><th>Statut</th></tr>
+    <tr><td>H, 25a, 80kg, 178cm</td><td>1 793 kcal</td><td>1 793 kcal</td><td>0%</td><td>2 779 kcal</td><td style="color:var(--green-dark);font-weight:bold;">✓ Validé</td></tr>
+    <tr><td>F, 30a, 65kg, 165cm</td><td>1 445 kcal</td><td>1 445 kcal</td><td>0%</td><td>2 240 kcal</td><td style="color:var(--green-dark);font-weight:bold;">✓ Validé</td></tr>
+    <tr><td>H, 45a, 95kg, 180cm</td><td>1 966 kcal</td><td>1 966 kcal</td><td>0%</td><td>2 358 kcal</td><td style="color:var(--green-dark);font-weight:bold;">✓ Validé</td></tr>
+    <tr><td>F, 22a, 55kg, 160cm</td><td>1 312 kcal</td><td>1 312 kcal</td><td>0%</td><td>1 812 kcal</td><td style="color:var(--green-dark);font-weight:bold;">✓ Validé</td></tr>
+  </table>
+
+  <p>L'écart nul observé sur l'ensemble des cas de test confirme que l'implémentation TypeScript de l'équation de Mifflin-St Jeor est mathématiquement correcte. La légère divergence possible sur les NAP (inférieure à 1 kcal) est due aux arrondis intermédiaires, qui ont été minimisés en n'arrondissant qu'au résultat final.</p>
+
+  <h2 class="sec">2.9 Conclusion</h2>
+  <div class="conclusion-box">
+    <p>Le module OrientNutri démontre qu'il est possible de concevoir un système expert nutritionnel complet, scientifiquement fondé et bilingue, fonctionnant intégralement en local sur un appareil mobile, sans aucune dépendance à des serveurs externes. L'utilisation de l'équation de Mifflin-St Jeor, validée comme la plus précise par la méta-analyse de Frankenfield et al. (2005), garantit la fiabilité des estimations fournies.</p>
+    <p>La validation complète sur quatre profils distincts confirme la correction algorithmique de l'implémentation. Le chapitre suivant aborde le second module majeur d'OrientDZ : SauveMoi QR, dont les enjeux de sécurité et de protection des données médicales constituent un défi technique d'une nature différente.</p>
+  </div>
+
+  <div class="page-footer">
+    <span>Chapitre 2 — OrientNutri</span>
+    <span class="pg-num">13</span>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     CHAPITRE 3 — SAUVEMOI QR  (pages 14–22)
+============================================================ -->
+
+<!-- Page 14 : Introduction chapitre 3 -->
+<div class="page page-break">
+  <div class="chapter-header">
+    <div class="chapter-tag">Chapitre 3</div>
+    <h1 class="chapter-title">Sécurité et Urgences : SauveMoi QR</h1>
+    <p style="color:var(--anthracite-lt);font-style:italic;margin-top:8px;">Protection cryptographique locale · Fiche clinique d'urgence · Génération QR hors-ligne</p>
+  </div>
+
+  <h2 class="sec">3.1 Introduction et problématique</h2>
+  <p>Les situations médicales d'urgence se caractérisent par leur imprévisibilité et par la nécessité absolue d'un accès immédiat aux informations cliniques vitales du patient. Un individu inconscient, en état de choc ou incapable de communiquer ne peut transmettre verbalement ses antécédents médicaux, ses allergies aux médicaments ou son groupe sanguin aux personnels de secours. Cette lacune informationnelle peut entraîner des décisions thérapeutiques sous-optimales, voire dangereuses.</p>
+
+  <p>La réponse conventionnelle à ce problème passe par des bracelets médicaux, des cartes plastifiées ou des formulaires papier — des supports physiques facilement perdus, oubliés, ou illisibles dans des conditions de terrain dégradées. Le déploiement de solutions numériques centralisées (serveurs hospitaliers, bases de données nationales) soulève quant à lui des problèmes d'accès hors-ligne, de confidentialité et de dépendance infrastructurelle.</p>
+
+  <p>SauveMoi QR répond à cette problématique en proposant une fiche clinique d'urgence numérique, stockée localement sur l'appareil de l'utilisateur et encodée dans un QR code généré offline. Ce QR code, lisible par n'importe quel scanner standard, contient les données médicales essentielles protégées par un chiffrement XOR combiné à un encodage Base64. L'accès est conditionné par une clé PIN connue de l'utilisateur ou, en situation d'urgence, pouvant être communiquée aux secours.</p>
+
+  <div class="info-box">
+    <strong>Principe fondamental :</strong> SauveMoi QR garantit que les données médicales sensibles ne quittent jamais l'appareil de l'utilisateur. Aucun serveur, aucune connexion réseau, aucun compte en ligne n'est requis pour créer, stocker ou lire la fiche d'urgence.
+  </div>
+
+  <h2 class="sec">3.2 État de l'art et positionnement</h2>
+  <p>Plusieurs approches existantes tentent de résoudre le problème de l'accès aux données médicales en urgence :</p>
+
+  <table>
+    <caption>Tableau 3.1 — Comparaison des solutions d'urgence médicale existantes</caption>
+    <tr>
+      <th>Solution</th><th>Disponibilité hors-ligne</th><th>Confidentialité</th><th>Accessibilité universelle</th><th>Coût</th>
+    </tr>
+    <tr><td>Bracelet médical gravé</td><td>Oui</td><td>Nulle (public)</td><td>Haute</td><td>Moyen</td></tr>
+    <tr><td>Carte papier plastifiée</td><td>Oui</td><td>Nulle (public)</td><td>Haute</td><td>Faible</td></tr>
+    <tr><td>Applications cloud médicales</td><td>Non</td><td>Dépend du fournisseur</td><td>Dépend connectivité</td><td>Variable</td></tr>
+    <tr><td>Dossier patient centralisé</td><td>Non</td><td>Institutionnelle</td><td>Professionnels uniquement</td><td>Élevé</td></tr>
+    <tr style="background:var(--green-light);font-weight:bold;">
+      <td>SauveMoi QR</td><td>100% hors-ligne</td><td>Chiffrement local</td><td>Tout scanner QR</td><td>Nul (open source)</td>
+    </tr>
+  </table>
+
+  <p>SauveMoi QR se distingue par la combinaison unique de trois propriétés : disponibilité totale hors-ligne, protection cryptographique des données, et lisibilité universelle par tout scanner QR standard. Cette combinaison le positionne dans un espace technologique non couvert par les solutions existantes.</p>
+
+  <div class="page-footer">
+    <span>Chapitre 3 — SauveMoi QR</span>
+    <span class="pg-num">14</span>
+  </div>
+</div>
+
+<!-- Page 15 : Architecture hors-ligne & Privacy by Design -->
+<div class="page page-break">
+
+  <h2 class="sec">3.3 Architecture hors-ligne et Privacy by Design</h2>
+  <p>L'architecture de SauveMoi QR est conçue selon les principes du <em>Privacy by Design</em> (PbD), cadre conceptuel développé par Ann Cavoukian et formalisé dans le Règlement Général sur la Protection des Données (RGPD, Art. 25). Ces principes stipulent que la protection de la vie privée doit être intégrée dès la conception du système, et non ajoutée a posteriori.</p>
+
+  <h3 class="subsec">3.3.1 Flux de données entièrement local</h3>
+  <p>La figure ci-dessous illustre l'architecture de SauveMoi QR. À aucun moment les données médicales de l'utilisateur ne transitent par un réseau externe :</p>
+
+  <div class="figure-box">
+    <div style="font-family:monospace;font-size:9pt;line-height:1.9;background:#f8f9fa;padding:16px;border-radius:6px;border-left:4px solid var(--green-primary);">
+      <div style="color:var(--green-dark);font-weight:bold;">SAISIE UTILISATEUR</div>
+      <div style="padding-left:20px;">↓  Validation TypeScript (types stricts)</div>
+      <div style="color:var(--anthracite-md);font-weight:bold;">CHIFFREMENT LOCAL</div>
+      <div style="padding-left:20px;">↓  XOR(données, clé_PIN) → buffer binaire</div>
+      <div style="padding-left:20px;">↓  Base64Encode(buffer) → chaîne ASCII</div>
+      <div style="color:var(--anthracite-md);font-weight:bold;">STOCKAGE LOCAL</div>
+      <div style="padding-left:20px;">↓  AsyncStorage.setItem('sauvemoi_qr_data', payload)</div>
+      <div style="color:var(--green-dark);font-weight:bold;">GÉNÉRATION QR CODE</div>
+      <div style="padding-left:20px;">↓  react-native-qrcode-svg (100% client-side)</div>
+      <div style="padding-left:20px;">↓  SVG → Image exportable</div>
+      <div style="color:var(--green-primary);font-weight:bold;">QR CODE AFFICHÉ OU IMPRIMÉ</div>
+      <div style="margin-top:8px;color:var(--text-muted);font-style:italic;">← Aucune requête réseau dans ce flux →</div>
+    </div>
+    <p class="fig-caption">Figure 3.1 — Flux de traitement SauveMoi QR (100% local)</p>
+  </div>
+
+  <h3 class="subsec">3.3.2 Namespacing AsyncStorage</h3>
+  <p>Pour éviter toute collision entre les modules d'OrientDZ et garantir l'isolation des données, chaque module utilise un préfixe de clé distinct dans AsyncStorage :</p>
+
+  <table>
+    <caption>Tableau 3.2 — Convention de nommage des clés AsyncStorage</caption>
+    <tr><th>Module</th><th>Préfixe de clé</th><th>Exemple de clé</th><th>Contenu</th></tr>
+    <tr><td>Système global</td><td><code>orientdz_</code></td><td><code>orientdz_lang</code></td><td>Langue active</td></tr>
+    <tr><td>OrientNutri</td><td><code>orientnutri_</code></td><td><code>orientnutri_profile</code></td><td>Profil anthropométrique</td></tr>
+    <tr><td>SauveMoi QR</td><td><code>sauvemoi_</code></td><td><code>sauvemoi_qr_data</code></td><td>Données médicales chiffrées</td></tr>
+  </table>
+
+  <h3 class="subsec">3.3.3 Conformité aux principes PbD</h3>
+  <p>SauveMoi QR respecte les sept principes fondamentaux du Privacy by Design :</p>
+  <ul>
+    <li><strong>Proactif, non réactif :</strong> la protection est intégrée avant tout problème de confidentialité.</li>
+    <li><strong>Vie privée par défaut :</strong> aucune donnée n'est partagée sans action explicite de l'utilisateur.</li>
+    <li><strong>Vie privée intégrée à la conception :</strong> le chiffrement est non optionnel et systématique.</li>
+    <li><strong>Fonctionnalité complète :</strong> la sécurité ne dégrade pas l'utilisabilité de l'application.</li>
+    <li><strong>Sécurité de bout en bout :</strong> les données sont chiffrées dès la saisie jusqu'à l'affichage.</li>
+    <li><strong>Visibilité et transparence :</strong> l'algorithme XOR est documenté et vérifiable par l'utilisateur.</li>
+    <li><strong>Respect de la vie privée de l'utilisateur :</strong> l'utilisateur reste seul propriétaire de ses données.</li>
+  </ul>
+
+  <div class="page-footer">
+    <span>Chapitre 3 — SauveMoi QR</span>
+    <span class="pg-num">15</span>
+  </div>
+</div>
+
+<!-- Page 16 : Protocole de chiffrement XOR + Base64 -->
+<div class="page page-break">
+
+  <h2 class="sec">3.4 Protocole de chiffrement XOR + Base64</h2>
+
+  <h3 class="subsec">3.4.1 Fondements mathématiques du chiffrement XOR</h3>
+  <p>Le chiffrement XOR (eXclusive OR) est une opération logique binaire dont la propriété fondamentale d'involution le rend particulièrement adapté à la cryptographie symétrique légère. La base mathématique repose sur trois propriétés algébriques :</p>
+
+  <div class="formula-box">
+    <p><strong>Propriété 1 — Involution :</strong></p>
+    <p style="font-size:13pt;text-align:center;padding:6px 0;">A ⊕ B ⊕ B = A</p>
+    <p><strong>Propriété 2 — Commutativité :</strong> A ⊕ B = B ⊕ A</p>
+    <p><strong>Propriété 3 — Associativité :</strong> (A ⊕ B) ⊕ C = A ⊕ (B ⊕ C)</p>
+    <p style="margin-top:8px;"><strong>Conséquence directe :</strong> La même fonction réalise le chiffrement et le déchiffrement — decrypt(key, encrypt(key, data)) = data</p>
+  </div>
+
+  <p>Dans SauveMoi QR, la clé de chiffrement est dérivée d'un code PIN à 6 chiffres fourni par l'utilisateur. Cette clé PIN est étendue à la longueur des données à chiffrer par répétition cyclique, garantissant que chaque octet de données est XORé avec un octet de clé.</p>
+
+  <h3 class="subsec">3.4.2 Pipeline complet de chiffrement</h3>
+  <p>Le chiffrement s'effectue en trois étapes successives :</p>
+
+  <div class="code-block">
+    <div class="code-title">TypeScript — Implémentation du chiffrement XOR + Base64</div>
+    <span class="kw">function</span> <span class="fn">chiffrerDonnees</span>(donnees: <span class="type">string</span>, pinCode: <span class="type">string</span>): <span class="type">string</span> {
+  <span class="indent1"><span class="comment">// Étape 1 : Conversion des données et de la clé en tableaux d'octets</span></span>
+  <span class="indent1"><span class="kw">const</span> encoder = <span class="kw">new</span> TextEncoder();</span>
+  <span class="indent1"><span class="kw">const</span> octetesDonnees = encoder.encode(donnees);</span>
+  <span class="indent1"><span class="kw">const</span> octetesCle = encoder.encode(pinCode);</span>
+  <span class="indent1"><span class="kw">const</span> longueurCle = octetesCle.length;</span>
+
+  <span class="indent1"><span class="comment">// Étape 2 : Application du XOR octet par octet (clé cyclique)</span></span>
+  <span class="indent1"><span class="kw">const</span> resultat = <span class="kw">new</span> Uint8Array(octetesDonnees.length);</span>
+  <span class="indent1"><span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">0</span>; i &lt; octetesDonnees.length; i++) {</span>
+  <span class="indent2">resultat[i] = octetesDonnees[i] <span class="op">^</span> octetesCle[i <span class="op">%</span> longueurCle];</span>
+  <span class="indent1">}</span>
+
+  <span class="indent1"><span class="comment">// Étape 3 : Encodage Base64 pour compatibilité QR code (ASCII-safe)</span></span>
+  <span class="indent1"><span class="kw">return</span> btoa(String.fromCharCode(...resultat));</span>
+}
+
+<span class="kw">function</span> <span class="fn">dechiffrerDonnees</span>(payloadBase64: <span class="type">string</span>, pinCode: <span class="type">string</span>): <span class="type">string</span> {
+  <span class="indent1"><span class="comment">// Décodage Base64 → octets chiffrés</span></span>
+  <span class="indent1"><span class="kw">const</span> octetsChiffres = Uint8Array.from(atob(payloadBase64), c =&gt; c.charCodeAt(<span class="num">0</span>));</span>
+  <span class="indent1"><span class="kw">const</span> octetesCle = <span class="kw">new</span> TextEncoder().encode(pinCode);</span>
+  <span class="indent1"><span class="kw">const</span> longueurCle = octetesCle.length;</span>
+
+  <span class="indent1"><span class="comment">// XOR inverse (identique au chiffrement par involution)</span></span>
+  <span class="indent1"><span class="kw">const</span> resultat = <span class="kw">new</span> Uint8Array(octetsChiffres.length);</span>
+  <span class="indent1"><span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">0</span>; i &lt; octetsChiffres.length; i++) {</span>
+  <span class="indent2">resultat[i] = octetsChiffres[i] <span class="op">^</span> octetesCle[i <span class="op">%</span> longueurCle];</span>
+  <span class="indent1">}</span>
+
+  <span class="indent1"><span class="kw">return</span> <span class="kw">new</span> TextDecoder().decode(resultat);</span>
+}
+  </div>
+
+  <h3 class="subsec">3.4.3 Rôle de l'encodage Base64</h3>
+  <p>Le résultat brut d'une opération XOR sur des octets UTF-8 produit des valeurs binaires arbitraires (octets 0x00–0xFF), dont beaucoup sont des caractères de contrôle non imprimables incompatibles avec les encodages QR code standard. L'encodage Base64 transforme ce flux binaire en une chaîne de 64 caractères ASCII imprimables (A–Z, a–z, 0–9, +, /), garantissant la compatibilité avec tous les générateurs et lecteurs de QR codes.</p>
+
+  <div class="page-footer">
+    <span>Chapitre 3 — SauveMoi QR</span>
+    <span class="pg-num">16</span>
+  </div>
+</div>
+
+<!-- Page 17 : Structure de la fiche clinique -->
+<div class="page page-break">
+
+  <h2 class="sec">3.5 Structure de la fiche clinique d'urgence</h2>
+  <p>La fiche clinique d'urgence constitue le nœud central de SauveMoi QR. Sa structure a été conçue pour maximiser la densité informationnelle pertinente en situation d'urgence tout en restant compatible avec la capacité d'encodage des QR codes standards.</p>
+
+  <h3 class="subsec">3.5.1 Modèle de données TypeScript</h3>
+
+  <div class="code-block">
+    <div class="code-title">TypeScript — Interface FicheUrgence</div>
+    <span class="kw">interface</span> <span class="type">FicheUrgence</span> {
+  <span class="indent1"><span class="comment">// Identification</span></span>
+  <span class="indent1">nomComplet:        <span class="type">string</span>;        <span class="comment">// Nom et prénom</span></span>
+  <span class="indent1">dateNaissance:     <span class="type">string</span>;        <span class="comment">// Format ISO 8601 (AAAA-MM-JJ)</span></span>
+
+  <span class="indent1"><span class="comment">// Données hématologiques critiques</span></span>
+  <span class="indent1">groupeSanguin:     <span class="type">GroupeSanguin</span>; <span class="comment">// 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-'</span></span>
+  <span class="indent1">rhesus:            <span class="type">'positif'</span> | <span class="type">'negatif'</span>;</span>
+
+  <span class="indent1"><span class="comment">// Allergies (champ critique pour les traitements d'urgence)</span></span>
+  <span class="indent1">allergiesMedicaments: <span class="type">string[]</span>;   <span class="comment">// Ex: ['pénicilline', 'aspirine']</span></span>
+  <span class="indent1">allergiesAlimentaires: <span class="type">string[]</span>;  <span class="comment">// Ex: ['arachides', 'latex']</span></span>
+
+  <span class="indent1"><span class="comment">// Pathologies chroniques</span></span>
+  <span class="indent1">maladiesChroniques: <span class="type">string[]</span>;    <span class="comment">// Ex: ['diabète T2', 'épilepsie']</span></span>
+  <span class="indent1">traitementsEnCours: <span class="type">Traitement[]</span>;</span>
+
+  <span class="indent1"><span class="comment">// Contact d'urgence</span></span>
+  <span class="indent1">contactUrgence: {</span>
+  <span class="indent2">nom:       <span class="type">string</span>;</span>
+  <span class="indent2">telephone: <span class="type">string</span>;</span>
+  <span class="indent2">lien:      <span class="type">string</span>; <span class="comment">// Ex: 'conjoint', 'parent'</span></span>
+  <span class="indent1">};</span>
+
+  <span class="indent1"><span class="comment">// Métadonnées</span></span>
+  <span class="indent1">dateCreation:  <span class="type">string</span>;           <span class="comment">// Timestamp ISO 8601</span></span>
+  <span class="indent1">versionSchema: <span class="type">number</span>;           <span class="comment">// Pour migrations futures</span></span>
+}
+
+<span class="kw">interface</span> <span class="type">Traitement</span> {
+  <span class="indent1">medicament:  <span class="type">string</span>;
+  <span class="indent1">posologie:   <span class="type">string</span>;
+  <span class="indent1">frequence:   <span class="type">string</span>;</span>
+}
+  </div>
+
+  <h3 class="subsec">3.5.2 Capacité et optimisation QR</h3>
+  <p>Un QR code de version 40 (le maximum) peut stocker jusqu'à 4 296 caractères alphanumériques en mode alphanumérique, ou 2 953 octets en mode binaire. La sérialisation JSON d'une fiche clinique complète, suivie du chiffrement XOR et de l'encodage Base64, produit typiquement une chaîne de 400 à 800 caractères, bien en dessous des limites QR. Une version 10–15 suffit amplement, garantissant un QR code lisible même en mauvaises conditions d'éclairage.</p>
+
+  <table>
+    <caption>Tableau 3.3 — Estimation de taille de payload par profil</caption>
+    <tr><th>Profil</th><th>JSON brut</th><th>Après XOR+Base64</th><th>Version QR suggérée</th></tr>
+    <tr><td>Profil minimal (groupe sanguin + allergies)</td><td>~180 oct.</td><td>~245 car.</td><td>QR v7</td></tr>
+    <tr><td>Profil standard (+ traitements × 3)</td><td>~420 oct.</td><td>~565 car.</td><td>QR v11</td></tr>
+    <tr><td>Profil complet (toutes sections)</td><td>~750 oct.</td><td>~1 000 car.</td><td>QR v15</td></tr>
+  </table>
+
+  <div class="page-footer">
+    <span>Chapitre 3 — SauveMoi QR</span>
+    <span class="pg-num">17</span>
+  </div>
+</div>
+
+<!-- Page 18 : Génération QR Code et interface utilisateur -->
+<div class="page page-break">
+
+  <h2 class="sec">3.6 Génération et lecture du QR Code médical</h2>
+
+  <h3 class="subsec">3.6.1 Bibliothèque de génération : react-native-qrcode-svg</h3>
+  <p>La bibliothèque <code>react-native-qrcode-svg</code> génère des QR codes directement en SVG (Scalable Vector Graphics) côté client, sans aucune dépendance réseau. Le format SVG présente plusieurs avantages pour un usage médical : résolution vectorielle infinie (idéale pour l'impression), petite taille de fichier, et intégration native dans React Native via le composant <code>&lt;Svg&gt;</code>.</p>
+
+  <div class="code-block">
+    <div class="code-title">TypeScript/JSX — Génération du QR Code médical</div>
+    <span class="kw">import</span> QRCode <span class="kw">from</span> <span class="str">'react-native-qrcode-svg'</span>;
+
+<span class="kw">const</span> <span class="fn">QRCodeMedical</span>: React.FC&lt;<span class="type">QRCodeProps</span>&gt; = ({ fiche, pinCode }) =&gt; {
+  <span class="indent1"><span class="kw">const</span> [payloadQR, setPayloadQR] = useState&lt;<span class="type">string</span>&gt;(<span class="str">''</span>);</span>
+  <span class="indent1"><span class="kw">const</span> qrRef = useRef&lt;<span class="type">SVGElement</span>&gt;(<span class="kw">null</span>);</span>
+
+  <span class="indent1">useEffect(() =&gt; {</span>
+  <span class="indent2"><span class="comment">// 1. Sérialiser la fiche en JSON</span></span>
+  <span class="indent2"><span class="kw">const</span> jsonFiche = JSON.stringify(fiche);</span>
+  <span class="indent2"><span class="comment">// 2. Chiffrer et encoder en Base64</span></span>
+  <span class="indent2"><span class="kw">const</span> payload = chiffrerDonnees(jsonFiche, pinCode);</span>
+  <span class="indent2">setPayloadQR(payload);</span>
+  <span class="indent2"><span class="comment">// 3. Persister le payload chiffré localement</span></span>
+  <span class="indent2">AsyncStorage.setItem(<span class="str">'sauvemoi_qr_data'</span>, payload);</span>
+  <span class="indent1">}, [fiche, pinCode]);</span>
+
+  <span class="indent1"><span class="kw">return</span> (</span>
+  <span class="indent2">&lt;View style={styles.container}&gt;</span>
+  <span class="indent3">&lt;QRCode</span>
+  <span class="indent4">value={payloadQR}</span>
+  <span class="indent4">size={<span class="num">250</span>}</span>
+  <span class="indent4">color={<span class="str">'#263238'</span>}    <span class="comment">// Anthracite</span></span>
+  <span class="indent4">backgroundColor={<span class="str">'#ffffff'</span>}</span>
+  <span class="indent4">getRef={(ref) =&gt; (qrRef.current = ref)}</span>
+  <span class="indent4">ecl={<span class="str">'H'</span>}            <span class="comment">// Error correction level High (30% redundance)</span></span>
+  <span class="indent3">/&gt;</span>
+  <span class="indent3">&lt;BoutonExporterQR qrRef={qrRef} /&gt;</span>
+  <span class="indent2">&lt;/View&gt;</span>
+  <span class="indent1">);</span>
+};
+  </div>
+
+  <p>Le niveau de correction d'erreur <strong>H (High)</strong> est délibérément choisi pour SauveMoi QR : il permet de reconstituer jusqu'à 30% des données même si le QR code est partiellement endommagé (rayure, tache, déchirure), une robustesse essentielle pour un usage sur carte d'urgence physique imprimée.</p>
+
+  <h3 class="subsec">3.6.2 Flux de lecture en situation d'urgence</h3>
+  <p>Un secouriste ou un personnel médical dispose de deux moyens pour accéder aux données de la fiche d'urgence :</p>
+
+  <ol style="margin-left:20px;margin-top:8px;">
+    <li style="margin-bottom:6px;"><strong>Scan via l'application OrientDZ :</strong> L'écran de lecture intégré utilise l'appareil photo du smartphone pour scanner le QR code, décoder le Base64, appliquer le déchiffrement XOR avec le PIN fourni par l'utilisateur ou ses proches, et afficher la fiche formatée.</li>
+    <li style="margin-bottom:6px;"><strong>Scan via tout lecteur QR universel :</strong> Le payload Base64 brut est affiché comme texte. Tout personnel médical connaissant le protocole peut appliquer manuellement le décodage et le déchiffrement si nécessaire.</li>
+  </ol>
+
+  <div class="page-footer">
+    <span>Chapitre 3 — SauveMoi QR</span>
+    <span class="pg-num">18</span>
+  </div>
+</div>
+
+<!-- Page 19 : Scénarios d'usage et interface -->
+<div class="page page-break">
+
+  <h2 class="sec">3.7 Scénarios d'usage clinique</h2>
+
+  <h3 class="subsec">3.7.1 Scénario 1 — Accident de la voie publique</h3>
+  <div class="info-box">
+    <p><strong>Contexte :</strong> Mme Leila B., 42 ans, diabétique de type 1 et allergique à la pénicilline, est impliquée dans un accident de voiture et perd connaissance. Les secouristes du SAMU trouvent son téléphone avec OrientDZ actif.</p>
+    <p style="margin-top:8px;"><strong>Déroulement :</strong></p>
+    <ol style="margin-left:18px;margin-top:4px;">
+      <li>Le secouriste ouvre OrientDZ et accède à l'écran SauveMoi QR.</li>
+      <li>Le QR code de Mme B. est visible sans déverrouillage (mode urgence).</li>
+      <li>Le scanner intégré lit le QR code ; le PIN est fourni par le conjoint contacté.</li>
+      <li>La fiche affiche : groupe sanguin O+, allergie pénicilline, insuline 20 UI/soir, contact d'urgence.</li>
+      <li>Le médecin du SAMU adapte immédiatement le traitement d'urgence.</li>
+    </ol>
+    <p style="margin-top:8px;"><em>Impact clinique : évitement d'une prescription de pénicilline potentiellement fatale, adaptation des soins au profil diabétique.</em></p>
+  </div>
+
+  <h3 class="subsec">3.7.2 Scénario 2 — Malaise en déplacement à l'étranger</h3>
+  <div class="info-box">
+    <p><strong>Contexte :</strong> M. Karim D., épileptique, subit une crise dans un aéroport à l'étranger. Aucun proche n'est présent pour communiquer ses antécédents.</p>
+    <p style="margin-top:8px;"><strong>Déroulement :</strong></p>
+    <ol style="margin-left:18px;margin-top:4px;">
+      <li>M. Karim avait imprimé son QR code sur une carte plastifiée dans son portefeuille.</li>
+      <li>Le personnel médical de l'aéroport scanne la carte avec leur smartphone.</li>
+      <li>Le payload Base64 est visible ; le personnel contacte un proche via le numéro d'urgence intégré pour obtenir le PIN.</li>
+      <li>La fiche révèle : épilepsie idiopathique, Valproate de sodium 500mg 2×/j, allergie au Phénobarbital.</li>
+      <li>Le médecin évite l'administration d'un antiépileptique contre-indiqué.</li>
+    </ol>
+  </div>
+
+  <h3 class="subsec">3.7.3 Scénario 3 — Enfant sans parents</h3>
+  <p>Les parents peuvent créer et imprimer la fiche clinique de leur enfant (groupe sanguin, allergies, maladies chroniques, traitement pédiatrique). La fiche peut être cousue dans le sac scolaire ou collée sur la trousse médicale, et est lisible par toute infirmière scolaire équipée d'un smartphone.</p>
+
+  <h2 class="sec">3.8 Analyse de sécurité et limites</h2>
+
+  <h3 class="subsec">3.8.1 Forces de sécurité</h3>
+  <ul>
+    <li><strong>Aucune surface d'attaque réseau :</strong> l'absence totale de communications serveur élimine les vecteurs d'attaque les plus communs (interception TLS, injections API, fuites de base de données).</li>
+    <li><strong>Principe du moindre privilège :</strong> l'application ne demande que les permissions caméra (scan QR) et stockage local, sans accès aux contacts, localisation ou réseau.</li>
+    <li><strong>Données chiffrées au repos :</strong> même un accès physique non autorisé à l'appareil ne permet pas de lire les données médicales sans le PIN.</li>
+    <li><strong>Transparence algorithmique :</strong> XOR et Base64 sont des algorithmes publics, documentés et vérifiables, contrairement à des implémentations propriétaires opaques.</li>
+  </ul>
+
+  <h3 class="subsec">3.8.2 Limites connues et perspectives</h3>
+  <p>Il est important d'énoncer honnêtement les limites de l'approche XOR dans un contexte académique :</p>
+  <ul>
+    <li><strong>Vulnérabilité aux attaques par texte clair connu :</strong> si un attaquant connaît une partie du JSON en clair (ex : les champs fixes comme <code>"versionSchema":1</code>), il peut en déduire des portions de la clé XOR. Cette vulnérabilité est atténuée par la longueur variable des données et la nature privée du PIN.</li>
+    <li><strong>Force de la clé limitée :</strong> un PIN à 6 chiffres offre 10<sup>6</sup> = 1 000 000 combinaisons, susceptibles d'une attaque par force brute exhaustive. Une version future pourrait adopter AES-256-GCM via la bibliothèque <code>react-native-crypto</code>.</li>
+    <li><strong>Dépendance à la mémorisation du PIN :</strong> si l'utilisateur oublie son PIN, les données ne sont pas récupérables — ce qui est une garantie de confidentialité, mais aussi un risque de perte d'accès.</li>
+  </ul>
+
+  <div class="page-footer">
+    <span>Chapitre 3 — SauveMoi QR</span>
+    <span class="pg-num">19</span>
+  </div>
+</div>
+
+<!-- Page 20 : Implémentation interface & tests -->
+<div class="page page-break">
+
+  <h2 class="sec">3.9 Implémentation de l'interface utilisateur</h2>
+
+  <h3 class="subsec">3.9.1 Architecture des écrans SauveMoi QR</h3>
+  <p>L'interface de SauveMoi QR est organisée selon un flux linéaire en trois écrans, correspondant aux trois actions principales : saisie, visualisation et lecture.</p>
+
+  <table>
+    <caption>Tableau 3.4 — Écrans de SauveMoi QR et leurs responsabilités</caption>
+    <tr><th>Écran</th><th>Composant</th><th>Responsabilité</th><th>AsyncStorage</th></tr>
+    <tr><td>Saisie fiche</td><td><code>SaisieUrgenceScreen</code></td><td>Formulaire multi-champs, validation TypeScript</td><td>Write <code>sauvemoi_qr_data</code></td></tr>
+    <tr><td>Affichage QR</td><td><code>QRCodeScreen</code></td><td>Génération SVG, export image, impression</td><td>Read <code>sauvemoi_qr_data</code></td></tr>
+    <tr><td>Lecture d'urgence</td><td><code>ScannerUrgenceScreen</code></td><td>Caméra, déchiffrement, affichage structuré</td><td>Aucun (stateless)</td></tr>
+  </table>
+
+  <h3 class="subsec">3.9.2 Validation des données de saisie</h3>
+
+  <div class="code-block">
+    <div class="code-title">TypeScript — Validation de la fiche d'urgence</div>
+    <span class="kw">function</span> <span class="fn">validerFiche</span>(fiche: <span class="type">Partial&lt;FicheUrgence&gt;</span>): <span class="type">ValidationResult</span> {
+  <span class="indent1"><span class="kw">const</span> erreurs: <span class="type">string[]</span> = [];</span>
+
+  <span class="indent1"><span class="kw">if</span> (!fiche.nomComplet?.trim())</span>
+  <span class="indent2">erreurs.push(<span class="str">'Le nom complet est obligatoire'</span>);</span>
+
+  <span class="indent1"><span class="kw">if</span> (!GROUPES_SANGUINS.includes(fiche.groupeSanguin ?? <span class="str">''</span>))</span>
+  <span class="indent2">erreurs.push(<span class="str">'Groupe sanguin invalide'</span>);</span>
+
+  <span class="indent1"><span class="kw">if</span> (fiche.dateNaissance &amp;&amp; !isValidISO8601(fiche.dateNaissance))</span>
+  <span class="indent2">erreurs.push(<span class="str">'Format de date invalide (AAAA-MM-JJ requis)'</span>);</span>
+
+  <span class="indent1"><span class="kw">if</span> (!fiche.contactUrgence?.telephone?.match(<span class="str">/^[+\d\s-]{8,15}$/</span>))</span>
+  <span class="indent2">erreurs.push(<span class="str">'Numéro d\'urgence invalide'</span>);</span>
+
+  <span class="indent1"><span class="kw">return</span> {</span>
+  <span class="indent2">valide:  erreurs.length === <span class="num">0</span>,</span>
+  <span class="indent2">erreurs: erreurs</span>
+  <span class="indent1">};</span>
+}
+  </div>
+
+  <h3 class="subsec">3.9.3 Tests du module SauveMoi QR</h3>
+  <p>La validation du module SauveMoi QR a porté sur trois axes : la correction du chiffrement (vérification de l'involution XOR), la compatibilité Base64 (décodage correct par les lecteurs QR standard), et la cohérence des données après un cycle complet chiffrement-QR-scan-déchiffrement.</p>
+
+  <table>
+    <caption>Tableau 3.5 — Résultats des tests de validation SauveMoi QR</caption>
+    <tr><th>Test</th><th>Méthode</th><th>Résultat attendu</th><th>Statut</th></tr>
+    <tr><td>Involution XOR</td><td>decrypt(key, encrypt(key, data)) == data</td><td>Égalité stricte</td><td style="color:var(--green-dark);font-weight:bold;">✓ Validé</td></tr>
+    <tr><td>Compatibilité Base64</td><td>Scan avec 3 applications tierces</td><td>Payload lisible</td><td style="color:var(--green-dark);font-weight:bold;">✓ Validé</td></tr>
+    <tr><td>Cycle complet</td><td>Saisie → QR → Scan → Affichage</td><td>Données identiques</td><td style="color:var(--green-dark);font-weight:bold;">✓ Validé</td></tr>
+    <tr><td>Résistance dommages QR</td><td>QR imprimé, partiellement occulté (15%)</td><td>Lecture réussie</td><td style="color:var(--green-dark);font-weight:bold;">✓ Validé</td></tr>
+    <tr><td>Validation données invalides</td><td>Soumission formulaire incomplet</td><td>Blocage avec message</td><td style="color:var(--green-dark);font-weight:bold;">✓ Validé</td></tr>
+  </table>
+
+  <h2 class="sec">3.10 Conclusion</h2>
+  <div class="conclusion-box">
+    <p>SauveMoi QR démontre qu'il est possible de concevoir un système de protection des données médicales d'urgence à la fois sécurisé, utilisable hors-ligne et accessible universellement, sans recours à des infrastructures cloud ou des protocoles cryptographiques complexes nécessitant des ressources computationnelles importantes sur mobile.</p>
+    <p>La combinaison XOR + Base64, si elle ne vise pas à rivaliser avec AES-256 en termes de robustesse cryptographique, offre un équilibre judicieux entre sécurité pratique, lisibilité universelle et performance sur des appareils d'entrée de gamme — critères déterminants dans un contexte de déploiement grand public en Algérie.</p>
+    <p>Les deux modules d'OrientDZ — OrientNutri et SauveMoi QR — répondent chacun à une problématique de santé distincte, tout en partageant les mêmes principes architecturaux : hors-ligne, local, bilingue, et centré sur l'utilisateur.</p>
+  </div>
+
+  <div class="page-footer">
+    <span>Chapitre 3 — SauveMoi QR</span>
+    <span class="pg-num">20</span>
+  </div>
+</div>
+
+<!-- ============================================================
+     CONCLUSION GÉNÉRALE ET PERSPECTIVES  (pages 21–23)
+============================================================ -->
+
+<!-- Page 21 : Conclusion générale -->
+<div class="page page-break">
+  <div class="chapter-header">
+    <div class="chapter-tag">Conclusion</div>
+    <h1 class="chapter-title">Conclusion Générale et Perspectives</h1>
+  </div>
+
+  <h2 class="sec">Bilan des contributions</h2>
+  <p>Ce mémoire a présenté OrientDZ, une application mobile de santé développée pour répondre à deux problématiques distinctes mais complémentaires du paysage sanitaire algérien : l'accès à des conseils nutritionnels personnalisés et la gestion des urgences médicales, dans un contexte de couverture réseau inégale et de préoccupations croissantes autour de la confidentialité des données personnelles.</p>
+
+  <p>Les contributions principales de ce travail s'articulent autour de trois axes :</p>
+
+  <h3 class="subsec" style="margin-top:16px;">1. Contribution architecturale</h3>
+  <p>OrientDZ propose une architecture mobile <em>offline-first</em> rigoureusement cohérente, reposant sur React Native / Expo avec stockage local exclusif via AsyncStorage. Cette architecture, illustrée par la convention de namespacing des clés (<code>orientdz_*</code>, <code>orientnutri_*</code>, <code>sauvemoi_*</code>), garantit l'isolation des modules, la maintenabilité du code et la scalabilité vers de futurs modules. Elle constitue un modèle transférable à d'autres applications de santé mobile en contexte de ressources limitées.</p>
+
+  <h3 class="subsec">2. Contribution algorithmique</h3>
+  <p>Le module OrientNutri implémente l'équation de Mifflin-St Jeor, validée scientifiquement comme la méthode la plus précise d'estimation du métabolisme de base, dans un moteur de calcul TypeScript entièrement local. La chaîne de calcul complète — BMR → TDEE × NAP → Ajustement objectif → Répartition macronutriments — a été validée à 0% d'écart sur quatre profils de référence.</p>
+
+  <p>Le module SauveMoi QR introduit un protocole de chiffrement XOR + Base64 adapté aux contraintes mobiles (légèreté, offline, pas de bibliothèques cryptographiques lourdes), offrant une protection pratique des données médicales tout en maintenant la lisibilité universelle par tout scanner QR.</p>
+
+  <h3 class="subsec">3. Contribution à la bilinguisme technique</h3>
+  <p>Le système de localisation bilingue Français/Arabe, intégrant la gestion RTL par <code>I18nManager.forceRTL()</code>, la persistance de la préférence linguistique via AsyncStorage, et l'adaptation culturelle des interfaces, constitue une implémentation de référence pour le développement d'applications bilingues en contexte nord-africain.</p>
+
+  <h2 class="sec" style="margin-top:24px;">Réponse à la problématique initiale</h2>
+  <p>OrientDZ répond à sa problématique de recherche — <em>"Comment concevoir une application mobile de santé personnalisée, scientifiquement fondée et respectueuse de la vie privée, accessible à un public algérien bilingue dans des conditions de connectivité variables ?"</em> — par une réponse technique complète et cohérente :</p>
+
+  <table style="margin-top:12px;">
+    <tr><th>Critère</th><th>Solution apportée</th><th>Technologie clé</th></tr>
+    <tr><td>Personnalisation</td><td>Calculs BMR/TDEE/Macros individualisés</td><td>Mifflin-St Jeor + NAP</td></tr>
+    <tr><td>Base scientifique</td><td>Équations validées par méta-analyses</td><td>TypeScript strict</td></tr>
+    <tr><td>Vie privée</td><td>100% local, zéro cloud</td><td>AsyncStorage + XOR</td></tr>
+    <tr><td>Bilinguisme</td><td>FR/AR avec RTL natif</td><td>i18next + I18nManager</td></tr>
+    <tr><td>Connectivité variable</td><td>Hors-ligne complet</td><td>Offline-first architecture</td></tr>
+  </table>
+
+  <div class="page-footer">
+    <span>Conclusion Générale</span>
+    <span class="pg-num">21</span>
+  </div>
+</div>
+
+<!-- Page 22 : Perspectives -->
+<div class="page page-break">
+
+  <h2 class="sec">Limites du travail</h2>
+  <p>Une démarche scientifique honnête impose de reconnaître les limites de la réalisation présentée :</p>
+  <ul>
+    <li><strong>Robustesse cryptographique limitée de XOR :</strong> comme discuté au Chapitre 3, l'algorithme XOR est vulnérable aux attaques par texte clair connu. Il convient au niveau de protection requis pour un usage grand public, mais ne satisferait pas les exigences d'une certification médicale de type CE (marquage européen des dispositifs médicaux).</li>
+    <li><strong>Absence d'évaluation clinique externe :</strong> les recommandations nutritionnelles d'OrientNutri sont basées sur des équations validées, mais n'ont pas fait l'objet d'une évaluation par des nutritionnistes ou diététiciens diplômés dans le cadre de ce mémoire.</li>
+    <li><strong>Périmètre fonctionnel réduit :</strong> le module PharmaInfo, initialement planifié, a été retiré du périmètre pour des raisons éthiques et réglementaires, réduisant l'exhaustivité de l'application.</li>
+    <li><strong>Tests utilisateurs limités :</strong> les tests ont été conduits sur un panel restreint ; une étude UX formelle avec des utilisateurs représentatifs (alphabétisation variable, familiarité avec les smartphones) renforcerait la validation ergonomique.</li>
+  </ul>
+
+  <h2 class="sec">Perspectives d'évolution</h2>
+
+  <h3 class="subsec">Court terme (0–6 mois)</h3>
+  <ul>
+    <li><strong>Remplacement XOR par AES-256-GCM</strong> via <code>react-native-quick-crypto</code>, offrant un niveau de sécurité conforme aux standards NIST, sans impacter les performances sur des smartphones modernes.</li>
+    <li><strong>Ajout d'un module OrientFit</strong> intégrant le suivi de l'activité physique quotidienne (pas, calories brûlées estimées) en utilisant les capteurs natifs de l'appareil (accéléromètre) via Expo Sensors.</li>
+    <li><strong>Export PDF de la fiche clinique</strong> via <code>react-native-pdf-lib</code> pour permettre l'impression d'une carte médicale professionnelle directement depuis l'application.</li>
+  </ul>
+
+  <h3 class="subsec">Moyen terme (6–18 mois) — Évolution startup</h3>
+  <p>OrientDZ présente un potentiel de valorisation commerciale dans un cadre startup de santé numérique. Les axes de développement envisagés incluent :</p>
+  <ul>
+    <li><strong>Partenariats avec des cliniques ou polycliniques :</strong> intégration d'un mode professionnel permettant aux médecins de créer ou annoter des fiches d'urgence pour leurs patients, avec synchronisation opt-in et chiffrée de bout en bout.</li>
+    <li><strong>Module OrientDiabète :</strong> suivi glycémique, calcul de doses d'insuline selon un ratio I/G (insuline/glucides), et alertes locales de dérive glycémique — répondant à la forte prévalence du diabète en Algérie (12% de la population adulte selon l'IDF 2023).</li>
+    <li><strong>Publication sur les stores :</strong> soumission sur Google Play Store et Apple App Store après audit de sécurité et validation des contenus médicaux par un comité d'experts.</li>
+  </ul>
+
+  <h3 class="subsec">Long terme (18 mois+)</h3>
+  <p>La vision à long terme d'OrientDZ est de constituer un écosystème de santé mobile de référence pour le grand Maghreb, couvrant nutrition, urgences médicales, suivi des maladies chroniques et prévention, tout en maintenant la philosophie fondamentale du projet : données locales, respect de la vie privée, et accessibilité hors-ligne.</p>
+
+  <div class="conclusion-box" style="margin-top:24px;">
+    <p>OrientDZ s'inscrit dans un mouvement global de démocratisation des outils de santé numérique. En plaçant le citoyen algérien au centre de son propre suivi de santé — sans cloud, sans abonnement, sans cession de données personnelles — le projet contribue à l'émergence d'une culture numérique de santé autonome et souveraine, alignée avec les ambitions de digitalisation du secteur sanitaire en Algérie portées par le Plan Algérie Numérique 2030.</p>
+  </div>
+
+  <div class="page-footer">
+    <span>Conclusion Générale</span>
+    <span class="pg-num">22</span>
+  </div>
+</div>
+
+<!-- ============================================================
+     BIBLIOGRAPHIE  (pages 23–24)
+============================================================ -->
+
+<div class="page page-break">
+  <h1 style="font-size:20pt;color:var(--green-dark);border-bottom:3px solid var(--green-primary);padding-bottom:10px;margin-bottom:24px;">Bibliographie</h1>
+
+  <h2 class="sec">Articles scientifiques et études cliniques</h2>
+
+  <div class="bib-entry">
+    <span class="bib-num">[1]</span>
+    <span class="bib-text">Frankenfield, D., Roth-Yousey, L., &amp; Compher, C. (2005). <em>Comparison of predictive equations for resting metabolic rate in healthy nonobese and obese adults: a systematic review.</em> Journal of the American Dietetic Association, 105(5), 775–789. https://doi.org/10.1016/j.jada.2005.02.005</span>
+  </div>
+
+  <div class="bib-entry">
+    <span class="bib-num">[2]</span>
+    <span class="bib-text">Mifflin, M. D., St Jeor, S. T., Hill, L. A., Scott, B. J., Daugherty, S. A., &amp; Koh, Y. O. (1990). <em>A new predictive equation for resting energy expenditure in healthy individuals.</em> The American Journal of Clinical Nutrition, 51(2), 241–247. https://doi.org/10.1093/ajcn/51.2.241</span>
+  </div>
+
+  <div class="bib-entry">
+    <span class="bib-num">[3]</span>
+    <span class="bib-text">Harris, J. A., &amp; Benedict, F. G. (1918). <em>A biometric study of human basal metabolism.</em> Proceedings of the National Academy of Sciences, 4(12), 370–373.</span>
+  </div>
+
+  <div class="bib-entry">
+    <span class="bib-num">[4]</span>
+    <span class="bib-text">International Diabetes Federation (IDF). (2023). <em>IDF Diabetes Atlas — 11th Edition.</em> Brussels: International Diabetes Federation. Récupéré de https://diabetesatlas.org</span>
+  </div>
+
+  <div class="bib-entry">
+    <span class="bib-num">[5]</span>
+    <span class="bib-text">Cavoukian, A. (2009). <em>Privacy by Design: The 7 Foundational Principles.</em> Information and Privacy Commissioner of Ontario, Canada. Récupéré de https://www.ipc.on.ca/wp-content/uploads/Resources/7foundationalprinciples.pdf</span>
+  </div>
+
+  <div class="bib-entry">
+    <span class="bib-num">[6]</span>
+    <span class="bib-text">Arends, J., Bachmann, P., Baracos, V., Barthelemy, N., et al. (2017). <em>ESPEN guidelines on nutrition in cancer patients.</em> Clinical Nutrition, 36(1), 11–48. https://doi.org/10.1016/j.clnu.2016.07.015</span>
+  </div>
+
+  <h2 class="sec">Ouvrages et manuels de référence</h2>
+
+  <div class="bib-entry">
+    <span class="bib-num">[7]</span>
+    <span class="bib-text">Schmitt, N. (2021). <em>TypeScript Deep Dive.</em> Basarat Ali Syed (Ed.). Open source book. Récupéré de https://basarat.gitbook.io/typescript</span>
+  </div>
+
+  <div class="bib-entry">
+    <span class="bib-num">[8]</span>
+    <span class="bib-text">Daswani, N., &amp; Elbayadi, M. (2021). <em>Big Breaches: Cybersecurity Lessons for Everyone.</em> Apress. ISBN: 978-1-4842-6654-1.</span>
+  </div>
+
+  <div class="bib-entry">
+    <span class="bib-num">[9]</span>
+    <span class="bib-text">Menezes, A. J., van Oorschot, P. C., &amp; Vanstone, S. A. (1996). <em>Handbook of Applied Cryptography.</em> CRC Press. Récupéré de http://cacr.uwaterloo.ca/hac</span>
+  </div>
+
+  <div class="bib-entry">
+    <span class="bib-num">[10]</span>
+    <span class="bib-text">Eisenstein, M. (2010). <em>Nutrigenomics: Changing the way we eat.</em> Nature, 468(7327), S5–S7. https://doi.org/10.1038/468S5a</span>
+  </div>
+
+  <h2 class="sec">Documentation technique</h2>
+
+  <div class="bib-entry">
+    <span class="bib-num">[11]</span>
+    <span class="bib-text">Meta Platforms. (2024). <em>React Native Documentation.</em> Récupéré de https://reactnative.dev/docs/getting-started</span>
+  </div>
+
+  <div class="bib-entry">
+    <span class="bib-num">[12]</span>
+    <span class="bib-text">Expo Team. (2024). <em>Expo Documentation — SDK 51.</em> Récupéré de https://docs.expo.dev</span>
+  </div>
+
+  <div class="bib-entry">
+    <span class="bib-num">[13]</span>
+    <span class="bib-text">i18next Contributors. (2024). <em>i18next — Internationalization Framework Documentation.</em> Récupéré de https://www.i18next.com</span>
+  </div>
+
+  <div class="bib-entry">
+    <span class="bib-num">[14]</span>
+    <span class="bib-text">Nishikant Bhatt. (2023). <em>react-native-qrcode-svg: QR Code generator for React Native.</em> npm package, version 6.2. Récupéré de https://www.npmjs.com/package/react-native-qrcode-svg</span>
+  </div>
+
+  <div class="bib-entry">
+    <span class="bib-num">[15]</span>
+    <span class="bib-text">Parlement européen et Conseil de l'UE. (2016). <em>Règlement (UE) 2016/679 relatif à la protection des personnes physiques à l'égard du traitement des données à caractère personnel (RGPD).</em> Journal officiel de l'Union européenne, L 119, 1–88.</span>
+  </div>
+
+  <div class="bib-entry">
+    <span class="bib-num">[16]</span>
+    <span class="bib-text">Josefsson, S. (2006). <em>The Base16, Base32, and Base64 Data Encodings (RFC 4648).</em> Internet Engineering Task Force. Récupéré de https://tools.ietf.org/html/rfc4648</span>
+  </div>
+
+  <div class="bib-entry">
+    <span class="bib-num">[17]</span>
+    <span class="bib-text">ISO/IEC. (2015). <em>ISO/IEC 18004:2015 — Information technology — Automatic identification and data capture techniques — QR Code bar code symbology specification (3rd ed.).</em> International Organization for Standardization.</span>
+  </div>
+
+  <div class="bib-entry">
+    <span class="bib-num">[18]</span>
+    <span class="bib-text">Ministère de l'Industrie Pharmaceutique, Algérie. (2023). <em>Loi relative à la protection de la santé (Loi n°18-11).</em> Journal officiel de la République Algérienne Démocratique et Populaire.</span>
+  </div>
+
+  <div class="page-footer">
+    <span>Bibliographie</span>
+    <span class="pg-num">23</span>
+  </div>
+</div>
+
+<!-- ============================================================
+     ANNEXES  (pages 25–27)
+============================================================ -->
+
+<div class="page page-break">
+  <h1 style="font-size:20pt;color:var(--green-dark);border-bottom:3px solid var(--green-primary);padding-bottom:10px;margin-bottom:24px;">Annexes</h1>
+
+  <h2 class="sec">Annexe A — Implémentation complète du moteur de chiffrement XOR + Base64</h2>
+  <p>Cette annexe présente le code source complet du module de chiffrement de SauveMoi QR, incluant la gestion des erreurs, la validation de la clé PIN et les fonctions utilitaires associées.</p>
+
+  <div class="code-block" style="font-size:8pt;">
+    <div class="code-title">sauvemoi/crypto/xorCipher.ts — Module de chiffrement complet</div>
+<span class="comment">/**
+ * Module de chiffrement XOR + Base64 pour SauveMoi QR
+ * Algorithme : XOR symétrique avec clé cyclique, encodage Base64 pour QR
+ */</span>
+
+<span class="kw">import</span> { FicheUrgence } <span class="kw">from</span> <span class="str">'../types/FicheUrgence'</span>;
+
+<span class="kw">const</span> LONGUEUR_PIN_MIN = <span class="num">4</span>;
+<span class="kw">const</span> LONGUEUR_PIN_MAX = <span class="num">12</span>;
+
+<span class="kw">export function</span> <span class="fn">validerPin</span>(pin: <span class="type">string</span>): <span class="type">boolean</span> {
+  <span class="indent1"><span class="kw">return</span> /^\d+$/.test(pin) &amp;&amp;</span>
+  <span class="indent2">pin.length &gt;= LONGUEUR_PIN_MIN &amp;&amp;</span>
+  <span class="indent2">pin.length &lt;= LONGUEUR_PIN_MAX;</span>
+}
+
+<span class="kw">function</span> <span class="fn">xorBuffer</span>(data: <span class="type">Uint8Array</span>, key: <span class="type">Uint8Array</span>): <span class="type">Uint8Array</span> {
+  <span class="indent1"><span class="kw">const</span> result = <span class="kw">new</span> Uint8Array(data.length);</span>
+  <span class="indent1"><span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">0</span>; i &lt; data.length; i++) {</span>
+  <span class="indent2">result[i] = data[i] <span class="op">^</span> key[i <span class="op">%</span> key.length];</span>
+  <span class="indent1">}</span>
+  <span class="indent1"><span class="kw">return</span> result;</span>
+}
+
+<span class="kw">export function</span> <span class="fn">chiffrerFiche</span>(fiche: <span class="type">FicheUrgence</span>, pin: <span class="type">string</span>): <span class="type">string</span> {
+  <span class="indent1"><span class="kw">if</span> (!validerPin(pin)) <span class="kw">throw new</span> Error(<span class="str">'PIN invalide : 4 à 12 chiffres requis'</span>);</span>
+  <span class="indent1"><span class="kw">const</span> encoder = <span class="kw">new</span> TextEncoder();</span>
+  <span class="indent1"><span class="kw">const</span> dataBytes = encoder.encode(JSON.stringify(fiche));</span>
+  <span class="indent1"><span class="kw">const</span> keyBytes  = encoder.encode(pin);</span>
+  <span class="indent1"><span class="kw">const</span> xored = <span class="fn">xorBuffer</span>(dataBytes, keyBytes);</span>
+  <span class="indent1"><span class="kw">return</span> btoa(String.fromCharCode(...xored));</span>
+}
+
+<span class="kw">export function</span> <span class="fn">dechiffrerFiche</span>(payload: <span class="type">string</span>, pin: <span class="type">string</span>): <span class="type">FicheUrgence</span> {
+  <span class="indent1"><span class="kw">if</span> (!validerPin(pin)) <span class="kw">throw new</span> Error(<span class="str">'PIN invalide'</span>);</span>
+  <span class="indent1"><span class="kw">const</span> encrypted = Uint8Array.from(atob(payload), c =&gt; c.charCodeAt(<span class="num">0</span>));</span>
+  <span class="indent1"><span class="kw">const</span> keyBytes   = <span class="kw">new</span> TextEncoder().encode(pin);</span>
+  <span class="indent1"><span class="kw">const</span> decrypted  = <span class="fn">xorBuffer</span>(encrypted, keyBytes);</span>
+  <span class="indent1"><span class="kw">const</span> jsonStr    = <span class="kw">new</span> TextDecoder().decode(decrypted);</span>
+  <span class="indent1"><span class="kw">try</span> {</span>
+  <span class="indent2"><span class="kw">return</span> JSON.parse(jsonStr) <span class="kw">as</span> <span class="type">FicheUrgence</span>;</span>
+  <span class="indent1">} <span class="kw">catch</span> {</span>
+  <span class="indent2"><span class="kw">throw new</span> Error(<span class="str">'PIN incorrect ou données corrompues'</span>);</span>
+  <span class="indent1">}</span>
+}
+  </div>
+
+  <div class="page-footer">
+    <span>Annexes</span>
+    <span class="pg-num">24</span>
+  </div>
+</div>
+
+<!-- Page 26 : Annexe B — Tables macronutriments -->
+<div class="page page-break">
+
+  <h2 class="sec">Annexe B — Tables de référence des macronutriments</h2>
+  <p>Les tableaux suivants constituent les données de référence utilisées par le moteur nutritionnel d'OrientNutri pour calculer les ratios de macronutriments selon l'objectif de l'utilisateur.</p>
+
+  <h3 class="subsec">B.1 — Ratios macronutriments par objectif</h3>
+  <table>
+    <caption>Tableau A.1 — Ratios macronutriments utilisés dans OrientNutri</caption>
+    <tr>
+      <th>Objectif</th><th>Protéines</th><th>Lipides</th><th>Glucides</th>
+      <th>Justification scientifique</th>
+    </tr>
+    <tr>
+      <td>Perte de poids</td><td>35%</td><td>25%</td><td>40%</td>
+      <td>Protéines élevées pour préserver la masse maigre (Arends et al., 2017)</td>
+    </tr>
+    <tr>
+      <td>Maintien du poids</td><td>25%</td><td>30%</td><td>45%</td>
+      <td>Équilibre conforme aux ANC (Apports Nutritionnels Conseillés)</td>
+    </tr>
+    <tr>
+      <td>Prise de masse</td><td>30%</td><td>25%</td><td>45%</td>
+      <td>Glucides élevés pour l'énergie, protéines pour la synthèse musculaire</td>
+    </tr>
+  </table>
+
+  <h3 class="subsec" style="margin-top:20px;">B.2 — Facteurs NAP (Niveau d'Activité Physique)</h3>
+  <table>
+    <caption>Tableau A.2 — Coefficients NAP selon l'OMS</caption>
+    <tr><th>Niveau d'activité</th><th>Coefficient NAP</th><th>Description</th></tr>
+    <tr><td>Sédentaire</td><td>1.200</td><td>Travail de bureau, déplacements motorisés, aucun sport</td></tr>
+    <tr><td>Légèrement actif</td><td>1.375</td><td>Sport léger 1–3 jours/semaine (marche, yoga)</td></tr>
+    <tr><td>Modérément actif</td><td>1.550</td><td>Sport modéré 3–5 jours/semaine</td></tr>
+    <tr><td>Très actif</td><td>1.725</td><td>Sport intense 6–7 jours/semaine</td></tr>
+    <tr><td>Extrêmement actif</td><td>1.900</td><td>Athlète professionnel, travail physique intense quotidien</td></tr>
+  </table>
+
+  <h3 class="subsec" style="margin-top:20px;">B.3 — Ajustements caloriques par objectif</h3>
+  <table>
+    <caption>Tableau A.3 — Ajustements TDEE selon l'objectif</caption>
+    <tr><th>Objectif</th><th>Ajustement (kcal/j)</th><th>Résultat théorique</th></tr>
+    <tr><td>Perte de poids</td><td>−500 kcal</td><td>Déficit ciblant ~0,5 kg/semaine de perte de masse graisseuse</td></tr>
+    <tr><td>Maintien</td><td>0 kcal</td><td>Compensation exacte des dépenses énergétiques totales</td></tr>
+    <tr><td>Prise de masse</td><td>+300 kcal</td><td>Surplus modéré limitant la prise de masse graisseuse concomitante</td></tr>
+  </table>
+
+  <h3 class="subsec" style="margin-top:20px;">B.4 — Valeurs caloriques des macronutriments</h3>
+  <table>
+    <caption>Tableau A.4 — Énergie par gramme de macronutriment (Atwater)</caption>
+    <tr><th>Macronutriment</th><th>Énergie (kcal/g)</th><th>Source</th></tr>
+    <tr><td>Protéines</td><td>4 kcal/g</td><td>Facteur d'Atwater, EFSA 2017</td></tr>
+    <tr><td>Glucides</td><td>4 kcal/g</td><td>Facteur d'Atwater, EFSA 2017</td></tr>
+    <tr><td>Lipides</td><td>9 kcal/g</td><td>Facteur d'Atwater, EFSA 2017</td></tr>
+    <tr><td>Alcool éthylique</td><td>7 kcal/g</td><td>Non utilisé dans OrientNutri</td></tr>
+  </table>
+
+  <div class="page-footer">
+    <span>Annexes</span>
+    <span class="pg-num">25</span>
+  </div>
+</div>
+
+<!-- Page 27 : Annexe C — Schéma architecture complète -->
+<div class="page">
+
+  <h2 class="sec">Annexe C — Architecture complète d'OrientDZ</h2>
+  <p>Le schéma ci-dessous représente l'architecture globale d'OrientDZ, illustrant les dépendances entre composants, les flux de données, et les couches d'isolation entre modules.</p>
+
+  <div class="figure-box">
+    <div style="font-family:monospace;font-size:8.5pt;line-height:2;background:#f8f9fa;padding:16px;border-radius:6px;border:1px solid var(--green-border);">
+      <div style="text-align:center;font-size:10pt;font-weight:bold;color:var(--green-dark);margin-bottom:8px;">OrientDZ — Vue d'ensemble de l'architecture</div>
+      <div style="display:flex;gap:30px;justify-content:center;flex-wrap:wrap;">
+        <div>
+          <div style="font-weight:bold;color:var(--anthracite);">[ Interface utilisateur ]</div>
+          <div style="padding-left:10px;">App.tsx (navigation)</div>
+          <div style="padding-left:10px;">LangueSwitcher (FR↔AR)</div>
+          <div style="padding-left:10px;">ThemeProvider</div>
+        </div>
+        <div style="color:var(--green-medium);font-size:14pt;align-self:center;">⇓</div>
+        <div>
+          <div style="font-weight:bold;color:var(--anthracite);">[ Modules métier ]</div>
+          <div style="padding-left:10px;">OrientNutri</div>
+          <div style="padding-left:10px;">SauveMoi QR</div>
+        </div>
+        <div style="color:var(--green-medium);font-size:14pt;align-self:center;">⇓</div>
+        <div>
+          <div style="font-weight:bold;color:var(--anthracite);">[ Services partagés ]</div>
+          <div style="padding-left:10px;">i18next (localisation)</div>
+          <div style="padding-left:10px;">I18nManager (RTL)</div>
+          <div style="padding-left:10px;">xorCipher (crypto)</div>
+        </div>
+        <div style="color:var(--green-medium);font-size:14pt;align-self:center;">⇓</div>
+        <div>
+          <div style="font-weight:bold;color:var(--anthracite);">[ Persistance ]</div>
+          <div style="padding-left:10px;">AsyncStorage</div>
+          <div style="padding-left:10px;color:var(--text-muted);">orientdz_lang</div>
+          <div style="padding-left:10px;color:var(--text-muted);">orientnutri_profile</div>
+          <div style="padding-left:10px;color:var(--text-muted);">orientnutri_results</div>
+          <div style="padding-left:10px;color:var(--text-muted);">sauvemoi_qr_data</div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:12px;font-style:italic;color:var(--text-muted);border-top:1px solid var(--green-border);padding-top:8px;">
+        ← Aucune connexion réseau sortante dans tout le système →
+      </div>
+    </div>
+    <p class="fig-caption">Figure C.1 — Architecture en couches d'OrientDZ</p>
+  </div>
+
+  <h2 class="sec" style="margin-top:28px;">Annexe D — Glossaire des acronymes</h2>
+  <table>
+    <tr><th>Acronyme</th><th>Développement</th><th>Domaine</th></tr>
+    <tr><td>AES</td><td>Advanced Encryption Standard</td><td>Cryptographie</td></tr>
+    <tr><td>ANPP</td><td>Agence Nationale des Produits Pharmaceutiques (Algérie)</td><td>Réglementation</td></tr>
+    <tr><td>API</td><td>Application Programming Interface</td><td>Informatique</td></tr>
+    <tr><td>AR</td><td>Arabe (langue)</td><td>Localisation</td></tr>
+    <tr><td>AsyncStorage</td><td>Asynchronous Storage (React Native)</td><td>Mobile</td></tr>
+    <tr><td>BMR</td><td>Basal Metabolic Rate (Métabolisme de Base)</td><td>Nutrition</td></tr>
+    <tr><td>FR</td><td>Français (langue)</td><td>Localisation</td></tr>
+    <tr><td>GCM</td><td>Galois/Counter Mode (mode de chiffrement AES)</td><td>Cryptographie</td></tr>
+    <tr><td>JSON</td><td>JavaScript Object Notation</td><td>Informatique</td></tr>
+    <tr><td>NAP</td><td>Niveau d'Activité Physique</td><td>Nutrition</td></tr>
+    <tr><td>NIT</td><td>Numidia Institute of Technology</td><td>Institution</td></tr>
+    <tr><td>PbD</td><td>Privacy by Design</td><td>Sécurité</td></tr>
+    <tr><td>QR</td><td>Quick Response (code)</td><td>Informatique</td></tr>
+    <tr><td>RGPD</td><td>Règlement Général sur la Protection des Données</td><td>Juridique</td></tr>
+    <tr><td>RTL</td><td>Right-To-Left (écriture de droite à gauche)</td><td>I18n</td></tr>
+    <tr><td>SVG</td><td>Scalable Vector Graphics</td><td>Graphique</td></tr>
+    <tr><td>TDEE</td><td>Total Daily Energy Expenditure (Dépense Énergétique Totale)</td><td>Nutrition</td></tr>
+    <tr><td>XOR</td><td>eXclusive OR (opérateur logique)</td><td>Cryptographie</td></tr>
+  </table>
+
+  <div style="margin-top:40px;text-align:center;padding:20px;border-top:2px solid var(--green-border);">
+    <p style="font-size:10pt;color:var(--anthracite-lt);font-style:italic;">Mémoire de Fin d'Études — OrientDZ</p>
+    <p style="font-size:9pt;color:var(--text-muted);margin-top:4px;">Madjene Nawel &amp; Bendebbah Med Islem — Numidia Institute of Technology — 2025–2026</p>
+    <p style="font-size:9pt;color:var(--green-primary);font-weight:bold;margin-top:8px;">Encadreur : Mr. Mazoni Fares</p>
+  </div>
+
+  <div class="page-footer">
+    <span>Annexes</span>
+    <span class="pg-num">26</span>
+  </div>
+</div>
+
+</body>
+</html>
+

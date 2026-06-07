@@ -1,0 +1,2946 @@
+{
+  "metadata": {
+    "source": "Ministère de la Santé - Algérie",
+    "version": "1.0.0",
+    "last_updated": "2026-05-20",
+    "total_wilayas": 58,
+    "total_etablissements": 254
+  },
+  "wilayas": {
+    "Adrar": {
+      "code": 1,
+      "etablissements": [
+        {
+          "nom": "Hôpital Mohammed Boudiaf",
+          "type": "Hôpital Public",
+          "commune": "Adrar",
+          "adresse": "Rue de la Révolution, Adrar",
+          "telephone": "049 96 10 10",
+          "specialites": [
+            "Médecine Générale",
+            "Chirurgie"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Amal",
+          "type": "Clinique Privée",
+          "commune": "Adrar",
+          "adresse": "Cité des Palmiers, Adrar",
+          "telephone": "049 96 25 30",
+          "specialites": [
+            "Médecine Générale",
+            "Maternité"
+          ]
+        },
+        {
+          "nom": "Hôpital de Reggane",
+          "type": "Hôpital Public",
+          "commune": "Reggane",
+          "adresse": "Centre-ville, Reggane",
+          "telephone": "049 97 10 05",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique El Fath",
+          "type": "Clinique Privée",
+          "commune": "Timimoun",
+          "adresse": "Bd Principal, Timimoun",
+          "telephone": "049 90 15 20",
+          "specialites": [
+            "Médecine Générale",
+            "Pédiatrie"
+          ]
+        }
+      ]
+    },
+    "Chlef": {
+      "code": 2,
+      "etablissements": [
+        {
+          "nom": "CHU de Chlef",
+          "type": "Hôpital Public",
+          "commune": "Chlef",
+          "adresse": "Route de Ténès, Chlef",
+          "telephone": "027 77 10 00",
+          "specialites": [
+            "Médecine Générale",
+            "Chirurgie",
+            "Cardiologie"
+          ]
+        },
+        {
+          "nom": "Clinique Privée Ibn Sina",
+          "type": "Clinique Privée",
+          "commune": "Chlef",
+          "adresse": "Cité Bougara, Chlef",
+          "telephone": "027 77 45 60",
+          "specialites": [
+            "Gynécologie",
+            "Pédiatrie"
+          ]
+        },
+        {
+          "nom": "Hôpital de Ténès",
+          "type": "Hôpital Public",
+          "commune": "Ténès",
+          "adresse": "Rue de la Mer, Ténès",
+          "telephone": "027 73 10 20",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique Privée Al Shifa",
+          "type": "Clinique Privée",
+          "commune": "Ténès",
+          "adresse": "Centre-ville, Ténès",
+          "telephone": "027 73 25 40",
+          "specialites": [
+            "Médecine Générale",
+            "Maternité"
+          ]
+        }
+      ]
+    },
+    "Laghouat": {
+      "code": 3,
+      "etablissements": [
+        {
+          "nom": "Hôpital Mustapha Pacha",
+          "type": "Hôpital Public",
+          "commune": "Laghouat",
+          "adresse": "Bd Mokhtar Ezzoubir, Laghouat",
+          "telephone": "029 91 10 30",
+          "specialites": [
+            "Médecine Générale",
+            "Chirurgie"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Hayat",
+          "type": "Clinique Privée",
+          "commune": "Laghouat",
+          "adresse": "Cité des Fleurs, Laghouat",
+          "telephone": "029 91 35 50",
+          "specialites": [
+            "Gynécologie",
+            "Cardiologie"
+          ]
+        },
+        {
+          "nom": "Hôpital d'Aflou",
+          "type": "Hôpital Public",
+          "commune": "Aflou",
+          "adresse": "Route Nationale, Aflou",
+          "telephone": "029 92 10 10",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique El Nour",
+          "type": "Clinique Privée",
+          "commune": "Aflou",
+          "adresse": "Centre-ville, Aflou",
+          "telephone": "029 92 22 18",
+          "specialites": [
+            "Médecine Générale",
+            "Pédiatrie"
+          ]
+        }
+      ]
+    },
+    "Oum El Bouaghi": {
+      "code": 4,
+      "etablissements": [
+        {
+          "nom": "Hôpital Belhadj Bouchaib",
+          "type": "Hôpital Public",
+          "commune": "Oum El Bouaghi",
+          "adresse": "Rue Larbi Ben M'hidi, OEB",
+          "telephone": "032 42 10 25",
+          "specialites": [
+            "Médecine Générale",
+            "Chirurgie"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Amel",
+          "type": "Clinique Privée",
+          "commune": "Oum El Bouaghi",
+          "adresse": "Cité 400 Logts, OEB",
+          "telephone": "032 42 30 40",
+          "specialites": [
+            "Gynécologie",
+            "Pédiatrie"
+          ]
+        },
+        {
+          "nom": "Hôpital d'Aïn Beïda",
+          "type": "Hôpital Public",
+          "commune": "Aïn Beïda",
+          "adresse": "Bd de l'Indépendance, Aïn Beïda",
+          "telephone": "032 55 10 05",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique Privée Chifa",
+          "type": "Clinique Privée",
+          "commune": "Aïn Beïda",
+          "adresse": "Centre-ville, Aïn Beïda",
+          "telephone": "032 55 22 30",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        }
+      ]
+    },
+    "Batna": {
+      "code": 5,
+      "etablissements": [
+        {
+          "nom": "CHU de Batna",
+          "type": "Hôpital Public",
+          "commune": "Batna",
+          "adresse": "Rue Chahid Bouzid Boulaares, Batna",
+          "telephone": "033 86 10 00",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Marwa",
+          "type": "Clinique Privée",
+          "commune": "Batna",
+          "adresse": "Cité Parc, Batna",
+          "telephone": "033 86 45 70",
+          "specialites": [
+            "Chirurgie",
+            "Cardiologie"
+          ]
+        },
+        {
+          "nom": "Clinique Privée Ibn Rochd",
+          "type": "Clinique Privée",
+          "commune": "Batna",
+          "adresse": "Bd Colonel Amirouche, Batna",
+          "telephone": "033 86 60 80",
+          "specialites": [
+            "Gynécologie",
+            "Oncologie"
+          ]
+        },
+        {
+          "nom": "Hôpital d'Aïn Touta",
+          "type": "Hôpital Public",
+          "commune": "Aïn Touta",
+          "adresse": "Route Nationale 31, Aïn Touta",
+          "telephone": "033 87 10 15",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique El Wiam",
+          "type": "Clinique Privée",
+          "commune": "Aïn Touta",
+          "adresse": "Centre-ville, Aïn Touta",
+          "telephone": "033 87 25 30",
+          "specialites": [
+            "Médecine Générale",
+            "Pédiatrie"
+          ]
+        }
+      ]
+    },
+    "Béjaïa": {
+      "code": 6,
+      "etablissements": [
+        {
+          "nom": "CHU Khelil Amrane",
+          "type": "Hôpital Public",
+          "commune": "Béjaïa",
+          "adresse": "Route des Aurès, Béjaïa",
+          "telephone": "034 21 10 00",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "Clinique Privée Tafat",
+          "type": "Clinique Privée",
+          "commune": "Béjaïa",
+          "adresse": "Cité Ihaddaden, Béjaïa",
+          "telephone": "034 21 55 60",
+          "specialites": [
+            "Chirurgie",
+            "Cardiologie"
+          ]
+        },
+        {
+          "nom": "Clinique Privée Al Farabi",
+          "type": "Clinique Privée",
+          "commune": "Béjaïa",
+          "adresse": "Rue Larbi Ben M'hidi, Béjaïa",
+          "telephone": "034 21 70 85",
+          "specialites": [
+            "Gynécologie",
+            "Pédiatrie"
+          ]
+        },
+        {
+          "nom": "Hôpital d'Akbou",
+          "type": "Hôpital Public",
+          "commune": "Akbou",
+          "adresse": "Bd Principal, Akbou",
+          "telephone": "034 37 10 20",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Khaïr",
+          "type": "Clinique Privée",
+          "commune": "Akbou",
+          "adresse": "Cité Nouvelle, Akbou",
+          "telephone": "034 37 30 45",
+          "specialites": [
+            "Médecine Générale",
+            "Maternité"
+          ]
+        }
+      ]
+    },
+    "Biskra": {
+      "code": 7,
+      "etablissements": [
+        {
+          "nom": "Hôpital Mohamed Boudiaf",
+          "type": "Hôpital Public",
+          "commune": "Biskra",
+          "adresse": "Route de Sidi Okba, Biskra",
+          "telephone": "033 73 10 00",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Hayat",
+          "type": "Clinique Privée",
+          "commune": "Biskra",
+          "adresse": "Cité des Palmiers, Biskra",
+          "telephone": "033 73 45 60",
+          "specialites": [
+            "Chirurgie",
+            "Maternité"
+          ]
+        },
+        {
+          "nom": "Clinique Privée Chifa",
+          "type": "Clinique Privée",
+          "commune": "Biskra",
+          "adresse": "Bd de la République, Biskra",
+          "telephone": "033 73 60 75",
+          "specialites": [
+            "Cardiologie",
+            "Médecine Interne"
+          ]
+        },
+        {
+          "nom": "Hôpital de Tolga",
+          "type": "Hôpital Public",
+          "commune": "Tolga",
+          "adresse": "Route de Biskra, Tolga",
+          "telephone": "033 74 10 10",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique El Badr",
+          "type": "Clinique Privée",
+          "commune": "Tolga",
+          "adresse": "Centre-ville, Tolga",
+          "telephone": "033 74 22 35",
+          "specialites": [
+            "Médecine Générale",
+            "Pédiatrie"
+          ]
+        }
+      ]
+    },
+    "Béchar": {
+      "code": 8,
+      "etablissements": [
+        {
+          "nom": "Hôpital de Béchar",
+          "type": "Hôpital Public",
+          "commune": "Béchar",
+          "adresse": "Cité ZHUN, Béchar",
+          "telephone": "049 81 10 30",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Amel",
+          "type": "Clinique Privée",
+          "commune": "Béchar",
+          "adresse": "Cité des Orangers, Béchar",
+          "telephone": "049 81 35 50",
+          "specialites": [
+            "Gynécologie",
+            "Cardiologie"
+          ]
+        },
+        {
+          "nom": "Hôpital d'Abadla",
+          "type": "Hôpital Public",
+          "commune": "Abadla",
+          "adresse": "Route Nationale, Abadla",
+          "telephone": "049 82 10 05",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique El Nour",
+          "type": "Clinique Privée",
+          "commune": "Abadla",
+          "adresse": "Centre-ville, Abadla",
+          "telephone": "049 82 15 20",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        }
+      ]
+    },
+    "Blida": {
+      "code": 9,
+      "etablissements": [
+        {
+          "nom": "CHU Frantz Fanon",
+          "type": "Hôpital Public",
+          "commune": "Blida",
+          "adresse": "Bd Colonel Lotfi, Blida",
+          "telephone": "025 40 10 00",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Wardiya",
+          "type": "Clinique Privée",
+          "commune": "Blida",
+          "adresse": "Cité des Roses, Blida",
+          "telephone": "025 40 55 70",
+          "specialites": [
+            "Gynécologie",
+            "Chirurgie"
+          ]
+        },
+        {
+          "nom": "Clinique Privée Avicenne",
+          "type": "Clinique Privée",
+          "commune": "Blida",
+          "adresse": "Rue Larbi Ben M'hidi, Blida",
+          "telephone": "025 40 70 85",
+          "specialites": [
+            "Cardiologie",
+            "Oncologie"
+          ]
+        },
+        {
+          "nom": "Hôpital Mustapha Khalef",
+          "type": "Hôpital Public",
+          "commune": "Boufarik",
+          "adresse": "Route de Blida, Boufarik",
+          "telephone": "025 30 10 15",
+          "specialites": [
+            "Psychiatrie",
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Afia",
+          "type": "Clinique Privée",
+          "commune": "Boufarik",
+          "adresse": "Centre Boufarik",
+          "telephone": "025 30 25 40",
+          "specialites": [
+            "Médecine Générale",
+            "Pédiatrie"
+          ]
+        }
+      ]
+    },
+    "Bouira": {
+      "code": 10,
+      "etablissements": [
+        {
+          "nom": "Hôpital Mohamed Boudiaf",
+          "type": "Hôpital Public",
+          "commune": "Bouira",
+          "adresse": "Route de Lakhdaria, Bouira",
+          "telephone": "026 93 10 20",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Massira",
+          "type": "Clinique Privée",
+          "commune": "Bouira",
+          "adresse": "Cité des 600 Logts, Bouira",
+          "telephone": "026 93 40 55",
+          "specialites": [
+            "Gynécologie",
+            "Pédiatrie"
+          ]
+        },
+        {
+          "nom": "Hôpital d'Aïn Bessem",
+          "type": "Hôpital Public",
+          "commune": "Aïn Bessem",
+          "adresse": "Bd Principal, Aïn Bessem",
+          "telephone": "026 94 10 10",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique Chifa",
+          "type": "Clinique Privée",
+          "commune": "Aïn Bessem",
+          "adresse": "Centre-ville, Aïn Bessem",
+          "telephone": "026 94 22 30",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        }
+      ]
+    },
+    "Tamanrasset": {
+      "code": 11,
+      "etablissements": [
+        {
+          "nom": "Hôpital Tamanrasset",
+          "type": "Hôpital Public",
+          "commune": "Tamanrasset",
+          "adresse": "Rue de l'Hoggar, Tamanrasset",
+          "telephone": "029 34 10 20",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "Clinique Privée Tin Hinan",
+          "type": "Clinique Privée",
+          "commune": "Tamanrasset",
+          "adresse": "Cité Nouvelle, Tamanrasset",
+          "telephone": "029 34 30 45",
+          "specialites": [
+            "Gynécologie",
+            "Pédiatrie"
+          ]
+        },
+        {
+          "nom": "Hôpital d'In Salah",
+          "type": "Hôpital Public",
+          "commune": "In Salah",
+          "adresse": "Route Nationale, In Salah",
+          "telephone": "029 37 10 05",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique El Amal",
+          "type": "Clinique Privée",
+          "commune": "In Salah",
+          "adresse": "Centre-ville, In Salah",
+          "telephone": "029 37 15 25",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        }
+      ]
+    },
+    "Tébessa": {
+      "code": 12,
+      "etablissements": [
+        {
+          "nom": "Hôpital Hédi Mezaache",
+          "type": "Hôpital Public",
+          "commune": "Tébessa",
+          "adresse": "Rue de Constantine, Tébessa",
+          "telephone": "037 47 10 00",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Hayat",
+          "type": "Clinique Privée",
+          "commune": "Tébessa",
+          "adresse": "Cité 1er Novembre, Tébessa",
+          "telephone": "037 47 45 60",
+          "specialites": [
+            "Chirurgie",
+            "Cardiologie"
+          ]
+        },
+        {
+          "nom": "Hôpital de Bir El Ater",
+          "type": "Hôpital Public",
+          "commune": "Bir El Ater",
+          "adresse": "Route Principale, Bir El Ater",
+          "telephone": "037 48 10 10",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Wiam",
+          "type": "Clinique Privée",
+          "commune": "Bir El Ater",
+          "adresse": "Centre-ville, Bir El Ater",
+          "telephone": "037 48 20 35",
+          "specialites": [
+            "Médecine Générale",
+            "Maternité"
+          ]
+        }
+      ]
+    },
+    "Tlemcen": {
+      "code": 13,
+      "etablissements": [
+        {
+          "nom": "CHU Tlemcen",
+          "type": "Hôpital Public",
+          "commune": "Tlemcen",
+          "adresse": "Route de Chetouane, Tlemcen",
+          "telephone": "043 26 10 00",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "Clinique Privée Abou Médiene",
+          "type": "Clinique Privée",
+          "commune": "Tlemcen",
+          "adresse": "Cité Boudghene, Tlemcen",
+          "telephone": "043 26 55 70",
+          "specialites": [
+            "Chirurgie",
+            "Gynécologie"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Marwa",
+          "type": "Clinique Privée",
+          "commune": "Tlemcen",
+          "adresse": "Bd Colonel Lotfi, Tlemcen",
+          "telephone": "043 26 70 85",
+          "specialites": [
+            "Cardiologie",
+            "Oncologie"
+          ]
+        },
+        {
+          "nom": "Hôpital de Ghazaouet",
+          "type": "Hôpital Public",
+          "commune": "Ghazaouet",
+          "adresse": "Route du Port, Ghazaouet",
+          "telephone": "043 32 10 15",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique El Shifa",
+          "type": "Clinique Privée",
+          "commune": "Ghazaouet",
+          "adresse": "Centre-ville, Ghazaouet",
+          "telephone": "043 32 25 40",
+          "specialites": [
+            "Médecine Générale",
+            "Pédiatrie"
+          ]
+        }
+      ]
+    },
+    "Tiaret": {
+      "code": 14,
+      "etablissements": [
+        {
+          "nom": "CHU de Tiaret",
+          "type": "Hôpital Public",
+          "commune": "Tiaret",
+          "adresse": "Rue Colonel Chaabani, Tiaret",
+          "telephone": "046 41 10 00",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Qods",
+          "type": "Clinique Privée",
+          "commune": "Tiaret",
+          "adresse": "Cité des 1000 Logts, Tiaret",
+          "telephone": "046 41 45 60",
+          "specialites": [
+            "Gynécologie",
+            "Chirurgie"
+          ]
+        },
+        {
+          "nom": "Hôpital de Mehdia",
+          "type": "Hôpital Public",
+          "commune": "Mehdia",
+          "adresse": "Route Principale, Mehdia",
+          "telephone": "046 49 10 10",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Afia",
+          "type": "Clinique Privée",
+          "commune": "Mehdia",
+          "adresse": "Centre-ville, Mehdia",
+          "telephone": "046 49 20 30",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        }
+      ]
+    },
+    "Tizi Ouzou": {
+      "code": 15,
+      "etablissements": [
+        {
+          "nom": "CHU Nedir Mohamed",
+          "type": "Hôpital Public",
+          "commune": "Tizi Ouzou",
+          "adresse": "Bd Stiti Ali, Tizi Ouzou",
+          "telephone": "026 21 10 00",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "Clinique Privée Iferhounen",
+          "type": "Clinique Privée",
+          "commune": "Tizi Ouzou",
+          "adresse": "Cité Ait Amar, Tizi Ouzou",
+          "telephone": "026 21 55 70",
+          "specialites": [
+            "Chirurgie",
+            "Cardiologie"
+          ]
+        },
+        {
+          "nom": "Clinique Privée Tafat",
+          "type": "Clinique Privée",
+          "commune": "Tizi Ouzou",
+          "adresse": "Rue de Lalla Khedidja, Tizi Ouzou",
+          "telephone": "026 21 70 90",
+          "specialites": [
+            "Gynécologie",
+            "Pédiatrie"
+          ]
+        },
+        {
+          "nom": "Hôpital de Draa El Mizan",
+          "type": "Hôpital Public",
+          "commune": "Draa El Mizan",
+          "adresse": "Bd Principal, Draa El Mizan",
+          "telephone": "026 23 10 20",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique El Khaïr",
+          "type": "Clinique Privée",
+          "commune": "Draa El Mizan",
+          "adresse": "Centre-ville, Draa El Mizan",
+          "telephone": "026 23 30 45",
+          "specialites": [
+            "Médecine Générale",
+            "Maternité"
+          ]
+        }
+      ]
+    },
+    "Alger": {
+      "code": 16,
+      "etablissements": [
+        {
+          "nom": "CHU Mustapha Pacha",
+          "type": "Hôpital Public",
+          "commune": "Alger Centre",
+          "adresse": "Place du 1er Mai, Alger",
+          "telephone": "021 23 53 20",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "CHU Beni Messous",
+          "type": "Hôpital Public",
+          "commune": "Alger Centre",
+          "adresse": "Route de Beni Messous, Alger",
+          "telephone": "021 93 10 00",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Azhar",
+          "type": "Clinique Privée",
+          "commune": "Alger Centre",
+          "adresse": "Rue Didouche Mourad, Alger",
+          "telephone": "021 63 25 40",
+          "specialites": [
+            "Chirurgie",
+            "Cardiologie"
+          ]
+        },
+        {
+          "nom": "Clinique Privée Duval",
+          "type": "Clinique Privée",
+          "commune": "Alger Centre",
+          "adresse": "Rue Ben M'hidi, Alger",
+          "telephone": "021 63 40 60",
+          "specialites": [
+            "Gynécologie",
+            "Oncologie"
+          ]
+        },
+        {
+          "nom": "Hôpital Parnet",
+          "type": "Hôpital Public",
+          "commune": "Bir Mourad Raïs",
+          "adresse": "Rue Dr Aïssa Hamoud, BMR",
+          "telephone": "021 54 10 25",
+          "specialites": [
+            "Maladies Infectieuses"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Hayat",
+          "type": "Clinique Privée",
+          "commune": "Bir Mourad Raïs",
+          "adresse": "Cité Diar El Mahçoul, BMR",
+          "telephone": "021 54 35 50",
+          "specialites": [
+            "Médecine Interne",
+            "Pédiatrie"
+          ]
+        },
+        {
+          "nom": "Hôpital Maillot",
+          "type": "Hôpital Public",
+          "commune": "Bab El Oued",
+          "adresse": "Rue Colonel Amirouche, Bab El Oued",
+          "telephone": "021 96 10 30",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Wiam",
+          "type": "Clinique Privée",
+          "commune": "Bab El Oued",
+          "adresse": "Bd de la Marne, Bab El Oued",
+          "telephone": "021 96 45 60",
+          "specialites": [
+            "Chirurgie",
+            "Maternité"
+          ]
+        },
+        {
+          "nom": "Hôpital Mohamed Lamine Debaghine",
+          "type": "Hôpital Public",
+          "commune": "El Harrach",
+          "adresse": "Rue de l'Armée de Libération, El Harrach",
+          "telephone": "021 51 10 00",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "Clinique Privée Ibn Rochd",
+          "type": "Clinique Privée",
+          "commune": "El Harrach",
+          "adresse": "Cité Haï El Badr, El Harrach",
+          "telephone": "021 51 35 55",
+          "specialites": [
+            "Cardiologie",
+            "Gynécologie"
+          ]
+        },
+        {
+          "nom": "Hôpital Zemirli",
+          "type": "Hôpital Public",
+          "commune": "Kouba",
+          "adresse": "Rue Ben Aknoun, Kouba",
+          "telephone": "021 68 10 20",
+          "specialites": [
+            "Chirurgie",
+            "Orthopédie"
+          ]
+        },
+        {
+          "nom": "Clinique Privée Sainte Thérèse",
+          "type": "Clinique Privée",
+          "commune": "Kouba",
+          "adresse": "Bd des Martyrs, Kouba",
+          "telephone": "021 68 40 65",
+          "specialites": [
+            "Gynécologie",
+            "Pédiatrie"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Amine",
+          "type": "Clinique Privée",
+          "commune": "Hydra",
+          "adresse": "Cité Belle Vue, Hydra",
+          "telephone": "021 60 25 40",
+          "specialites": [
+            "Cardiologie",
+            "Neurologie"
+          ]
+        },
+        {
+          "nom": "Clinique Privée Saida",
+          "type": "Clinique Privée",
+          "commune": "Hydra",
+          "adresse": "Route de Bouzaréah, Hydra",
+          "telephone": "021 60 50 70",
+          "specialites": [
+            "Chirurgie Plastique",
+            "Dermatologie"
+          ]
+        }
+      ]
+    },
+    "Djelfa": {
+      "code": 17,
+      "etablissements": [
+        {
+          "nom": "Hôpital Sidi Aissa",
+          "type": "Hôpital Public",
+          "commune": "Djelfa",
+          "adresse": "Route de Laghouat, Djelfa",
+          "telephone": "027 88 10 30",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Massira",
+          "type": "Clinique Privée",
+          "commune": "Djelfa",
+          "adresse": "Cité ZHUN, Djelfa",
+          "telephone": "027 88 40 55",
+          "specialites": [
+            "Gynécologie",
+            "Chirurgie"
+          ]
+        },
+        {
+          "nom": "Hôpital d'Aïn Oussera",
+          "type": "Hôpital Public",
+          "commune": "Aïn Oussera",
+          "adresse": "Route Principale, Aïn Oussera",
+          "telephone": "027 84 10 15",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique El Badr",
+          "type": "Clinique Privée",
+          "commune": "Aïn Oussera",
+          "adresse": "Centre-ville, Aïn Oussera",
+          "telephone": "027 84 25 35",
+          "specialites": [
+            "Médecine Générale",
+            "Pédiatrie"
+          ]
+        }
+      ]
+    },
+    "Jijel": {
+      "code": 18,
+      "etablissements": [
+        {
+          "nom": "Hôpital Mohammed Seddik Ben Yahia",
+          "type": "Hôpital Public",
+          "commune": "Jijel",
+          "adresse": "Route de Ziama, Jijel",
+          "telephone": "034 47 10 00",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Hillal",
+          "type": "Clinique Privée",
+          "commune": "Jijel",
+          "adresse": "Cité 500 Logts, Jijel",
+          "telephone": "034 47 35 50",
+          "specialites": [
+            "Gynécologie",
+            "Pédiatrie"
+          ]
+        },
+        {
+          "nom": "Hôpital d'El Milia",
+          "type": "Hôpital Public",
+          "commune": "El Milia",
+          "adresse": "Route de Jijel, El Milia",
+          "telephone": "034 48 10 10",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique El Nour",
+          "type": "Clinique Privée",
+          "commune": "El Milia",
+          "adresse": "Centre-ville, El Milia",
+          "telephone": "034 48 22 30",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        }
+      ]
+    },
+    "Sétif": {
+      "code": 19,
+      "etablissements": [
+        {
+          "nom": "CHU Saâdna Abdenour",
+          "type": "Hôpital Public",
+          "commune": "Sétif",
+          "adresse": "Route d'El Eulma, Sétif",
+          "telephone": "036 92 10 00",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Amel",
+          "type": "Clinique Privée",
+          "commune": "Sétif",
+          "adresse": "Cité El Hidhab, Sétif",
+          "telephone": "036 92 55 70",
+          "specialites": [
+            "Chirurgie",
+            "Cardiologie"
+          ]
+        },
+        {
+          "nom": "Clinique Privée Ibn Sina",
+          "type": "Clinique Privée",
+          "commune": "Sétif",
+          "adresse": "Rue Ferhat Abbas, Sétif",
+          "telephone": "036 92 70 90",
+          "specialites": [
+            "Gynécologie",
+            "Oncologie"
+          ]
+        },
+        {
+          "nom": "Hôpital d'El Eulma",
+          "type": "Hôpital Public",
+          "commune": "El Eulma",
+          "adresse": "Bd National, El Eulma",
+          "telephone": "036 96 10 20",
+          "specialites": [
+            "Médecine Générale",
+            "Chirurgie"
+          ]
+        },
+        {
+          "nom": "Clinique Privée Al Farabi",
+          "type": "Clinique Privée",
+          "commune": "El Eulma",
+          "adresse": "Cité Nouvelle, El Eulma",
+          "telephone": "036 96 35 50",
+          "specialites": [
+            "Médecine Générale",
+            "Pédiatrie"
+          ]
+        }
+      ]
+    },
+    "Saïda": {
+      "code": 20,
+      "etablissements": [
+        {
+          "nom": "Hôpital El Hassani Hassan",
+          "type": "Hôpital Public",
+          "commune": "Saïda",
+          "adresse": "Route de Tiaret, Saïda",
+          "telephone": "046 37 10 20",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Qods",
+          "type": "Clinique Privée",
+          "commune": "Saïda",
+          "adresse": "Cité des Roses, Saïda",
+          "telephone": "046 37 35 55",
+          "specialites": [
+            "Gynécologie",
+            "Cardiologie"
+          ]
+        },
+        {
+          "nom": "Hôpital d'Aïn El Hadjar",
+          "type": "Hôpital Public",
+          "commune": "Aïn El Hadjar",
+          "adresse": "Route Principale, AEH",
+          "telephone": "046 38 10 10",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique El Shifa",
+          "type": "Clinique Privée",
+          "commune": "Aïn El Hadjar",
+          "adresse": "Centre-ville, AEH",
+          "telephone": "046 38 22 35",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        }
+      ]
+    },
+    "Skikda": {
+      "code": 21,
+      "etablissements": [
+        {
+          "nom": "Hôpital Bachir Mentouri",
+          "type": "Hôpital Public",
+          "commune": "Skikda",
+          "adresse": "Bd du 20 Août 1955, Skikda",
+          "telephone": "038 75 10 00",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Hayat",
+          "type": "Clinique Privée",
+          "commune": "Skikda",
+          "adresse": "Cité Zhun, Skikda",
+          "telephone": "038 75 45 60",
+          "specialites": [
+            "Chirurgie",
+            "Gynécologie"
+          ]
+        },
+        {
+          "nom": "Hôpital d'Azzaba",
+          "type": "Hôpital Public",
+          "commune": "Azzaba",
+          "adresse": "Route de Skikda, Azzaba",
+          "telephone": "038 79 10 15",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique El Afia",
+          "type": "Clinique Privée",
+          "commune": "Azzaba",
+          "adresse": "Centre-ville, Azzaba",
+          "telephone": "038 79 25 40",
+          "specialites": [
+            "Médecine Générale",
+            "Pédiatrie"
+          ]
+        }
+      ]
+    },
+    "Sidi Bel Abbès": {
+      "code": 22,
+      "etablissements": [
+        {
+          "nom": "CHU Abdelkader Hassani",
+          "type": "Hôpital Public",
+          "commune": "Sidi Bel Abbès",
+          "adresse": "Route Nationale 7, SBA",
+          "telephone": "048 54 10 00",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Marwa",
+          "type": "Clinique Privée",
+          "commune": "Sidi Bel Abbès",
+          "adresse": "Cité Ain Thrid, SBA",
+          "telephone": "048 54 55 70",
+          "specialites": [
+            "Gynécologie",
+            "Chirurgie"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Wiam",
+          "type": "Clinique Privée",
+          "commune": "Sidi Bel Abbès",
+          "adresse": "Bd de la Paix, SBA",
+          "telephone": "048 54 70 85",
+          "specialites": [
+            "Cardiologie",
+            "Neurologie"
+          ]
+        },
+        {
+          "nom": "Hôpital de Telagh",
+          "type": "Hôpital Public",
+          "commune": "Telagh",
+          "adresse": "Route Principale, Telagh",
+          "telephone": "048 57 10 10",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique El Badr",
+          "type": "Clinique Privée",
+          "commune": "Telagh",
+          "adresse": "Centre-ville, Telagh",
+          "telephone": "048 57 22 35",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        }
+      ]
+    },
+    "Annaba": {
+      "code": 23,
+      "etablissements": [
+        {
+          "nom": "CHU Ibn Rochd",
+          "type": "Hôpital Public",
+          "commune": "Annaba",
+          "adresse": "Route Sidi Amar, Annaba",
+          "telephone": "038 86 10 00",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Azhar",
+          "type": "Clinique Privée",
+          "commune": "Annaba",
+          "adresse": "Cité Seraïdi, Annaba",
+          "telephone": "038 86 55 70",
+          "specialites": [
+            "Chirurgie",
+            "Cardiologie"
+          ]
+        },
+        {
+          "nom": "Clinique Privée Tebibatna",
+          "type": "Clinique Privée",
+          "commune": "Annaba",
+          "adresse": "Bd du 1er Novembre, Annaba",
+          "telephone": "038 86 70 90",
+          "specialites": [
+            "Gynécologie",
+            "Oncologie"
+          ]
+        },
+        {
+          "nom": "Hôpital d'El Hadjar",
+          "type": "Hôpital Public",
+          "commune": "El Hadjar",
+          "adresse": "Cité Siderurgique, El Hadjar",
+          "telephone": "038 82 10 25",
+          "specialites": [
+            "Médecine du Travail",
+            "Générale"
+          ]
+        },
+        {
+          "nom": "Clinique Privée Chifa",
+          "type": "Clinique Privée",
+          "commune": "El Hadjar",
+          "adresse": "Route de l'Usine, El Hadjar",
+          "telephone": "038 82 35 50",
+          "specialites": [
+            "Médecine Générale",
+            "Pédiatrie"
+          ]
+        }
+      ]
+    },
+    "Guelma": {
+      "code": 24,
+      "etablissements": [
+        {
+          "nom": "Hôpital Abdelkader Azzouzi",
+          "type": "Hôpital Public",
+          "commune": "Guelma",
+          "adresse": "Route de Souk Ahras, Guelma",
+          "telephone": "037 20 10 20",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Amel",
+          "type": "Clinique Privée",
+          "commune": "Guelma",
+          "adresse": "Cité Boulahbiba, Guelma",
+          "telephone": "037 20 35 55",
+          "specialites": [
+            "Gynécologie",
+            "Chirurgie"
+          ]
+        },
+        {
+          "nom": "Hôpital de Bouchegouf",
+          "type": "Hôpital Public",
+          "commune": "Bouchegouf",
+          "adresse": "Route Nationale, Bouchegouf",
+          "telephone": "037 22 10 10",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique El Nour",
+          "type": "Clinique Privée",
+          "commune": "Bouchegouf",
+          "adresse": "Centre-ville, Bouchegouf",
+          "telephone": "037 22 22 30",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        }
+      ]
+    },
+    "Constantine": {
+      "code": 25,
+      "etablissements": [
+        {
+          "nom": "CHU Ben Badis",
+          "type": "Hôpital Public",
+          "commune": "Constantine",
+          "adresse": "Rue Abdelkader Benbarek, Constantine",
+          "telephone": "031 94 10 00",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Amir",
+          "type": "Clinique Privée",
+          "commune": "Constantine",
+          "adresse": "Cité Boussouf, Constantine",
+          "telephone": "031 94 55 70",
+          "specialites": [
+            "Chirurgie",
+            "Cardiologie"
+          ]
+        },
+        {
+          "nom": "Clinique Privée Ibn Khaldoun",
+          "type": "Clinique Privée",
+          "commune": "Constantine",
+          "adresse": "Route Aïn El Bey, Constantine",
+          "telephone": "031 94 70 90",
+          "specialites": [
+            "Gynécologie",
+            "Neurologie"
+          ]
+        },
+        {
+          "nom": "Hôpital d'El Khroub",
+          "type": "Hôpital Public",
+          "commune": "El Khroub",
+          "adresse": "Cité El Guerfi, El Khroub",
+          "telephone": "031 98 10 20",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Hayat",
+          "type": "Clinique Privée",
+          "commune": "El Khroub",
+          "adresse": "Route de Constantine, El Khroub",
+          "telephone": "031 98 35 50",
+          "specialites": [
+            "Médecine Générale",
+            "Pédiatrie"
+          ]
+        }
+      ]
+    },
+    "Médéa": {
+      "code": 26,
+      "etablissements": [
+        {
+          "nom": "Hôpital Benzerdjeb Boumediene",
+          "type": "Hôpital Public",
+          "commune": "Médéa",
+          "adresse": "Rue Mesli Abdelghani, Médéa",
+          "telephone": "025 58 10 20",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Bassair",
+          "type": "Clinique Privée",
+          "commune": "Médéa",
+          "adresse": "Cité des Poiriers, Médéa",
+          "telephone": "025 58 40 55",
+          "specialites": [
+            "Gynécologie",
+            "Cardiologie"
+          ]
+        },
+        {
+          "nom": "Hôpital de Ksar El Boukhari",
+          "type": "Hôpital Public",
+          "commune": "Ksar El Boukhari",
+          "adresse": "Route Principale, KEB",
+          "telephone": "025 62 10 10",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique El Shifa",
+          "type": "Clinique Privée",
+          "commune": "Ksar El Boukhari",
+          "adresse": "Centre-ville, KEB",
+          "telephone": "025 62 22 35",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        }
+      ]
+    },
+    "Mostaganem": {
+      "code": 27,
+      "etablissements": [
+        {
+          "nom": "CHU Chaalal",
+          "type": "Hôpital Public",
+          "commune": "Mostaganem",
+          "adresse": "Rue du 5 Juillet, Mostaganem",
+          "telephone": "045 21 10 00",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Quds",
+          "type": "Clinique Privée",
+          "commune": "Mostaganem",
+          "adresse": "Cité Ain Sefra, Mostaganem",
+          "telephone": "045 21 45 60",
+          "specialites": [
+            "Chirurgie",
+            "Gynécologie"
+          ]
+        },
+        {
+          "nom": "Hôpital d'Aïn Tedles",
+          "type": "Hôpital Public",
+          "commune": "Aïn Tedles",
+          "adresse": "Route de Mostaganem, Aïn Tedles",
+          "telephone": "045 27 10 10",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique El Afia",
+          "type": "Clinique Privée",
+          "commune": "Aïn Tedles",
+          "adresse": "Centre-ville, Aïn Tedles",
+          "telephone": "045 27 22 35",
+          "specialites": [
+            "Médecine Générale",
+            "Pédiatrie"
+          ]
+        }
+      ]
+    },
+    "M'Sila": {
+      "code": 28,
+      "etablissements": [
+        {
+          "nom": "Hôpital Mohammed Boudiaf",
+          "type": "Hôpital Public",
+          "commune": "M'Sila",
+          "adresse": "Route de Batna, M'Sila",
+          "telephone": "035 55 10 20",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Amel",
+          "type": "Clinique Privée",
+          "commune": "M'Sila",
+          "adresse": "Cité Boussnib, M'Sila",
+          "telephone": "035 55 40 55",
+          "specialites": [
+            "Gynécologie",
+            "Chirurgie"
+          ]
+        },
+        {
+          "nom": "Hôpital de Bou Saâda",
+          "type": "Hôpital Public",
+          "commune": "Bou Saâda",
+          "adresse": "Route des Cascades, Bou Saâda",
+          "telephone": "035 58 10 15",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Hayat",
+          "type": "Clinique Privée",
+          "commune": "Bou Saâda",
+          "adresse": "Centre-ville, Bou Saâda",
+          "telephone": "035 58 25 40",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        }
+      ]
+    },
+    "Mascara": {
+      "code": 29,
+      "etablissements": [
+        {
+          "nom": "Hôpital Benaïssa Abdelkrim",
+          "type": "Hôpital Public",
+          "commune": "Mascara",
+          "adresse": "Route de Tlemcen, Mascara",
+          "telephone": "045 80 10 20",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Wiam",
+          "type": "Clinique Privée",
+          "commune": "Mascara",
+          "adresse": "Cité des 1000 Logts, Mascara",
+          "telephone": "045 80 40 55",
+          "specialites": [
+            "Gynécologie",
+            "Cardiologie"
+          ]
+        },
+        {
+          "nom": "Hôpital de Sig",
+          "type": "Hôpital Public",
+          "commune": "Sig",
+          "adresse": "Route Principale, Sig",
+          "telephone": "045 88 10 10",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique El Badr",
+          "type": "Clinique Privée",
+          "commune": "Sig",
+          "adresse": "Centre-ville, Sig",
+          "telephone": "045 88 22 35",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        }
+      ]
+    },
+    "Ouargla": {
+      "code": 30,
+      "etablissements": [
+        {
+          "nom": "Hôpital Mohamed Boudiaf",
+          "type": "Hôpital Public",
+          "commune": "Ouargla",
+          "adresse": "Route de Ghardaïa, Ouargla",
+          "telephone": "029 72 10 20",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Hayat",
+          "type": "Clinique Privée",
+          "commune": "Ouargla",
+          "adresse": "Cité Ain Beïda, Ouargla",
+          "telephone": "029 72 40 55",
+          "specialites": [
+            "Gynécologie",
+            "Chirurgie"
+          ]
+        },
+        {
+          "nom": "Hôpital de Hassi Messaoud",
+          "type": "Hôpital Public",
+          "commune": "Hassi Messaoud",
+          "adresse": "Base Sonatrach, Hassi Messaoud",
+          "telephone": "029 73 10 20",
+          "specialites": [
+            "Médecine du Travail",
+            "Générale"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Amel",
+          "type": "Clinique Privée",
+          "commune": "Hassi Messaoud",
+          "adresse": "Route Principale, Hassi Messaoud",
+          "telephone": "029 73 30 50",
+          "specialites": [
+            "Médecine Générale",
+            "Urgences"
+          ]
+        }
+      ]
+    },
+    "Oran": {
+      "code": 31,
+      "etablissements": [
+        {
+          "nom": "CHU d'Oran",
+          "type": "Hôpital Public",
+          "commune": "Oran",
+          "adresse": "Rue Larbi Tebessi, Oran",
+          "telephone": "041 41 10 00",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "EHU d'Oran",
+          "type": "Hôpital Public",
+          "commune": "Oran",
+          "adresse": "Cité Médina, Oran",
+          "telephone": "041 29 10 00",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "Clinique Privée Ain El Turk",
+          "type": "Clinique Privée",
+          "commune": "Oran",
+          "adresse": "Bd Général Leclerc, Oran",
+          "telephone": "041 33 25 50",
+          "specialites": [
+            "Chirurgie",
+            "Cardiologie"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Wassif",
+          "type": "Clinique Privée",
+          "commune": "Oran",
+          "adresse": "Cité Petit Lac, Oran",
+          "telephone": "041 33 50 75",
+          "specialites": [
+            "Gynécologie",
+            "Oncologie"
+          ]
+        },
+        {
+          "nom": "Hôpital d'Es Sénia",
+          "type": "Hôpital Public",
+          "commune": "Es Sénia",
+          "adresse": "Route de l'Aéroport, Es Sénia",
+          "telephone": "041 52 10 15",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Nour",
+          "type": "Clinique Privée",
+          "commune": "Es Sénia",
+          "adresse": "Cité ZHUN, Es Sénia",
+          "telephone": "041 52 35 55",
+          "specialites": [
+            "Gynécologie",
+            "Pédiatrie"
+          ]
+        }
+      ]
+    },
+    "El Bayadh": {
+      "code": 32,
+      "etablissements": [
+        {
+          "nom": "Hôpital de El Bayadh",
+          "type": "Hôpital Public",
+          "commune": "El Bayadh",
+          "adresse": "Route Principale, El Bayadh",
+          "telephone": "049 56 10 20",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Amel",
+          "type": "Clinique Privée",
+          "commune": "El Bayadh",
+          "adresse": "Cité Nouvelle, El Bayadh",
+          "telephone": "049 56 35 50",
+          "specialites": [
+            "Gynécologie",
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Hôpital de Brezina",
+          "type": "Hôpital Public",
+          "commune": "Brezina",
+          "adresse": "Route Nationale, Brezina",
+          "telephone": "049 57 10 10",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique El Nour",
+          "type": "Clinique Privée",
+          "commune": "Brezina",
+          "adresse": "Centre-ville, Brezina",
+          "telephone": "049 57 15 25",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        }
+      ]
+    },
+    "Illizi": {
+      "code": 33,
+      "etablissements": [
+        {
+          "nom": "Hôpital d'Illizi",
+          "type": "Hôpital Public",
+          "commune": "Illizi",
+          "adresse": "Centre-ville, Illizi",
+          "telephone": "029 43 10 10",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique Privée Illizi",
+          "type": "Clinique Privée",
+          "commune": "Illizi",
+          "adresse": "Cité Nouvelle, Illizi",
+          "telephone": "029 43 20 30",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Hôpital de Djanet",
+          "type": "Hôpital Public",
+          "commune": "Djanet",
+          "adresse": "Route Principale, Djanet",
+          "telephone": "029 47 10 10",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique El Amal",
+          "type": "Clinique Privée",
+          "commune": "Djanet",
+          "adresse": "Centre-ville, Djanet",
+          "telephone": "029 47 15 25",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        }
+      ]
+    },
+    "Bordj Bou Arreridj": {
+      "code": 34,
+      "etablissements": [
+        {
+          "nom": "Hôpital de BBA",
+          "type": "Hôpital Public",
+          "commune": "BBA",
+          "adresse": "Route de Sétif, BBA",
+          "telephone": "035 62 10 20",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Wiam",
+          "type": "Clinique Privée",
+          "commune": "BBA",
+          "adresse": "Cité des 200 Logts, BBA",
+          "telephone": "035 62 40 55",
+          "specialites": [
+            "Gynécologie",
+            "Chirurgie"
+          ]
+        },
+        {
+          "nom": "Hôpital de Ras El Oued",
+          "type": "Hôpital Public",
+          "commune": "Ras El Oued",
+          "adresse": "Route Principale, REO",
+          "telephone": "035 65 10 10",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique El Afia",
+          "type": "Clinique Privée",
+          "commune": "Ras El Oued",
+          "adresse": "Centre-ville, REO",
+          "telephone": "035 65 22 35",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        }
+      ]
+    },
+    "Boumerdès": {
+      "code": 35,
+      "etablissements": [
+        {
+          "nom": "Hôpital de Boumerdès",
+          "type": "Hôpital Public",
+          "commune": "Boumerdès",
+          "adresse": "Bd de la Liberté, Boumerdès",
+          "telephone": "024 81 10 20",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Hayat",
+          "type": "Clinique Privée",
+          "commune": "Boumerdès",
+          "adresse": "Cité Nouvelle, Boumerdès",
+          "telephone": "024 81 40 55",
+          "specialites": [
+            "Gynécologie",
+            "Cardiologie"
+          ]
+        },
+        {
+          "nom": "Hôpital de Khemis El Khechna",
+          "type": "Hôpital Public",
+          "commune": "Khemis El Khechna",
+          "adresse": "Route de Sétif, KEK",
+          "telephone": "024 89 10 15",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique El Badr",
+          "type": "Clinique Privée",
+          "commune": "Khemis El Khechna",
+          "adresse": "Centre-ville, KEK",
+          "telephone": "024 89 25 40",
+          "specialites": [
+            "Médecine Générale",
+            "Pédiatrie"
+          ]
+        }
+      ]
+    },
+    "El Tarf": {
+      "code": 36,
+      "etablissements": [
+        {
+          "nom": "Hôpital d'El Tarf",
+          "type": "Hôpital Public",
+          "commune": "El Tarf",
+          "adresse": "Route de Annaba, El Tarf",
+          "telephone": "038 60 10 20",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Amel",
+          "type": "Clinique Privée",
+          "commune": "El Tarf",
+          "adresse": "Cité Nouvelle, El Tarf",
+          "telephone": "038 60 35 50",
+          "specialites": [
+            "Gynécologie",
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Hôpital de Ben M'Hidi",
+          "type": "Hôpital Public",
+          "commune": "Ben M'Hidi",
+          "adresse": "Route Côtière, Ben M'Hidi",
+          "telephone": "038 64 10 10",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique El Chifa",
+          "type": "Clinique Privée",
+          "commune": "Ben M'Hidi",
+          "adresse": "Centre-ville, Ben M'Hidi",
+          "telephone": "038 64 22 35",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        }
+      ]
+    },
+    "Tindouf": {
+      "code": 37,
+      "etablissements": [
+        {
+          "nom": "Hôpital de Tindouf",
+          "type": "Hôpital Public",
+          "commune": "Tindouf",
+          "adresse": "Cité Militaire, Tindouf",
+          "telephone": "049 92 10 10",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Amal",
+          "type": "Clinique Privée",
+          "commune": "Tindouf",
+          "adresse": "Cité Civile, Tindouf",
+          "telephone": "049 92 20 30",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Centre de Santé d'Oum El Assel",
+          "type": "Hôpital Public",
+          "commune": "Oum El Assel",
+          "adresse": "Route Principale, OEA",
+          "telephone": "049 93 10 05",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique El Hayat Tindouf",
+          "type": "Clinique Privée",
+          "commune": "Oum El Assel",
+          "adresse": "Route Principale, OEA",
+          "telephone": "049 93 15 20",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        }
+      ]
+    },
+    "Tissemsilt": {
+      "code": 38,
+      "etablissements": [
+        {
+          "nom": "Hôpital de Tissemsilt",
+          "type": "Hôpital Public",
+          "commune": "Tissemsilt",
+          "adresse": "Route de Tiaret, Tissemsilt",
+          "telephone": "046 47 10 20",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Hayat",
+          "type": "Clinique Privée",
+          "commune": "Tissemsilt",
+          "adresse": "Cité des 200 Logts, Tissemsilt",
+          "telephone": "046 47 35 50",
+          "specialites": [
+            "Gynécologie",
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Hôpital de Khemisti",
+          "type": "Hôpital Public",
+          "commune": "Khemisti",
+          "adresse": "Route Principale, Khemisti",
+          "telephone": "046 48 10 10",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique El Nour",
+          "type": "Clinique Privée",
+          "commune": "Khemisti",
+          "adresse": "Centre-ville, Khemisti",
+          "telephone": "046 48 15 25",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        }
+      ]
+    },
+    "El Oued": {
+      "code": 39,
+      "etablissements": [
+        {
+          "nom": "Hôpital Bachir Mentouri",
+          "type": "Hôpital Public",
+          "commune": "El Oued",
+          "adresse": "Route de Biskra, El Oued",
+          "telephone": "032 21 10 20",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Massira",
+          "type": "Clinique Privée",
+          "commune": "El Oued",
+          "adresse": "Cité Chott, El Oued",
+          "telephone": "032 21 40 55",
+          "specialites": [
+            "Gynécologie",
+            "Cardiologie"
+          ]
+        },
+        {
+          "nom": "Hôpital de Guemar",
+          "type": "Hôpital Public",
+          "commune": "Guemar",
+          "adresse": "Route d'El Oued, Guemar",
+          "telephone": "032 29 10 10",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique El Afia",
+          "type": "Clinique Privée",
+          "commune": "Guemar",
+          "adresse": "Centre-ville, Guemar",
+          "telephone": "032 29 22 35",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        }
+      ]
+    },
+    "Khenchela": {
+      "code": 40,
+      "etablissements": [
+        {
+          "nom": "Hôpital de Khenchela",
+          "type": "Hôpital Public",
+          "commune": "Khenchela",
+          "adresse": "Route de Batna, Khenchela",
+          "telephone": "032 33 10 20",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Hayat",
+          "type": "Clinique Privée",
+          "commune": "Khenchela",
+          "adresse": "Cité des 300 Logts, Khenchela",
+          "telephone": "032 33 40 55",
+          "specialites": [
+            "Gynécologie",
+            "Chirurgie"
+          ]
+        },
+        {
+          "nom": "Hôpital d'Aïn Touila",
+          "type": "Hôpital Public",
+          "commune": "Aïn Touila",
+          "adresse": "Route Principale, AT",
+          "telephone": "032 36 10 10",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique El Amel",
+          "type": "Clinique Privée",
+          "commune": "Aïn Touila",
+          "adresse": "Centre-ville, AT",
+          "telephone": "032 36 15 25",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        }
+      ]
+    },
+    "Souk Ahras": {
+      "code": 41,
+      "etablissements": [
+        {
+          "nom": "Hôpital Salah Bey",
+          "type": "Hôpital Public",
+          "commune": "Souk Ahras",
+          "adresse": "Route d'Annaba, Souk Ahras",
+          "telephone": "037 32 10 20",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Amel",
+          "type": "Clinique Privée",
+          "commune": "Souk Ahras",
+          "adresse": "Cité Bensekrane, Souk Ahras",
+          "telephone": "037 32 40 55",
+          "specialites": [
+            "Gynécologie",
+            "Cardiologie"
+          ]
+        },
+        {
+          "nom": "Hôpital de Sedrata",
+          "type": "Hôpital Public",
+          "commune": "Sedrata",
+          "adresse": "Route de Guelma, Sedrata",
+          "telephone": "037 36 10 10",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique El Bassair",
+          "type": "Clinique Privée",
+          "commune": "Sedrata",
+          "adresse": "Centre-ville, Sedrata",
+          "telephone": "037 36 22 35",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        }
+      ]
+    },
+    "Tipaza": {
+      "code": 42,
+      "etablissements": [
+        {
+          "nom": "Hôpital de Tipaza",
+          "type": "Hôpital Public",
+          "commune": "Tipaza",
+          "adresse": "Route de Cherchell, Tipaza",
+          "telephone": "024 74 10 20",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Badr",
+          "type": "Clinique Privée",
+          "commune": "Tipaza",
+          "adresse": "Cité de la Plage, Tipaza",
+          "telephone": "024 74 40 55",
+          "specialites": [
+            "Gynécologie",
+            "Chirurgie"
+          ]
+        },
+        {
+          "nom": "Hôpital de Hadjout",
+          "type": "Hôpital Public",
+          "commune": "Hadjout",
+          "adresse": "Route de Tipaza, Hadjout",
+          "telephone": "024 53 10 15",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique El Hayat Tipaza",
+          "type": "Clinique Privée",
+          "commune": "Hadjout",
+          "adresse": "Centre-ville, Hadjout",
+          "telephone": "024 53 25 40",
+          "specialites": [
+            "Médecine Générale",
+            "Pédiatrie"
+          ]
+        }
+      ]
+    },
+    "Mila": {
+      "code": 43,
+      "etablissements": [
+        {
+          "nom": "Hôpital de Mila",
+          "type": "Hôpital Public",
+          "commune": "Mila",
+          "adresse": "Route de Constantine, Mila",
+          "telephone": "031 65 10 20",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Amel",
+          "type": "Clinique Privée",
+          "commune": "Mila",
+          "adresse": "Cité des 500 Logts, Mila",
+          "telephone": "031 65 40 55",
+          "specialites": [
+            "Gynécologie",
+            "Cardiologie"
+          ]
+        },
+        {
+          "nom": "Hôpital de Chelghoum Laïd",
+          "type": "Hôpital Public",
+          "commune": "Chelghoum Laïd",
+          "adresse": "Route Nationale, CL",
+          "telephone": "031 66 10 10",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique El Nour Mila",
+          "type": "Clinique Privée",
+          "commune": "Chelghoum Laïd",
+          "adresse": "Centre-ville, CL",
+          "telephone": "031 66 22 35",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        }
+      ]
+    },
+    "Aïn Defla": {
+      "code": 44,
+      "etablissements": [
+        {
+          "nom": "Hôpital Dr Benzerdjeb",
+          "type": "Hôpital Public",
+          "commune": "Aïn Defla",
+          "adresse": "Route de Miliana, Aïn Defla",
+          "telephone": "027 62 10 20",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Qods",
+          "type": "Clinique Privée",
+          "commune": "Aïn Defla",
+          "adresse": "Cité des Orangers, Aïn Defla",
+          "telephone": "027 62 40 55",
+          "specialites": [
+            "Gynécologie",
+            "Pédiatrie"
+          ]
+        },
+        {
+          "nom": "Hôpital de Khemis Miliana",
+          "type": "Hôpital Public",
+          "commune": "Khemis Miliana",
+          "adresse": "Bd Principal, KM",
+          "telephone": "027 67 10 15",
+          "specialites": [
+            "Médecine Générale",
+            "Chirurgie"
+          ]
+        },
+        {
+          "nom": "Clinique El Afia",
+          "type": "Clinique Privée",
+          "commune": "Khemis Miliana",
+          "adresse": "Cité Nouvelle, KM",
+          "telephone": "027 67 30 50",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        }
+      ]
+    },
+    "Naâma": {
+      "code": 45,
+      "etablissements": [
+        {
+          "nom": "Hôpital de Naâma",
+          "type": "Hôpital Public",
+          "commune": "Naâma",
+          "adresse": "Route d'El Bayadh, Naâma",
+          "telephone": "049 76 10 20",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Amal",
+          "type": "Clinique Privée",
+          "commune": "Naâma",
+          "adresse": "Cité Nouvelle, Naâma",
+          "telephone": "049 76 35 50",
+          "specialites": [
+            "Gynécologie",
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Hôpital de Mecheria",
+          "type": "Hôpital Public",
+          "commune": "Mecheria",
+          "adresse": "Route Principale, Mecheria",
+          "telephone": "049 78 10 10",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique El Hayat Naâma",
+          "type": "Clinique Privée",
+          "commune": "Mecheria",
+          "adresse": "Centre-ville, Mecheria",
+          "telephone": "049 78 20 35",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        }
+      ]
+    },
+    "Aïn Témouchent": {
+      "code": 46,
+      "etablissements": [
+        {
+          "nom": "Hôpital Abdelkrim Ibn Khattab",
+          "type": "Hôpital Public",
+          "commune": "Aïn Témouchent",
+          "adresse": "Route d'Oran, Aïn Témouchent",
+          "telephone": "043 60 10 20",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Marwa",
+          "type": "Clinique Privée",
+          "commune": "Aïn Témouchent",
+          "adresse": "Cité El Yasmine, AT",
+          "telephone": "043 60 40 55",
+          "specialites": [
+            "Gynécologie",
+            "Cardiologie"
+          ]
+        },
+        {
+          "nom": "Hôpital de Hammam Bou Hadjar",
+          "type": "Hôpital Public",
+          "commune": "Hammam Bou Hadjar",
+          "adresse": "Route Principale, HBH",
+          "telephone": "043 63 10 10",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique El Bassair",
+          "type": "Clinique Privée",
+          "commune": "Hammam Bou Hadjar",
+          "adresse": "Centre-ville, HBH",
+          "telephone": "043 63 22 35",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        }
+      ]
+    },
+    "Ghardaïa": {
+      "code": 47,
+      "etablissements": [
+        {
+          "nom": "Hôpital de Ghardaïa",
+          "type": "Hôpital Public",
+          "commune": "Ghardaïa",
+          "adresse": "Route de Laghouat, Ghardaïa",
+          "telephone": "029 88 10 20",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Kheïr",
+          "type": "Clinique Privée",
+          "commune": "Ghardaïa",
+          "adresse": "Cité Nouvelle, Ghardaïa",
+          "telephone": "029 88 40 55",
+          "specialites": [
+            "Gynécologie",
+            "Chirurgie"
+          ]
+        },
+        {
+          "nom": "Hôpital de Metlili",
+          "type": "Hôpital Public",
+          "commune": "Metlili",
+          "adresse": "Route Principale, Metlili",
+          "telephone": "029 86 10 10",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique El Amal",
+          "type": "Clinique Privée",
+          "commune": "Metlili",
+          "adresse": "Centre-ville, Metlili",
+          "telephone": "029 86 20 35",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        }
+      ]
+    },
+    "Relizane": {
+      "code": 48,
+      "etablissements": [
+        {
+          "nom": "Hôpital de Relizane",
+          "type": "Hôpital Public",
+          "commune": "Relizane",
+          "adresse": "Route de Mostaganem, Relizane",
+          "telephone": "046 91 10 20",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Amel",
+          "type": "Clinique Privée",
+          "commune": "Relizane",
+          "adresse": "Cité El Feth, Relizane",
+          "telephone": "046 91 40 55",
+          "specialites": [
+            "Gynécologie",
+            "Cardiologie"
+          ]
+        },
+        {
+          "nom": "Hôpital de Hmadna",
+          "type": "Hôpital Public",
+          "commune": "Hmadna",
+          "adresse": "Route Principale, Hmadna",
+          "telephone": "046 92 10 10",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique El Nour Relizane",
+          "type": "Clinique Privée",
+          "commune": "Hmadna",
+          "adresse": "Centre-ville, Hmadna",
+          "telephone": "046 92 22 35",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        }
+      ]
+    },
+    "Timimoun": {
+      "code": 49,
+      "etablissements": [
+        {
+          "nom": "Hôpital de Timimoun",
+          "type": "Hôpital Public",
+          "commune": "Timimoun",
+          "adresse": "Cité Administrative, Timimoun",
+          "telephone": "049 90 11 00",
+          "specialites": [
+            "Médecine Générale",
+            "Chirurgie"
+          ]
+        },
+        {
+          "nom": "Clinique Privée Taghit",
+          "type": "Clinique Privée",
+          "commune": "Timimoun",
+          "adresse": "Centre-ville, Timimoun",
+          "telephone": "049 90 25 30",
+          "specialites": [
+            "Médecine Générale",
+            "Pédiatrie"
+          ]
+        },
+        {
+          "nom": "Hôpital d'Aoulef",
+          "type": "Hôpital Public",
+          "commune": "Aoulef",
+          "adresse": "Route Principale, Aoulef",
+          "telephone": "049 91 10 05",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique El Hayat",
+          "type": "Clinique Privée",
+          "commune": "Aoulef",
+          "adresse": "Centre-ville, Aoulef",
+          "telephone": "049 91 18 20",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        }
+      ]
+    },
+    "Bordj Badji Mokhtar": {
+      "code": 50,
+      "etablissements": [
+        {
+          "nom": "Hôpital de BBM",
+          "type": "Hôpital Public",
+          "commune": "Bordj Badji Mokhtar",
+          "adresse": "Centre-ville, BBM",
+          "telephone": "049 95 10 10",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique El Amal BBM",
+          "type": "Clinique Privée",
+          "commune": "Bordj Badji Mokhtar",
+          "adresse": "Cité Nouvelle, BBM",
+          "telephone": "049 95 20 30",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Centre Médical de Timiaouine",
+          "type": "Hôpital Public",
+          "commune": "Timiaouine",
+          "adresse": "Route Principale, Timiaouine",
+          "telephone": "049 95 30 05",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique El Nour BBM",
+          "type": "Clinique Privée",
+          "commune": "Timiaouine",
+          "adresse": "Centre-ville, Timiaouine",
+          "telephone": "049 95 35 15",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        }
+      ]
+    },
+    "Ouled Djellal": {
+      "code": 51,
+      "etablissements": [
+        {
+          "nom": "Hôpital d'Ouled Djellal",
+          "type": "Hôpital Public",
+          "commune": "Ouled Djellal",
+          "adresse": "Route de Biskra, OD",
+          "telephone": "033 76 10 10",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Badr OD",
+          "type": "Clinique Privée",
+          "commune": "Ouled Djellal",
+          "adresse": "Cité Nouvelle, OD",
+          "telephone": "033 76 22 30",
+          "specialites": [
+            "Médecine Générale",
+            "Maternité"
+          ]
+        },
+        {
+          "nom": "Hôpital de Sidi Khaled",
+          "type": "Hôpital Public",
+          "commune": "Sidi Khaled",
+          "adresse": "Route Principale, SK",
+          "telephone": "033 78 10 05",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique El Hayat OD",
+          "type": "Clinique Privée",
+          "commune": "Sidi Khaled",
+          "adresse": "Centre-ville, SK",
+          "telephone": "033 78 15 25",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        }
+      ]
+    },
+    "Béni Abbès": {
+      "code": 52,
+      "etablissements": [
+        {
+          "nom": "Hôpital de Béni Abbès",
+          "type": "Hôpital Public",
+          "commune": "Béni Abbès",
+          "adresse": "Cité des Dunes, Béni Abbès",
+          "telephone": "049 85 10 10",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique El Amal Béni Abbès",
+          "type": "Clinique Privée",
+          "commune": "Béni Abbès",
+          "adresse": "Route Principale, Béni Abbès",
+          "telephone": "049 85 20 30",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Hôpital de Ksabi",
+          "type": "Hôpital Public",
+          "commune": "Ksabi",
+          "adresse": "Centre-ville, Ksabi",
+          "telephone": "049 86 10 05",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique El Nour Béni Abbès",
+          "type": "Clinique Privée",
+          "commune": "Ksabi",
+          "adresse": "Route Principale, Ksabi",
+          "telephone": "049 86 15 20",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        }
+      ]
+    },
+    "In Salah": {
+      "code": 53,
+      "etablissements": [
+        {
+          "nom": "Hôpital d'In Salah",
+          "type": "Hôpital Public",
+          "commune": "In Salah",
+          "adresse": "Centre Administratif, In Salah",
+          "telephone": "029 36 10 10",
+          "specialites": [
+            "Médecine Générale",
+            "Chirurgie"
+          ]
+        },
+        {
+          "nom": "Clinique Privée Sahara",
+          "type": "Clinique Privée",
+          "commune": "In Salah",
+          "adresse": "Cité Nouvelle, In Salah",
+          "telephone": "029 36 20 35",
+          "specialites": [
+            "Médecine Générale",
+            "Pédiatrie"
+          ]
+        },
+        {
+          "nom": "Hôpital d'In Ghar",
+          "type": "Hôpital Public",
+          "commune": "In Ghar",
+          "adresse": "Centre-ville, In Ghar",
+          "telephone": "029 37 10 05",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique El Amal In Salah",
+          "type": "Clinique Privée",
+          "commune": "In Ghar",
+          "adresse": "Route Principale, In Ghar",
+          "telephone": "029 37 18 25",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        }
+      ]
+    },
+    "In Guezzam": {
+      "code": 54,
+      "etablissements": [
+        {
+          "nom": "Hôpital d'In Guezzam",
+          "type": "Hôpital Public",
+          "commune": "In Guezzam",
+          "adresse": "Centre-ville, In Guezzam",
+          "telephone": "029 45 10 10",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique El Hayat In Guezzam",
+          "type": "Clinique Privée",
+          "commune": "In Guezzam",
+          "adresse": "Cité Nouvelle, In Guezzam",
+          "telephone": "029 45 20 30",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Hôpital de Tin Zaouatine",
+          "type": "Hôpital Public",
+          "commune": "Tin Zaouatine",
+          "adresse": "Centre-ville, Tin Zaouatine",
+          "telephone": "029 46 10 05",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique El Nour In Guezzam",
+          "type": "Clinique Privée",
+          "commune": "Tin Zaouatine",
+          "adresse": "Route Principale, TZ",
+          "telephone": "029 46 15 20",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        }
+      ]
+    },
+    "Touggourt": {
+      "code": 55,
+      "etablissements": [
+        {
+          "nom": "Hôpital de Touggourt",
+          "type": "Hôpital Public",
+          "commune": "Touggourt",
+          "adresse": "Route d'Ouargla, Touggourt",
+          "telephone": "029 67 10 20",
+          "specialites": [
+            "Multi-spécialités"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Waha",
+          "type": "Clinique Privée",
+          "commune": "Touggourt",
+          "adresse": "Cité 500 Logts, Touggourt",
+          "telephone": "029 67 40 55",
+          "specialites": [
+            "Gynécologie",
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Hôpital de Meghaier",
+          "type": "Hôpital Public",
+          "commune": "Meghaier",
+          "adresse": "Route Principale, Meghaier",
+          "telephone": "029 69 10 10",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique El Afia Touggourt",
+          "type": "Clinique Privée",
+          "commune": "Meghaier",
+          "adresse": "Centre-ville, Meghaier",
+          "telephone": "029 69 22 35",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        }
+      ]
+    },
+    "Djanet": {
+      "code": 56,
+      "etablissements": [
+        {
+          "nom": "Hôpital de Djanet",
+          "type": "Hôpital Public",
+          "commune": "Djanet",
+          "adresse": "Centre Administratif, Djanet",
+          "telephone": "029 47 11 00",
+          "specialites": [
+            "Médecine Générale",
+            "Chirurgie"
+          ]
+        },
+        {
+          "nom": "Clinique Privée Tassili",
+          "type": "Clinique Privée",
+          "commune": "Djanet",
+          "adresse": "Cité Nouvelle, Djanet",
+          "telephone": "029 47 25 35",
+          "specialites": [
+            "Médecine Générale",
+            "Pédiatrie"
+          ]
+        },
+        {
+          "nom": "Hôpital d'Iherir",
+          "type": "Hôpital Public",
+          "commune": "Iherir",
+          "adresse": "Centre-ville, Iherir",
+          "telephone": "029 48 10 05",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique El Amal Djanet",
+          "type": "Clinique Privée",
+          "commune": "Iherir",
+          "adresse": "Route Principale, Iherir",
+          "telephone": "029 48 18 25",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        }
+      ]
+    },
+    "El M'Ghair": {
+      "code": 57,
+      "etablissements": [
+        {
+          "nom": "Hôpital d'El M'Ghair",
+          "type": "Hôpital Public",
+          "commune": "El M'Ghair",
+          "adresse": "Centre-ville, El M'Ghair",
+          "telephone": "032 28 10 10",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Oued El Ghair",
+          "type": "Clinique Privée",
+          "commune": "El M'Ghair",
+          "adresse": "Cité Nouvelle, El M'Ghair",
+          "telephone": "032 28 20 30",
+          "specialites": [
+            "Médecine Générale",
+            "Maternité"
+          ]
+        },
+        {
+          "nom": "Hôpital de Djamaa",
+          "type": "Hôpital Public",
+          "commune": "Djamaa",
+          "adresse": "Route Principale, Djamaa",
+          "telephone": "032 30 10 05",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique El Hayat M'Ghair",
+          "type": "Clinique Privée",
+          "commune": "Djamaa",
+          "adresse": "Centre-ville, Djamaa",
+          "telephone": "032 30 18 25",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        }
+      ]
+    },
+    "El Meniaa": {
+      "code": 58,
+      "etablissements": [
+        {
+          "nom": "Hôpital d'El Meniaa",
+          "type": "Hôpital Public",
+          "commune": "El Meniaa",
+          "adresse": "Centre-ville, El Meniaa",
+          "telephone": "029 79 10 10",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique Privée El Meniaa",
+          "type": "Clinique Privée",
+          "commune": "El Meniaa",
+          "adresse": "Cité Nouvelle, El Meniaa",
+          "telephone": "029 79 20 30",
+          "specialites": [
+            "Médecine Générale",
+            "Pédiatrie"
+          ]
+        },
+        {
+          "nom": "Hôpital de Hassi Fehal",
+          "type": "Hôpital Public",
+          "commune": "Hassi Fehal",
+          "adresse": "Route Principale, HF",
+          "telephone": "029 80 10 05",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        },
+        {
+          "nom": "Clinique El Amal El Meniaa",
+          "type": "Clinique Privée",
+          "commune": "Hassi Fehal",
+          "adresse": "Centre-ville, HF",
+          "telephone": "029 80 15 20",
+          "specialites": [
+            "Médecine Générale"
+          ]
+        }
+      ]
+    }
+  }
+}
