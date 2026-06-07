@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SauveMoi QR — OrientDZ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="js/i18n.js" defer></script>
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --red:        #DC2626;
+  --red-dk:     #B91C1C;
+  --red-lt:     #FEF2F2;
+  --red-xlt:    #FFF5F5;
+  --green:      #10B981;
+  --green-dk:   #059669;
+  --blue:       #2563EB;
+  --amber:      #F59E0B;
+  --bg:         #F8FAFC;
+  --surface:    #FFFFFF;
+  --border:     #E2E8F0;
+  --text:       #0F172A;
+  --text-2:     #334155;
+  --muted:      #64748B;
+  --subtle:     #94A3B8;
+  --r-sm:       8px;
+  --r-md:       14px;
+  --r-lg:       20px;
+  --sh-sm:      0 1px 4px rgba(0,0,0,.08);
+  --sh-md:      0 4px 20px rgba(0,0,0,.10);
+}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.5}
+
+/* ── ORIENTDZ ORIGINAL NAVBAR ── */
+.odz-navbar{position:sticky;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 28px;height:68px;background:rgba(255,255,255,.95);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid #e2e8f0;box-shadow:0 1px 0 rgba(0,0,0,.06),0 4px 20px rgba(0,0,0,.05);font-family:'Inter',sans-serif}
+.odz-logo{display:flex;align-items:center;gap:9px;font-size:1.2rem;font-weight:800;letter-spacing:-.03em;color:#0f172a;text-decoration:none;flex-shrink:0}
+.odz-logo-icon{width:36px;height:36px;background:linear-gradient(135deg,#4361ee,#0d9488);border-radius:10px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(67,97,238,.3);flex-shrink:0}
+.odz-logo-icon svg{width:20px;height:20px;stroke:#fff}
+.odz-dz{color:#4361ee}
+.odz-links{display:flex;align-items:center;gap:2px;list-style:none;padding:0;margin:0}
+.odz-links a{display:flex;align-items:center;padding:7px 12px;font-size:.9rem;font-weight:500;color:#64748b;border-radius:8px;text-decoration:none;transition:all .15s;white-space:nowrap}
+.odz-links a:hover{color:#0f172a;background:#f1f5f9}
+.odz-links .odz-qr{color:#dc2626;font-weight:700}
+.odz-links .odz-qr:hover{background:#fef2f2}
+.odz-actions{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.odz-btn-g{padding:7px 14px;font-size:.875rem;font-weight:600;color:#64748b;background:transparent;border:1.5px solid #e2e8f0;border-radius:8px;text-decoration:none;transition:all .15s;white-space:nowrap}
+.odz-btn-g:hover{color:#0f172a;border-color:#94a3b8}
+.odz-btn-p{padding:7px 16px;font-size:.875rem;font-weight:700;color:#fff;background:linear-gradient(135deg,#4361ee,#0d9488);border-radius:8px;text-decoration:none;box-shadow:0 2px 10px rgba(67,97,238,.28);transition:opacity .15s;white-space:nowrap}
+.odz-btn-p:hover{opacity:.9}
+.odz-burger{display:none;flex-direction:column;gap:5px;padding:8px;background:transparent;border:none;cursor:pointer;border-radius:8px;transition:background .15s}
+.odz-burger:hover{background:#f1f5f9}
+.odz-burger span{display:block;width:22px;height:2px;background:#0f172a;border-radius:2px;transition:all .3s}
+.odz-drawer{display:none;position:fixed;top:68px;left:0;right:0;bottom:0;background:rgba(255,255,255,.97);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);z-index:190;flex-direction:column;padding:20px;border-top:1px solid #e2e8f0;overflow-y:auto}
+.odz-drawer.open{display:flex}
+.odz-drawer ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:4px}
+.odz-drawer ul a{display:block;padding:13px 16px;font-size:1rem;font-weight:500;color:#0f172a;text-decoration:none;border-radius:10px;transition:background .15s}
+.odz-drawer ul a:hover{background:#f1f5f9}
+.odz-drawer .odz-d-qr{color:#dc2626;font-weight:700}
+@media(max-width:860px){.odz-links,.odz-actions{display:none}.odz-burger{display:flex}}
+
+/* ── HERO ── */
+.hero{text-align:center;padding:52px 24px 32px;max-width:680px;margin:0 auto}
+.hero-icon{width:72px;height:72px;border-radius:22px;background:linear-gradient(135deg,var(--red),#ef4444);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;box-shadow:0 8px 28px rgba(220,38,38,.35)}
+.hero-icon svg{width:38px;height:38px;stroke:#fff}
+.hero-title{font-size:2.2rem;font-weight:900;letter-spacing:-.03em;line-height:1.1;margin-bottom:10px}
+.hero-title span{color:var(--red)}
+.hero-sub{font-size:1rem;color:var(--muted);margin-bottom:28px;line-height:1.6}
+.hero-pills{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.hero-pill{display:inline-flex;align-items:center;gap:6px;background:var(--surface);border:1.5px solid var(--border);border-radius:99px;padding:6px 14px;font-size:.78rem;font-weight:600;color:var(--text-2)}
+.hero-pill svg{width:13px;height:13px;color:var(--green)}
+
+/* ── LAYOUT ── */
+.page{max-width:900px;margin:0 auto;padding:0 20px 60px}
+
+/* ── CARD ── */
+.card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r-lg);padding:28px;box-shadow:var(--sh-sm)}
+.card+.card{margin-top:20px}
+.card-title{font-size:.95rem;font-weight:800;color:var(--text);margin-bottom:20px;display:flex;align-items:center;gap:9px}
+.card-title svg{width:18px;height:18px}
+.card-title-icon{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cti-red{background:linear-gradient(135deg,var(--red-lt),#fee2e2)}
+.cti-red svg{stroke:var(--red)}
+.cti-green{background:linear-gradient(135deg,#ecfdf5,#d1fae5)}
+.cti-green svg{stroke:var(--green-dk)}
+.cti-blue{background:linear-gradient(135deg,#eff6ff,#dbeafe)}
+.cti-blue svg{stroke:var(--blue)}
+
+/* ── FORM ── */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group.full{grid-column:1/-1}
+label{font-size:.8rem;font-weight:700;color:var(--text-2);letter-spacing:.03em}
+.req{color:var(--red);margin-left:2px}
+select,input[type=text],input[type=tel],textarea{width:100%;padding:10px 13px;border:1.5px solid var(--border);border-radius:var(--r-sm);font-family:inherit;font-size:.875rem;color:var(--text);background:var(--surface);outline:none;transition:border .15s}
+select:focus,input:focus,textarea:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(220,38,38,.1)}
+textarea{resize:vertical;min-height:80px}
+.check-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}
+.check-item{display:flex;align-items:center;gap:8px;padding:9px 12px;border:1.5px solid var(--border);border-radius:var(--r-sm);cursor:pointer;transition:all .15s}
+.check-item:hover{border-color:var(--red);background:var(--red-xlt)}
+.check-item input[type=checkbox]{accent-color:var(--red);width:15px;height:15px;flex-shrink:0}
+.check-item label{font-size:.8rem;font-weight:600;color:var(--text-2);cursor:pointer;margin:0}
+.check-item.checked{border-color:var(--red);background:var(--red-lt)}
+
+/* ── BLOOD TYPE SELECT ── */
+.blood-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.blood-btn{padding:10px 0;border:1.5px solid var(--border);border-radius:var(--r-sm);background:var(--surface);font-family:inherit;font-size:.9rem;font-weight:800;color:var(--muted);cursor:pointer;transition:all .15s;text-align:center}
+.blood-btn.sel{border-color:var(--red);background:var(--red);color:#fff;box-shadow:0 2px 8px rgba(220,38,38,.35)}
+
+/* ── GENERATE BTN ── */
+.btn-generate{width:100%;padding:15px;background:linear-gradient(135deg,var(--red),var(--red-dk));color:#fff;border:none;border-radius:var(--r-md);font-family:inherit;font-size:1rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;margin-top:8px;transition:opacity .15s;box-shadow:0 4px 16px rgba(220,38,38,.35)}
+.btn-generate:hover{opacity:.92}
+.btn-generate svg{width:18px;height:18px}
+
+/* ── QR OUTPUT ── */
+.qr-result{display:none;animation:fadeUp .4s ease}
+.qr-result.show{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.qr-grid{display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:start}
+.qr-box{width:200px;height:200px;border:3px solid var(--red);border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;background:#fff;flex-shrink:0;box-shadow:0 4px 20px rgba(220,38,38,.2);overflow:hidden}
+.qr-box canvas,.qr-box img{width:180px!important;height:180px!important}
+.qr-info{display:flex;flex-direction:column;gap:10px}
+.qr-info-title{font-size:1.1rem;font-weight:800;color:var(--text)}
+.qr-info-sub{font-size:.8rem;color:var(--muted);line-height:1.55}
+.qr-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.qr-tag{padding:4px 10px;border-radius:99px;font-size:.72rem;font-weight:700;letter-spacing:.02em}
+.qt-blood{background:#fef2f2;color:var(--red-dk);border:1px solid #fecaca}
+.qt-cond{background:#f0fdf4;color:#166534;border:1px solid #bbf7d0}
+.qt-allergy{background:#fffbeb;color:#92400e;border:1px solid #fde68a}
+.qt-contact{background:#eff6ff;color:#1e40af;border:1px solid #bfdbfe}
+
+/* ── DOWNLOAD BTNS ── */
+.dl-row{display:flex;gap:10px;margin-top:4px;flex-wrap:wrap}
+.btn-dl{flex:1;min-width:140px;padding:11px 16px;border:1.5px solid var(--border);border-radius:var(--r-sm);background:var(--surface);font-family:inherit;font-size:.8rem;font-weight:700;color:var(--text-2);cursor:pointer;display:flex;align-items:center;gap:8px;transition:all .15s}
+.btn-dl:hover{border-color:var(--red);color:var(--red);background:var(--red-xlt)}
+.btn-dl svg{width:15px;height:15px;flex-shrink:0}
+.btn-dl-wallet svg{stroke:var(--green-dk)}
+.btn-dl-wall svg{stroke:var(--blue)}
+
+/* ── SECURITY NOTE ── */
+.security-note{display:flex;align-items:flex-start;gap:10px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:var(--r-sm);padding:12px 14px;font-size:.78rem;color:#166534;line-height:1.55}
+.security-note svg{width:16px;height:16px;flex-shrink:0;margin-top:1px;stroke:#16a34a}
+
+
+/* ── BOUTON TEST SECOURISTE ── */
+.btn-test-sec{width:100%;padding:11px;border:2px dashed #dc2626;border-radius:var(--r-sm);background:transparent;font-family:inherit;font-size:.82rem;font-weight:700;color:var(--red);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:10px;transition:all .15s}
+.btn-test-sec:hover{background:var(--red-xlt)}
+/* ── FULLSCREEN SCAN OVERLAY (ouvert via QR smartphone) ── */
+#scanModeOverlay{position:fixed;inset:0;z-index:9999;background:var(--red);display:flex;flex-direction:column;overflow-y:auto;font-family:'Inter',sans-serif}
+.smo-topbar{background:var(--red-dk);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid rgba(255,255,255,.15);flex-shrink:0}
+.smo-topbar-badge{font-size:.75rem;font-weight:800;letter-spacing:.09em;color:#fff;text-transform:uppercase}
+.smo-topbar-brand{font-size:.68rem;color:rgba(255,255,255,.5);font-weight:600}
+.smo-blood-wrap{display:flex;flex-direction:column;align-items:center;padding:28px 24px 20px;flex-shrink:0}
+.smo-blood-ring{width:120px;height:120px;border-radius:50%;background:#fff;color:var(--red);font-size:2.8rem;font-weight:900;display:flex;align-items:center;justify-content:center;border:4px solid rgba(255,255,255,.3);box-shadow:0 0 50px rgba(0,0,0,.25),0 0 0 14px rgba(255,255,255,.08);margin-bottom:10px;letter-spacing:-.02em}
+.smo-blood-label{font-size:.7rem;font-weight:800;letter-spacing:.12em;color:rgba(255,255,255,.75);text-transform:uppercase}
+.smo-body{flex:1;background:#fff;border-radius:24px 24px 0 0;padding:22px 20px 36px;display:flex;flex-direction:column;gap:14px}
+.smo-alert{background:#fef2f2;border:2px solid var(--red);border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:5px}
+.smo-alert-label{font-size:.68rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--red)}
+.smo-alert-val{font-size:1rem;font-weight:700;color:var(--red-dk);line-height:1.5}
+.smo-section{background:#f8fafc;border:1.5px solid var(--border);border-radius:12px;padding:12px 16px;display:flex;flex-direction:column;gap:5px}
+.smo-sec-label{font-size:.68rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.smo-sec-val{font-size:.9375rem;font-weight:600;color:var(--text);line-height:1.5}
+.smo-call-btn{display:flex;align-items:center;justify-content:center;gap:10px;background:var(--red);color:#fff;border-radius:14px;padding:18px;font-size:1.05rem;font-weight:800;text-decoration:none;text-align:center;box-shadow:0 4px 20px rgba(220,38,38,.4);letter-spacing:.01em}
+.smo-samu-row{display:flex;gap:10px}
+.smo-samu-btn{flex:1;display:flex;align-items:center;justify-content:center;background:#1e1e2e;color:#ff6b6b;border-radius:12px;padding:14px;font-size:.875rem;font-weight:800;text-decoration:none;text-align:center}
+.smo-ts{font-size:.72rem;color:var(--subtle);text-align:center}
+.smo-footer{font-size:.68rem;color:var(--subtle);text-align:center;line-height:1.6;border-top:1px solid var(--border);padding-top:12px}
+
+/* ── RESPONSIVE ── */
+@media(max-width:640px){
+  .form-grid{grid-template-columns:1fr}
+  .form-group.full{grid-column:1}
+  .qr-grid{grid-template-columns:1fr}
+  .qr-box{width:100%;height:200px}
+  .hero-title{font-size:1.7rem}
+  .check-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ── ORIENTDZ ORIGINAL NAVBAR ── -->
+<header class="odz-navbar" id="odzNav">
+  <a href="index.html" class="odz-logo">
+    <span class="odz-logo-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/>
+        <path d="m8.5 8.5 7 7"/>
+      </svg>
+    </span>
+    <span>Orient<span class="odz-dz">DZ</span></span>
+  </a>
+
+  <nav aria-label="Navigation principale">
+    <ul class="odz-links">
+      <li><a href="index.html" data-i18n="nav.home">Accueil</a></li>
+      <li><a href="ai.html" data-i18n="nav.ai">Assistant AI</a></li>
+      <li><a href="carte.html" data-i18n="nav.map">Carte</a></li>
+      <li><a href="nutrition.html" data-i18n="nav.nutri">OrientNutri</a></li>
+      <li><a href="emergency_qr.html" class="odz-qr" data-i18n="nav.sauvemoi">🆘 SauveMoi QR</a></li>
+    </ul>
+  </nav>
+
+  <div class="odz-actions">
+    <a href="index.html" class="odz-btn-g" data-i18n="nav.login">Connexion</a>
+    <a href="index.html" class="odz-btn-p" data-i18n="nav.signup">Commencer</a>
+  </div>
+
+  <button class="odz-burger" aria-label="Menu" onclick="this.classList.toggle('open');document.getElementById('odzDrawer').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- Drawer mobile -->
+<div class="odz-drawer" id="odzDrawer">
+  <ul>
+    <li><a href="index.html" data-i18n="nav.home">Accueil</a></li>
+    <li><a href="ai.html" data-i18n="nav.ai">Assistant AI</a></li>
+    <li><a href="carte.html" data-i18n="nav.map">Carte</a></li>
+    <li><a href="nutrition.html" data-i18n="nav.nutri">OrientNutri</a></li>
+    <li><a href="emergency_qr.html" class="odz-d-qr" data-i18n="nav.sauvemoi">🆘 SauveMoi QR</a></li>
+  </ul>
+</div>
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="hero-icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0"/>
+      <path d="M12 8v4l2 2"/>
+      <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+    </svg>
+  </div>
+  <h1 class="hero-title"><span>SauveMoi</span> QR</h1>
+  <p class="hero-sub" data-i18n-html="smq.hero.sub">Génère ta carte d'urgence médicale chiffrée par QR Code.<br>100 % hors-ligne · Zéro cloud · Données privées protégées.</p>
+  <div class="hero-pills">
+    <span class="hero-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      <span data-i18n="smq.pill1">Chiffrement XOR local</span>
+    </span>
+    <span class="hero-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      <span data-i18n="smq.pill2">Aucune donnée envoyée</span>
+    </span>
+    <span class="hero-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      <span data-i18n="smq.pill3">Scanner intégré</span>
+    </span>
+  </div>
+</div>
+
+<div class="page">
+  <div id="panel-create">
+
+    <!-- FORM CARD -->
+    <div class="card">
+      <div class="card-title">
+        <div class="card-title-icon cti-red">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <span data-i18n="smq.form.title">Profil Médical d'Urgence</span>
+      </div>
+
+      <div class="form-grid">
+
+        <!-- Groupe sanguin -->
+        <div class="form-group full">
+          <label><span data-i18n="smq.blood">Groupe Sanguin</span> <span class="req">*</span></label>
+          <div class="blood-grid" id="bloodGrid">
+            <button type="button" class="blood-btn" onclick="selectBlood(this,'A+')">A+</button>
+            <button type="button" class="blood-btn" onclick="selectBlood(this,'A-')">A−</button>
+            <button type="button" class="blood-btn" onclick="selectBlood(this,'B+')">B+</button>
+            <button type="button" class="blood-btn" onclick="selectBlood(this,'B-')">B−</button>
+            <button type="button" class="blood-btn" onclick="selectBlood(this,'AB+')">AB+</button>
+            <button type="button" class="blood-btn" onclick="selectBlood(this,'AB-')">AB−</button>
+            <button type="button" class="blood-btn" onclick="selectBlood(this,'O+')">O+</button>
+            <button type="button" class="blood-btn" onclick="selectBlood(this,'O-')">O−</button>
+          </div>
+        </div>
+
+        <!-- Maladies chroniques -->
+        <div class="form-group full">
+          <label data-i18n="smq.maladies">Maladies Chroniques</label>
+          <div class="check-grid" id="maladiesGrid">
+            <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Diabète type 2"><label data-i18n="smq.mal.1">Diabète type 2</label></div>
+            <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Diabète type 1"><label data-i18n="smq.mal.2">Diabète type 1</label></div>
+            <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Hypertension"><label data-i18n="smq.mal.3">Hypertension</label></div>
+            <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Insuffisance cardiaque"><label data-i18n="smq.mal.4">Insuffisance cardiaque</label></div>
+            <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Asthme / BPCO"><label data-i18n="smq.mal.5">Asthme / BPCO</label></div>
+            <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Épilepsie"><label data-i18n="smq.mal.6">Épilepsie</label></div>
+            <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Insuffisance rénale"><label data-i18n="smq.mal.7">Insuffisance rénale</label></div>
+            <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Cancer (traitement)"><label data-i18n="smq.mal.8">Cancer (traitement)</label></div>
+          </div>
+          <input type="text" id="maladieAutre" data-i18n-placeholder="smq.mal.other" placeholder="Autre maladie…" style="margin-top:8px" />
+        </div>
+
+        <!-- Allergies -->
+        <div class="form-group full">
+          <label data-i18n="smq.allergies">Allergies Critiques ⚠️</label>
+          <div class="check-grid" id="allergiesGrid">
+            <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Pénicilline"><label data-i18n="smq.al.1">Pénicilline</label></div>
+            <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Amoxicilline"><label data-i18n="smq.al.2">Amoxicilline</label></div>
+            <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="AINS / Aspirine"><label data-i18n="smq.al.3">AINS / Aspirine</label></div>
+            <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Ibuprofène"><label data-i18n="smq.al.4">Ibuprofène</label></div>
+            <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Latex"><label data-i18n="smq.al.5">Latex</label></div>
+            <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Iode / Contraste"><label data-i18n="smq.al.6">Iode / Contraste</label></div>
+            <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Sulfamides"><label data-i18n="smq.al.7">Sulfamides</label></div>
+            <div class="check-item" onclick="toggleCheck(this)"><input type="checkbox" value="Morphine"><label data-i18n="smq.al.8">Morphine</label></div>
+          </div>
+          <input type="text" id="allergyAutre" data-i18n-placeholder="smq.al.other" placeholder="Autre allergie critique…" style="margin-top:8px" />
+        </div>
+
+        <!-- Traitements -->
+        <div class="form-group full">
+          <label data-i18n="smq.traitement">Traitements en Cours</label>
+          <textarea id="traitements" data-i18n-placeholder="smq.traitement.ph" placeholder="Ex : Metformine 500mg 2×/j · Amlodipine 5mg · Insuline glargine 20U/soir…"></textarea>
+        </div>
+
+        <!-- Contact d'urgence -->
+        <div class="form-group">
+          <label><span data-i18n="smq.contact.nom">Nom Contact d'Urgence</span> <span class="req">*</span></label>
+          <input type="text" id="contactNom" data-i18n-placeholder="smq.contact.nom.ph" placeholder="Ex : Ahmed Benali" />
+        </div>
+        <div class="form-group">
+          <label><span data-i18n="smq.contact.tel">Téléphone d'Urgence</span> <span class="req">*</span></label>
+          <input type="tel" id="contactTel" data-i18n-placeholder="smq.contact.tel.ph" placeholder="Ex : +213 555 123 456" />
+        </div>
+
+      </div><!-- /form-grid -->
+
+      <div class="security-note" style="margin-top:18px">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><polyline points="9 12 11 14 15 10"/></svg>
+        <span data-i18n="smq.secure">Toutes les données sont chiffrées localement (XOR + Base64) avant la génération du QR. Aucune information ne quitte votre appareil.</span>
+      </div>
+
+      <button class="btn-generate" onclick="generateCard()" style="margin-top:18px">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg>
+        <span data-i18n="smq.generate">Générer mon QR d'Urgence</span>
+      </button>
+
+      <div id="errCreate" style="display:none;margin-top:12px;padding:10px 14px;background:#fef2f2;border:1px solid #fecaca;border-radius:8px;font-size:.8rem;color:#b91c1c;font-weight:600"></div>
+    </div><!-- /form card -->
+
+    <!-- QR RESULT -->
+    <div class="card qr-result" id="qrResult">
+      <div class="card-title">
+        <div class="card-title-icon cti-green">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <span data-i18n="smq.result.title">Carte générée avec succès</span>
+      </div>
+
+      <div class="qr-grid">
+        <div class="qr-box" id="qrOutput"></div>
+        <div class="qr-info">
+          <div class="qr-info-title" id="qrInfoTitle" data-i18n="smq.qr.title">QR d'Urgence Médical</div>
+          <div class="qr-info-sub" data-i18n="smq.result.sub">Montrez ce QR aux secouristes ou collez-le sur votre carte d'identité. Seule l'application SauveMoi QR peut le déchiffrer.</div>
+          <div class="qr-tags" id="qrTags"></div>
+          <div class="dl-row">
+            <button class="btn-dl btn-dl-wallet" onclick="downloadWallet()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+              <span data-i18n="smq.dl.wallet">Carte Portefeuille</span>
+            </button>
+            <button class="btn-dl btn-dl-wall" onclick="downloadWallpaper()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+              <span data-i18n="smq.dl.wall">Fond d'écran Mobile</span>
+            </button>
+          </div>
+          <!-- Avertissement fichier local -->
+          <div id="localFileWarning" style="display:none;margin-top:8px;padding:10px 14px;background:#fffbeb;border:1.5px solid #fde68a;border-radius:8px;font-size:.78rem;color:#92400e;line-height:1.6">
+            ⚠️ <strong>Fichier local détecté.</strong> Le scan depuis un smartphone ne fonctionnera pas car le QR pointe vers un fichier sur cet ordinateur.<br>
+            <strong>Solution :</strong> utilisez le bouton "Tester" ci-dessous pour simuler le scan sur ce PC, ou hébergez la page sur un serveur web pour activer le scan universel.
+          </div>
+          <!-- Bouton test jury (issue de secours si WiFi bloque le scan) -->
+          <button class="btn-test-sec" onclick="testRenduSecouriste()" id="btnTestSec" data-i18n="smq.test">
+            👁️ Tester le rendu secouriste sur ce PC
+          </button>
+        </div>
+      </div>
+    </div><!-- /qr result -->
+
+  </div><!-- /panel-create -->
+</div><!-- /page -->
+
+<!-- ════════════════════════════════════════════════
+     FULLSCREEN EMERGENCY VIEW — affiché quand ?data= détecté
+     (scan depuis smartphone via appareil photo classique)
+════════════════════════════════════════════════ -->
+<div id="scanModeOverlay" style="display:none" role="main" aria-live="assertive">
+
+  <div class="smo-topbar">
+    <span class="smo-topbar-badge" data-i18n="smq.ov.badge">⚕ Fiche Médicale d'Urgence</span>
+    <span class="smo-topbar-brand" data-i18n="smq.ov.brand">OrientDZ · SauveMoi QR</span>
+  </div>
+
+  <div class="smo-blood-wrap">
+    <div class="smo-blood-ring" id="smoBlood">—</div>
+    <div class="smo-blood-label" data-i18n="smq.ov.blood.label">Groupe Sanguin</div>
+  </div>
+
+  <div class="smo-body">
+
+    <!-- Allergies (priorité maximale) -->
+    <div class="smo-alert" id="smoAllergyBlock">
+      <div class="smo-alert-label" data-i18n="smq.ov.allergy.label">⚠ Allergies Critiques</div>
+      <div class="smo-alert-val" id="smoAllergies"></div>
+    </div>
+
+    <!-- Maladies chroniques -->
+    <div class="smo-section" id="smoMaladiesSection">
+      <div class="smo-sec-label" data-i18n="smq.ov.maladies.label">Maladies Chroniques</div>
+      <div class="smo-sec-val" id="smoMaladies"></div>
+    </div>
+
+    <!-- Traitements -->
+    <div class="smo-section" id="smoTraitementsSection">
+      <div class="smo-sec-label" data-i18n="smq.ov.traitement.label">Traitements en Cours</div>
+      <div class="smo-sec-val" id="smoTraitements"></div>
+    </div>
+
+    <!-- Bouton appel contact -->
+    <a id="smoCallBtn" href="tel:" class="smo-call-btn" data-i18n="smq.ov.call">📞 Appeler le Contact d'Urgence</a>
+
+    <!-- Numéros d'urgence -->
+    <div class="smo-samu-row">
+      <a href="tel:14" class="smo-samu-btn" data-i18n="smq.ov.samu">🚑 SAMU : 14</a>
+      <a href="tel:15" class="smo-samu-btn" data-i18n="smq.ov.urgences">🏥 Urgences : 15</a>
+    </div>
+
+    <div class="smo-ts" id="smoTimestamp"></div>
+    <div class="smo-footer" data-i18n-html="smq.ov.privacy">
+      🔒 Données déchiffrées localement sur cet appareil<br>
+      Aucun serveur contacté · OrientDZ 2026
+    </div>
+
+  </div>
+</div>
+
+<canvas id="hiddenCanvas" style="display:none"></canvas>
+
+<script>
+/* ============================================================
+   SAUVEMOI QR — Système Expert  |  OrientDZ 2026
+   Chiffrement XOR + Base64 · 100 % côté client · Zéro serveur
+   ============================================================ */
+
+const APP_KEY   = 'SauveMoi_OrientDZ_2026_SecureKey';
+const QR_PREFIX = 'SMQ:';
+
+/* ── XOR Encryption (UTF-8 safe) ── */
+function xorEncrypt(text) {
+  const enc = new TextEncoder();
+  const bytes  = enc.encode(text);
+  const kBytes = enc.encode(APP_KEY);
+  const out = new Uint8Array(bytes.length);
+  for (let i = 0; i < bytes.length; i++) out[i] = bytes[i] ^ kBytes[i % kBytes.length];
+  return btoa(String.fromCharCode(...out));
+}
+
+function xorDecrypt(b64) {
+  try {
+    const bytes  = Uint8Array.from(atob(b64), c => c.charCodeAt(0));
+    const enc    = new TextEncoder();
+    const kBytes = enc.encode(APP_KEY);
+    const out    = new Uint8Array(bytes.length);
+    for (let i = 0; i < bytes.length; i++) out[i] = bytes[i] ^ kBytes[i % kBytes.length];
+    return new TextDecoder().decode(out);
+  } catch { return null; }
+}
+
+/* ── State ── */
+let selectedBlood = '';
+let qrInstance    = null;
+let lastCardData  = null;
+let lastQRPayload = '';
+
+function selectBlood(btn, val) {
+  document.querySelectorAll('.blood-btn').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+  selectedBlood = val;
+}
+
+function toggleCheck(item) {
+  const cb = item.querySelector('input[type=checkbox]');
+  cb.checked = !cb.checked;
+  item.classList.toggle('checked', cb.checked);
+}
+
+function getChecked(gridId) {
+  return [...document.querySelectorAll(`#${gridId} input[type=checkbox]:checked`)].map(c => c.value);
+}
+
+function showErr(id, msg) {
+  const el = document.getElementById(id);
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+function hideErr(id) { document.getElementById(id).style.display = 'none'; }
+
+/* ── GENERATE CARD ── */
+function generateCard() {
+  hideErr('errCreate');
+
+  if (!selectedBlood)                      { showErr('errCreate', window.PWi18n?.t('smq.err.blood') || 'Veuillez sélectionner votre groupe sanguin.'); return; }
+  if (!document.getElementById('contactNom').value.trim()) { showErr('errCreate', window.PWi18n?.t('smq.err.nom') || 'Nom du contact d\'urgence requis.'); return; }
+  if (!document.getElementById('contactTel').value.trim()) { showErr('errCreate', window.PWi18n?.t('smq.err.tel') || 'Téléphone du contact d\'urgence requis.'); return; }
+
+  const maladies  = getChecked('maladiesGrid');
+  const malAutre  = document.getElementById('maladieAutre').value.trim();
+  if (malAutre) maladies.push(malAutre);
+
+  const allergies = getChecked('allergiesGrid');
+  const alAutre   = document.getElementById('allergyAutre').value.trim();
+  if (alAutre) allergies.push(alAutre);
+
+  const data = {
+    gs: selectedBlood,
+    mc: maladies,
+    al: allergies,
+    tr: document.getElementById('traitements').value.trim(),
+    cn: document.getElementById('contactNom').value.trim(),
+    ct: document.getElementById('contactTel').value.trim(),
+    ts: Date.now(),
+  };
+
+  lastCardData = data;
+
+  const encrypted   = xorEncrypt(JSON.stringify(data));
+
+  // Build a URL that works on any device:
+  // If served from a real server (http/https), use the full URL.
+  // If opened as a local file, use only the data payload so the QR
+  // can be scanned inside this app (via the "Tester" button or scan tab).
+  let qrURL;
+  if (window.location.protocol === 'file:') {
+    qrURL = QR_PREFIX + encrypted;           // data-only payload
+  } else {
+    qrURL = window.location.href.split('?')[0] + '?data=' + encodeURIComponent(encrypted);
+  }
+  lastQRPayload = (window.location.protocol === 'file:')
+    ? window.location.href.split('?')[0] + '?data=' + encodeURIComponent(encrypted)
+    : qrURL;
+
+  // Render QR avec l'URL
+  const qrBox = document.getElementById('qrOutput');
+  qrBox.innerHTML = '';
+  qrInstance = new QRCode(qrBox, {
+    text:          qrURL,
+    width:         180,
+    height:        180,
+    colorDark:     '#0f172a',
+    colorLight:    '#ffffff',
+    correctLevel:  QRCode.CorrectLevel.M,
+  });
+
+  // Tags
+  const tags = document.getElementById('qrTags');
+  tags.innerHTML = '';
+  const addTag = (cls, txt) => { const s = document.createElement('span'); s.className = `qr-tag ${cls}`; s.textContent = txt; tags.appendChild(s); };
+  addTag('qt-blood', '🩸 ' + selectedBlood);
+  if (maladies.length)  addTag('qt-cond',    maladies.slice(0,2).join(' · ') + (maladies.length > 2 ? '…' : ''));
+  if (allergies.length) addTag('qt-allergy', '⚠ ' + allergies.slice(0,2).join(' · '));
+  addTag('qt-contact', '📞 ' + data.cn);
+
+  if (window.location.protocol === 'file:') {
+    document.getElementById('localFileWarning').style.display = 'block';
+  }
+
+  document.getElementById('qrResult').classList.add('show');
+  document.getElementById('qrResult').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+/* ── DOWNLOAD : Wallet Card ── */
+function downloadWallet() {
+  if (!lastCardData) return;
+  const W = 1010, H = 638;
+  const c = document.getElementById('hiddenCanvas');
+  c.width = W; c.height = H;
+  const ctx = c.getContext('2d');
+
+  // Background
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, W, H);
+
+  // Red left bar
+  ctx.fillStyle = '#DC2626';
+  ctx.fillRect(0, 0, 14, H);
+
+  // Red top stripe
+  ctx.fillStyle = '#DC2626';
+  ctx.fillRect(14, 0, W - 14, 110);
+
+  // Blood type circle
+  ctx.fillStyle = '#ffffff';
+  ctx.beginPath(); ctx.arc(90, 55, 46, 0, 2*Math.PI); ctx.fill();
+  ctx.fillStyle = '#DC2626';
+  ctx.font = 'bold 30px Inter, sans-serif';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText(lastCardData.gs, 90, 55);
+
+  // Title
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 22px Inter, sans-serif';
+  ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+  ctx.fillText('FICHE MÉDICALE D\'URGENCE', 155, 38);
+  ctx.font = '500 14px Inter, sans-serif';
+  ctx.fillStyle = 'rgba(255,255,255,.75)';
+  ctx.fillText('SauveMoi QR · OrientDZ · Chiffré localement', 155, 64);
+  ctx.font = '500 13px Inter, sans-serif';
+  ctx.fillStyle = 'rgba(255,255,255,.6)';
+  ctx.fillText(new Date().toLocaleDateString('fr-FR', {year:'numeric',month:'long',day:'numeric'}), 155, 84);
+
+  // Separator
+  ctx.strokeStyle = '#e2e8f0'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(30, 130); ctx.lineTo(W-30, 130); ctx.stroke();
+
+  const sectionTitle = (txt, x, y) => {
+    ctx.fillStyle = '#94a3b8'; ctx.font = 'bold 10px Inter, sans-serif';
+    ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+    ctx.fillText(txt.toUpperCase(), x, y);
+  };
+  const sectionVal = (txt, x, y, maxW) => {
+    ctx.fillStyle = '#0f172a'; ctx.font = '600 13px Inter, sans-serif';
+    ctx.fillText(txt.substring(0,70), x, y);
+  };
+
+  // Allergies (red box)
+  if (lastCardData.al && lastCardData.al.length) {
+    ctx.fillStyle = '#fef2f2';
+    roundRect(ctx, 30, 140, W-60, 60, 8);
+    ctx.fill();
+    ctx.strokeStyle = '#fca5a5'; ctx.lineWidth = 1.5;
+    roundRect(ctx, 30, 140, W-60, 60, 8);
+    ctx.stroke();
+    ctx.fillStyle = '#b91c1c'; ctx.font = 'bold 11px Inter, sans-serif';
+    ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+    ctx.fillText('⚠ ALLERGIES CRITIQUES', 46, 152);
+    ctx.fillStyle = '#dc2626'; ctx.font = '600 13px Inter, sans-serif';
+    ctx.fillText(lastCardData.al.join(' · '), 46, 172);
+  }
+
+  const yStart = lastCardData.al && lastCardData.al.length ? 220 : 148;
+
+  // Maladies
+  if (lastCardData.mc && lastCardData.mc.length) {
+    sectionTitle('Maladies chroniques', 30, yStart);
+    sectionVal(lastCardData.mc.join(' · '), 30, yStart + 16);
+  }
+
+  // Traitements
+  if (lastCardData.tr) {
+    const yT = lastCardData.mc && lastCardData.mc.length ? yStart + 52 : yStart;
+    sectionTitle('Traitements en cours', 30, yT);
+    sectionVal(lastCardData.tr.substring(0,80), 30, yT + 16);
+  }
+
+  // Bottom: contact + QR
+  ctx.fillStyle = '#f8fafc';
+  roundRect(ctx, 14, H-130, W-14, 130, 0);
+  ctx.fill();
+  ctx.strokeStyle = '#e2e8f0'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(14, H-130); ctx.lineTo(W, H-130); ctx.stroke();
+
+  // Contact
+  ctx.fillStyle = '#64748b'; ctx.font = 'bold 10px Inter, sans-serif';
+  ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+  ctx.fillText('📞 CONTACT D\'URGENCE', 30, H-118);
+  ctx.fillStyle = '#0f172a'; ctx.font = 'bold 16px Inter, sans-serif';
+  ctx.fillText(lastCardData.cn, 30, H-98);
+  ctx.fillStyle = '#2563eb'; ctx.font = '600 20px Inter, sans-serif';
+  ctx.fillText(lastCardData.ct, 30, H-72);
+  ctx.fillStyle = '#dc2626'; ctx.font = 'bold 12px Inter, sans-serif';
+  ctx.fillText('🆘 SAMU : 14    URGENCES : 15    POMPIERS : 14', 30, H-38);
+
+  // QR in bottom right
+  const qrImgEl = document.querySelector('#qrOutput canvas') || document.querySelector('#qrOutput img');
+  if (qrImgEl) {
+    ctx.drawImage(qrImgEl, W-140, H-128, 110, 110);
+    ctx.strokeStyle = '#dc2626'; ctx.lineWidth = 2;
+    roundRect(ctx, W-143, H-131, 116, 116, 6);
+    ctx.stroke();
+  }
+
+  // Brand watermark
+  ctx.fillStyle = '#cbd5e1'; ctx.font = '500 10px Inter, sans-serif';
+  ctx.textAlign = 'right'; ctx.textBaseline = 'bottom';
+  ctx.fillText('OrientDZ · SauveMoi QR · 2026', W-155, H-8);
+
+  downloadCanvas(c, 'SauveMoiQR_Carte_Portefeuille.png');
+}
+
+/* ── DOWNLOAD : Phone Wallpaper ── */
+function downloadWallpaper() {
+  if (!lastCardData) return;
+  const W = 1080, H = 1920;
+  const c = document.getElementById('hiddenCanvas');
+  c.width = W; c.height = H;
+  const ctx = c.getContext('2d');
+
+  // Dark gradient background
+  const grad = ctx.createLinearGradient(0, 0, 0, H);
+  grad.addColorStop(0, '#1a0505');
+  grad.addColorStop(.35, '#2d0808');
+  grad.addColorStop(1, '#0f172a');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, W, H);
+
+  // Top glow
+  const glow = ctx.createRadialGradient(W/2, 0, 0, W/2, 0, 500);
+  glow.addColorStop(0, 'rgba(220,38,38,.45)');
+  glow.addColorStop(1, 'rgba(220,38,38,0)');
+  ctx.fillStyle = glow;
+  ctx.fillRect(0, 0, W, H);
+
+  // ⚕ icon area (top)
+  ctx.fillStyle = 'rgba(220,38,38,.15)';
+  ctx.beginPath(); ctx.arc(W/2, 290, 140, 0, 2*Math.PI); ctx.fill();
+  ctx.fillStyle = '#DC2626';
+  ctx.font = '160px sans-serif';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText('⚕', W/2, 290);
+
+  // Title
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 80px Inter, sans-serif';
+  ctx.fillText('URGENCE', W/2, 510);
+  ctx.font = 'bold 52px Inter, sans-serif';
+  ctx.fillStyle = '#fca5a5';
+  ctx.fillText('MÉDICALE', W/2, 590);
+
+  // Blood type big
+  ctx.fillStyle = '#DC2626';
+  ctx.beginPath(); ctx.arc(W/2, 740, 100, 0, 2*Math.PI); ctx.fill();
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 70px Inter, sans-serif';
+  ctx.fillText(lastCardData.gs, W/2, 745);
+
+  ctx.fillStyle = '#94a3b8'; ctx.font = '500 32px Inter, sans-serif';
+  ctx.fillText('Groupe Sanguin', W/2, 870);
+
+  // Separator
+  ctx.strokeStyle = 'rgba(255,255,255,.12)'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(80, 920); ctx.lineTo(W-80, 920); ctx.stroke();
+
+  // Allergies
+  if (lastCardData.al && lastCardData.al.length) {
+    ctx.fillStyle = 'rgba(220,38,38,.25)';
+    roundRect(ctx, 60, 940, W-120, 120, 20); ctx.fill();
+    ctx.strokeStyle = '#dc2626'; ctx.lineWidth = 2;
+    roundRect(ctx, 60, 940, W-120, 120, 20); ctx.stroke();
+    ctx.fillStyle = '#ff9999'; ctx.font = 'bold 28px Inter, sans-serif';
+    ctx.fillText('⚠ ALLERGIES CRITIQUES', W/2, 978);
+    ctx.fillStyle = '#ffffff'; ctx.font = '600 30px Inter, sans-serif';
+    ctx.fillText(lastCardData.al.slice(0,3).join(' · '), W/2, 1028);
+  }
+
+  // Maladies
+  let y = 1100;
+  if (lastCardData.mc && lastCardData.mc.length) {
+    ctx.fillStyle = '#94a3b8'; ctx.font = 'bold 24px Inter, sans-serif';
+    ctx.fillText('MALADIES CHRONIQUES', W/2, y); y += 46;
+    ctx.fillStyle = '#e2e8f0'; ctx.font = '500 28px Inter, sans-serif';
+    ctx.fillText(lastCardData.mc.join(' · '), W/2, y); y += 70;
+  }
+
+  // Traitements
+  if (lastCardData.tr) {
+    ctx.fillStyle = '#94a3b8'; ctx.font = 'bold 24px Inter, sans-serif';
+    ctx.fillText('TRAITEMENTS', W/2, y); y += 46;
+    ctx.fillStyle = '#e2e8f0'; ctx.font = '500 26px Inter, sans-serif';
+    const tr = lastCardData.tr.length > 50 ? lastCardData.tr.substring(0,50)+'…' : lastCardData.tr;
+    ctx.fillText(tr, W/2, y); y += 70;
+  }
+
+  // QR Code area
+  const qrImgEl = document.querySelector('#qrOutput canvas') || document.querySelector('#qrOutput img');
+  const qrY = 1370;
+  if (qrImgEl) {
+    ctx.fillStyle = '#ffffff';
+    roundRect(ctx, W/2-160, qrY-10, 320, 320, 20); ctx.fill();
+    ctx.drawImage(qrImgEl, W/2-140, qrY+10, 280, 280);
+  }
+
+  // Contact
+  ctx.fillStyle = 'rgba(255,255,255,.08)';
+  roundRect(ctx, 60, 1720, W-120, 110, 20); ctx.fill();
+  ctx.fillStyle = '#94a3b8'; ctx.font = 'bold 22px Inter, sans-serif';
+  ctx.fillText('📞 CONTACT D\'URGENCE', W/2, 1750);
+  ctx.fillStyle = '#ffffff'; ctx.font = 'bold 34px Inter, sans-serif';
+  ctx.fillText(lastCardData.cn + ' · ' + lastCardData.ct, W/2, 1796);
+
+  // Footer
+  ctx.fillStyle = '#DC2626'; ctx.font = 'bold 26px Inter, sans-serif';
+  ctx.fillText('🆘  SAMU : 14  ·  URGENCES : 15', W/2, 1878);
+  ctx.fillStyle = '#475569'; ctx.font = '500 20px Inter, sans-serif';
+  ctx.fillText('OrientDZ · SauveMoi QR · 2026', W/2, 1910);
+
+  downloadCanvas(c, 'SauveMoiQR_Fond_Ecran.png');
+}
+
+/* ── Canvas Helpers ── */
+function roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x+r, y);
+  ctx.arcTo(x+w, y, x+w, y+h, r);
+  ctx.arcTo(x+w, y+h, x, y+h, r);
+  ctx.arcTo(x, y+h, x, y, r);
+  ctx.arcTo(x, y, x+w, y, r);
+  ctx.closePath();
+}
+
+function downloadCanvas(canvas, filename) {
+  const a = document.createElement('a');
+  a.href = canvas.toDataURL('image/png');
+  a.download = filename;
+  a.click();
+}
+
+/* ============================================================
+   AUTO-DECODE AU CHARGEMENT — scan universel par smartphone
+   Si ?data= dans l'URL → affiche la fiche d'urgence immédiatement
+   ============================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+  const params  = new URLSearchParams(window.location.search);
+  const encoded = params.get('data');
+  if (encoded) enterScanMode(encoded);
+});
+
+function enterScanMode(encoded) {
+  const json = xorDecrypt(decodeURIComponent(encoded));
+  if (!json) {
+    document.body.innerHTML = `
+      <div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#fef2f2;font-family:Inter,sans-serif;padding:32px;text-align:center;gap:16px">
+        <div style="font-size:3rem">❌</div>
+        <div style="font-size:1.1rem;font-weight:800;color:#b91c1c">QR invalide ou expiré</div>
+        <div style="font-size:.875rem;color:#64748b">Ce code ne peut pas être déchiffré.<br>Demandez au patient de régénérer son QR.</div>
+        <a href="emergency_qr.html" style="margin-top:8px;padding:12px 24px;background:#dc2626;color:#fff;border-radius:10px;text-decoration:none;font-weight:700">Ouvrir SauveMoi QR</a>
+      </div>`;
+    return;
+  }
+
+  let data;
+  try { data = JSON.parse(json); }
+  catch {
+    document.body.innerHTML = `<div style="padding:40px;text-align:center;color:#dc2626;font-family:Inter,sans-serif;font-weight:700">Données corrompues.</div>`;
+    return;
+  }
+
+  // Masque toute l'UI normale, affiche l'overlay plein écran
+  document.getElementById('odzNav')       && (document.getElementById('odzNav').style.display       = 'none');
+  document.getElementById('odzDrawer')    && (document.getElementById('odzDrawer').style.display    = 'none');
+  document.querySelector('.hero')         && (document.querySelector('.hero').style.display         = 'none');
+  document.getElementById('panel-create') && (document.getElementById('panel-create').style.display = 'none');
+
+  // Remplit et affiche l'overlay
+  const overlay = document.getElementById('scanModeOverlay');
+  overlay.style.display = 'flex';
+
+  document.getElementById('smoBlood').textContent = data.gs || '?';
+
+  if (data.al && data.al.length) {
+    document.getElementById('smoAllergies').textContent    = data.al.join(' · ');
+    document.getElementById('smoAllergyBlock').style.display = 'flex';
+  } else {
+    document.getElementById('smoAllergyBlock').style.display = 'none';
+  }
+
+  if (data.mc && data.mc.length) {
+    document.getElementById('smoMaladies').textContent       = data.mc.join(' · ');
+    document.getElementById('smoMaladiesSection').style.display = 'block';
+  } else {
+    document.getElementById('smoMaladiesSection').style.display = 'none';
+  }
+
+  if (data.tr) {
+    document.getElementById('smoTraitements').textContent       = data.tr;
+    document.getElementById('smoTraitementsSection').style.display = 'block';
+  } else {
+    document.getElementById('smoTraitementsSection').style.display = 'none';
+  }
+
+  // Bouton d'appel cliquable
+  const callBtn = document.getElementById('smoCallBtn');
+  const telClean = (data.ct || '').replace(/\s/g, '');
+  callBtn.href        = 'tel:' + telClean;
+  callBtn.textContent = '📞 ' + (data.cn || 'Contact') + ' — ' + (data.ct || '—');
+
+  // Horodatage
+  if (data.ts) {
+    document.getElementById('smoTimestamp').textContent =
+      'QR généré le ' + new Date(data.ts).toLocaleString('fr-FR');
+  }
+
+  // Titre de l'onglet
+  document.title = '🆘 Urgence · Groupe ' + (data.gs || '?') + ' · SauveMoi QR';
+
+  window.scrollTo(0, 0);
+}
+
+/* ── Test rendu secouriste (bouton jury) ── */
+function testRenduSecouriste() {
+  if (lastQRPayload) {
+    window.open(lastQRPayload, '_blank');
+  }
+}
+
+
+/* ── Print style ── */
+const ps = document.createElement('style');
+ps.textContent = `@media print{body > *:not(#scanModeOverlay){display:none!important}#scanModeOverlay{display:flex!important;position:relative!important}}`;
+document.head.appendChild(ps);
+</script>
+</body>
+</html>
