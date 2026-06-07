@@ -368,11 +368,6 @@ textarea{resize:vertical;min-height:80px}
               <span data-i18n="smq.dl.wall">Fond d'écran Mobile</span>
             </button>
           </div>
-          <!-- Avertissement fichier local -->
-          <div id="localFileWarning" style="display:none;margin-top:8px;padding:10px 14px;background:#fffbeb;border:1.5px solid #fde68a;border-radius:8px;font-size:.78rem;color:#92400e;line-height:1.6">
-            ⚠️ <strong>Fichier local détecté.</strong> Le scan depuis un smartphone ne fonctionnera pas car le QR pointe vers un fichier sur cet ordinateur.<br>
-            <strong>Solution :</strong> utilisez le bouton "Tester" ci-dessous pour simuler le scan sur ce PC, ou hébergez la page sur un serveur web pour activer le scan universel.
-          </div>
           <!-- Bouton test jury (issue de secours si WiFi bloque le scan) -->
           <button class="btn-test-sec" onclick="testRenduSecouriste()" id="btnTestSec" data-i18n="smq.test">
             👁️ Tester le rendu secouriste sur ce PC
@@ -528,20 +523,8 @@ function generateCard() {
   lastCardData = data;
 
   const encrypted   = xorEncrypt(JSON.stringify(data));
-
-  // Build a URL that works on any device:
-  // If served from a real server (http/https), use the full URL.
-  // If opened as a local file, use only the data payload so the QR
-  // can be scanned inside this app (via the "Tester" button or scan tab).
-  let qrURL;
-  if (window.location.protocol === 'file:') {
-    qrURL = QR_PREFIX + encrypted;           // data-only payload
-  } else {
-    qrURL = window.location.href.split('?')[0] + '?data=' + encodeURIComponent(encrypted);
-  }
-  lastQRPayload = (window.location.protocol === 'file:')
-    ? window.location.href.split('?')[0] + '?data=' + encodeURIComponent(encrypted)
-    : qrURL;
+  const qrURL       = window.location.href.split('?')[0] + '?data=' + encodeURIComponent(encrypted);
+  lastQRPayload     = qrURL;
 
   // Render QR avec l'URL
   const qrBox = document.getElementById('qrOutput');
@@ -563,10 +546,6 @@ function generateCard() {
   if (maladies.length)  addTag('qt-cond',    maladies.slice(0,2).join(' · ') + (maladies.length > 2 ? '…' : ''));
   if (allergies.length) addTag('qt-allergy', '⚠ ' + allergies.slice(0,2).join(' · '));
   addTag('qt-contact', '📞 ' + data.cn);
-
-  if (window.location.protocol === 'file:') {
-    document.getElementById('localFileWarning').style.display = 'block';
-  }
 
   document.getElementById('qrResult').classList.add('show');
   document.getElementById('qrResult').scrollIntoView({ behavior: 'smooth', block: 'start' });
